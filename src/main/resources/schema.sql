@@ -19,10 +19,17 @@ CREATE TABLE IF NOT EXISTS Office (
     is_active BOOLEAN NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS document (
+CREATE TABLE IF NOT EXISTS type_of_document  (
     id INTEGER PRIMARY KEY NOT NULL,
     name VARCHAR(115) NOT NULL,
     code INTEGER NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS document (
+    id INTEGER PRIMARY KEY NOT NULL,
+    type INTEGER,
+    FOREIGN KEY (type) REFERENCES type_of_document(id),
+    doc_date DATE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS country (
@@ -44,7 +51,6 @@ CREATE TABLE IF NOT EXISTS User (
     phone VARCHAR(15),
     doc_id INTEGER,
     FOREIGN KEY (doc_id) REFERENCES document(id),
-    doc_date DATE NOT NULL,
     citizenship_id INTEGER,
     FOREIGN KEY (citizenship_id) REFERENCES country(id),
     is_indentified BOOLEAN NOT NULL

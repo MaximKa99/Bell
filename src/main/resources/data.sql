@@ -17,22 +17,31 @@ insert into office (id, org_id, name, address, phone, is_active) values (3, 3, '
 insert into office (id, org_id, name, address, phone, is_active) values (4, 4, 'ЮКОС', 'ул. Дубининская, д. 17, стр. 13', '', false);
 
 /*
+type of documents
+*/
+
+insert into type_of_document (id, name, code) values (1, 'Свидетельство о рождении', 03);
+insert into type_of_document (id, name, code) values (2, 'Военный билет ', 07);
+insert into type_of_document (id, name, code) values (3, 'Временное удостоверение, выданное взамен военного билета', 08);
+insert into type_of_document (id, name, code) values (4, 'Паспорт иностранного гражданина', 10);
+insert into type_of_document (id, name, code) values (5, 'Свидетельство о рассмотрении ходатайства о признании лица беженцем на территории Российской Федерации по существу', 11);
+insert into type_of_document (id, name, code) values (6, 'Вид на жительство в Российской Федерации', 12);
+insert into type_of_document (id, name, code) values (7, 'Удостоверение беженца', 13);
+insert into type_of_document (id, name, code) values (8, 'Разрешение на временное проживание в Российской Федерации', 15);
+insert into type_of_document (id, name, code) values (9, 'Свидетельство о предоставлении временного убежища на территории Российской Федерации', 18);
+insert into type_of_document (id, name, code) values (10, 'Паспорт гражданина Российской Федерации', 21);
+insert into type_of_document (id, name, code) values (11, 'Свидетельство о рождении, выданное уполномоченным органом иностранного государства', 23);
+insert into type_of_document (id, name, code) values (12, 'Удостоверение личности военнослужащего Российской Федерации', 24);
+insert into type_of_document (id, name, code) values (13, 'Иные документы', 91);
+
+/*
 documents
 */
 
-insert into document (id, name, code) values (1, 'Свидетельство о рождении', 03);
-insert into document (id, name, code) values (2, 'Военный билет ', 07);
-insert into document (id, name, code) values (3, 'Временное удостоверение, выданное взамен военного билета', 08);
-insert into document (id, name, code) values (4, 'Паспорт иностранного гражданина', 10);
-insert into document (id, name, code) values (5, 'Свидетельство о рассмотрении ходатайства о признании лица беженцем на территории Российской Федерации по существу', 11);
-insert into document (id, name, code) values (6, 'Вид на жительство в Российской Федерации', 12);
-insert into document (id, name, code) values (7, 'Удостоверение беженца', 13);
-insert into document (id, name, code) values (8, 'Разрешение на временное проживание в Российской Федерации', 15);
-insert into document (id, name, code) values (9, 'Свидетельство о предоставлении временного убежища на территории Российской Федерации', 18);
-insert into document (id, name, code) values (10, 'Паспорт гражданина Российской Федерации', 21);
-insert into document (id, name, code) values (11, 'Свидетельство о рождении, выданное уполномоченным органом иностранного государства', 23);
-insert into document (id, name, code) values (12, 'Удостоверение личности военнослужащего Российской Федерации', 24);
-insert into document (id, name, code) values (13, 'Иные документы', 91);
+insert into document (id, type, doc_date) values (1, 10, '2019-10-05');
+insert into document (id, type, doc_date) values (2, 10, '2019-10-05');
+insert into document (id, type, doc_date) values (3, 10, '1980-07-09');
+insert into document (id, type, doc_date) values (4, 10, '2000-09-07');
 
 /*
 counties
@@ -44,11 +53,11 @@ insert into country (id, name, code) values (1, 'Российская Федер
 users
 */
 
-insert into user (id, office_id, org_id, first_name, second_name, middle_name, position, phone, doc_id, doc_date, citizenship_id, is_indentified)
-    values (1, 1, 1, 'Максим', 'Валентинович', 'Походин', 'стажер', '8-916-908-03-01', 10, '2019-10-05', 1, true);
-insert into user (id, office_id, org_id, first_name, second_name, middle_name, position, phone, doc_id, doc_date, citizenship_id, is_indentified)
-    values (2, 1, 1, 'Максим', 'Валентинович', 'Походин', 'стажер', '8-916-908-03-01', 10, '2019-10-05', 1, true);
-insert into user (id, office_id, org_id, first_name, second_name, middle_name, position, phone, doc_id, doc_date, citizenship_id, is_indentified)
-    values (3, 1, 1, 'Петр', 'Иванович', 'Понурый', 'вахтер', '8-916-292-74-22', 10, '1980-07-09', 1, true);
-insert into user (id, office_id, org_id, first_name, second_name, middle_name, position, phone, doc_id, doc_date, citizenship_id, is_indentified)
-    values (4, 1, 1, 'Иван', 'Семенович', 'Простой', 'эйчар', '8-916-292-23-74', 10, '2000-09-07', 1, true);
+insert into user (id, office_id, org_id, first_name, second_name, middle_name, position, phone, doc_id, citizenship_id, is_indentified)
+    values (1, 1, 1, 'Максим', 'Валентинович', 'Походин', 'стажер', '8-916-908-03-01', 1, 1, true);
+insert into user (id, office_id, org_id, first_name, second_name, middle_name, position, phone, doc_id, citizenship_id, is_indentified)
+    values (2, 1, 1, 'Максим', 'Валентинович', 'Походин', 'стажер', '8-916-908-03-01', 2, 1, true);
+insert into user (id, office_id, org_id, first_name, second_name, middle_name, position, phone, doc_id, citizenship_id, is_indentified)
+    values (3, 1, 1, 'Петр', 'Иванович', 'Понурый', 'вахтер', '8-916-292-74-22', 3, 1, true);
+insert into user (id, office_id, org_id, first_name, second_name, middle_name, position, phone, doc_id, citizenship_id, is_indentified)
+    values (4, 1, 1, 'Иван', 'Семенович', 'Простой', 'эйчар', '8-916-292-23-74', 4, 1, true);
