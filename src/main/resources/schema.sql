@@ -47,8 +47,7 @@ CREATE TABLE IF NOT EXISTS User (
     middle_name VARCHAR(30) NOT NULL,
     position VARCHAR(50) NOT NULL,
     phone VARCHAR(15),
-    doc_id INTEGER UNIQUE,
-    FOREIGN KEY (doc_id) REFERENCES document(id),
+    FOREIGN KEY (id) REFERENCES document(id),
     citizenship_id INTEGER,
     FOREIGN KEY (citizenship_id) REFERENCES country(id),
     is_indentified BOOLEAN NOT NULL

@@ -53,11 +53,11 @@ insert into country (id, name, code) values (1, 'Российская Федер
 users
 */
 
-insert into user (id, office_id, first_name, second_name, middle_name, position, phone, doc_id, citizenship_id, is_indentified)
-    values (1, 1, 'Максим', 'Валентинович', 'Походин', 'стажер', '8-916-908-03-01', 1, 1, true);
-insert into user (id, office_id, first_name, second_name, middle_name, position, phone, doc_id, citizenship_id, is_indentified)
-    values (2, 1, 'Максим', 'Валентинович', 'Походин', 'стажер', '8-916-908-03-01', 2, 1, true);
-insert into user (id, office_id, first_name, second_name, middle_name, position, phone, doc_id, citizenship_id, is_indentified)
-    values (3, 1, 'Петр', 'Иванович', 'Понурый', 'вахтер', '8-916-292-74-22', 3, 1, true);
-insert into user (id, office_id, first_name, second_name, middle_name, position, phone, doc_id, citizenship_id, is_indentified)
-    values (4, 1, 'Иван', 'Семенович', 'Простой', 'эйчар', '8-916-292-23-74', 4, 1, true);
+insert into user (id, office_id, first_name, second_name, middle_name, position, phone, citizenship_id, is_indentified)
+    values (1, 1, 'Максим', 'Валентинович', 'Походин', 'стажер', '8-916-908-03-01', 1, true);
+insert into user (id, office_id, first_name, second_name, middle_name, position, phone, citizenship_id, is_indentified)
+    values (2, 1, 'Максим', 'Валентинович', 'Походин', 'стажер', '8-916-908-03-01', 1, true);
+insert into user (id, office_id, first_name, second_name, middle_name, position, phone, citizenship_id, is_indentified)
+    values (3, 1, 'Петр', 'Иванович', 'Понурый', 'вахтер', '8-916-292-74-22', 1, true);
+insert into user (id, office_id, first_name, second_name, middle_name, position, phone, citizenship_id, is_indentified)
+    values (4, 1, 'Иван', 'Семенович', 'Простой', 'эйчар', '8-916-292-23-74', 1, true);
