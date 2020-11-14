@@ -42,17 +42,20 @@ CREATE TABLE IF NOT EXISTS User (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     office_id INTEGER,
     FOREIGN KEY (office_id) REFERENCES Office(id),
-    org_id INTEGER,
-    FOREIGN KEY (org_id) REFERENCES Organization(id),
     first_name VARCHAR(30) NOT NULL,
     second_name VARCHAR(30) NOT NULL,
     middle_name VARCHAR(30) NOT NULL,
     position VARCHAR(50) NOT NULL,
     phone VARCHAR(15),
-    doc_id INTEGER,
+    doc_id INTEGER UNIQUE,
     FOREIGN KEY (doc_id) REFERENCES document(id),
     citizenship_id INTEGER,
     FOREIGN KEY (citizenship_id) REFERENCES country(id),
     is_indentified BOOLEAN NOT NULL
 );
 
+CREATE INDEX IX_Organization_Id ON Organization (id);
+CREATE INDEX IX_Office_Id ON Office (id);
+CREATE INDEX UX_Document_Id ON document (id);
+CREATE INDEX IX_County_Id ON country (id);
+CREATE INDEX IX_Type_Of_Document_Id ON type_of_document(id);
