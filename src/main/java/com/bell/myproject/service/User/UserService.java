@@ -22,14 +22,12 @@ public interface UserService {
     List<UserView> users();
 
     static UserView toView(User user) {
-        return new UserView(user.getOfficeId(),
-                            user.getOrgId(),
+        return new UserView(user.getOffice().getId(),
                             user.getFirstName(),
                             user.getSecondName(),
                             user.getMiddleName(),
                             user.getPosition(),
                             user.getPhone(),
-                            user.getDocId(),
                             user.getCitizenshipId(),
                             user.getIsUndentified());
     }

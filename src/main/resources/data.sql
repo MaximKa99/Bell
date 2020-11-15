@@ -35,15 +35,6 @@ insert into type_of_document (id, name, code) values (12, 'Удостовере�
 insert into type_of_document (id, name, code) values (13, 'Иные документы', 91);
 
 /*
-documents
-*/
-
-insert into document (id, type, doc_date) values (1, 10, '2019-10-05');
-insert into document (id, type, doc_date) values (2, 10, '2019-10-05');
-insert into document (id, type, doc_date) values (3, 10, '1980-07-09');
-insert into document (id, type, doc_date) values (4, 10, '2000-09-07');
-
-/*
 counties
 */
 
@@ -61,3 +52,12 @@ insert into user (id, office_id, first_name, second_name, middle_name, position,
     values (3, 1, 'Петр', 'Иванович', 'Понурый', 'вахтер', '8-916-292-74-22', 1, true);
 insert into user (id, office_id, first_name, second_name, middle_name, position, phone, citizenship_id, is_indentified)
     values (4, 1, 'Иван', 'Семенович', 'Простой', 'эйчар', '8-916-292-23-74', 1, true);
+
+/*
+documents
+*/
+
+insert into document (id, type, doc_date) values (1, 10, '2019-10-05');
+insert into document (id, type, doc_date) values (2, 10, '2019-10-05');
+insert into document (id, type, doc_date) values (3, 10, '1980-07-09');
+insert into document (id, type, doc_date) values (4, 10, '2000-09-07');

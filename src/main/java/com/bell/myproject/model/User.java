@@ -2,9 +2,13 @@ package com.bell.myproject.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,11 +25,9 @@ public class User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "office_id")
-    private int officeId;
-
-    @Column(name = "org_id")
-    private int orgId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "office_id")
+    private Office office;
 
     @Column(name = "first_name")
     private String firstName;
@@ -41,9 +43,6 @@ public class User{
 
     @Column(name = "phone")
     private String phone;
-
-    @Column(name = "doc_id")
-    private int docId;
 
     @Column(name = "citizenship_id")
     private int citizenshipId;

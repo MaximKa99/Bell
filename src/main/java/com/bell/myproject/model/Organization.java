@@ -19,16 +19,27 @@ import lombok.NoArgsConstructor;
 public class Organization{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "name")
     private String name;
+
     @Column(name = "full_name")
     private String fullName;
+    
+    @Column(name = "address")
     private String address;
+    
+    @Column(name = "inn")
     private String inn;
+    
+    @Column(name = "kpp")
     private String kpp;
+    
+    @Column(name = "phone")
     private String phone;
+    
     @Column(name = "is_active")
     private Boolean isActive;
 

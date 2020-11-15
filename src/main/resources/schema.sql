@@ -25,14 +25,6 @@ CREATE TABLE IF NOT EXISTS type_of_document  (
     code INTEGER NOT NULL UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS document (
-    id INTEGER PRIMARY KEY NOT NULL,
-    type INTEGER,
-    FOREIGN KEY (type) REFERENCES type_of_document(id),
-    doc_date DATE NOT NULL,
-    FOREIGN KEY id REFERENCES User(id)
-);
-
 CREATE TABLE IF NOT EXISTS country (
     id INTEGER PRIMARY KEY NOT NULL,
     name VARCHAR(30) NOT NULL,
@@ -51,6 +43,14 @@ CREATE TABLE IF NOT EXISTS User (
     citizenship_id INTEGER,
     FOREIGN KEY (citizenship_id) REFERENCES country(id),
     is_indentified BOOLEAN NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS document (
+    id INTEGER PRIMARY KEY NOT NULL,
+    type INTEGER NOT NULL,
+    doc_date DATE NOT NULL,
+    FOREIGN KEY (type) REFERENCES type_of_document(id),
+    FOREIGN KEY (id) REFERENCES User(id)
 );
 
 CREATE INDEX IX_Organization_Id ON Organization (id);

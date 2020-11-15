@@ -3,6 +3,7 @@ package com.bell.myproject.service.Organization;
 import java.util.List;
 
 import com.bell.myproject.model.Organization;
+import com.bell.myproject.view.ListOrganizationView;
 import com.bell.myproject.view.OrganizationView;
 
 public interface OrganizationService {
@@ -72,5 +73,9 @@ public interface OrganizationService {
 
     static OrganizationView toListResponse(Organization organization) {
         return new OrganizationView(organization.getId(), organization.getName(), organization.getIsActive());
+    }
+
+    static ListOrganizationView toListOrganizationView(OrganizationView orView) {
+        return new ListOrganizationView(orView.getId(), orView.getName(), orView.getIsActive());
     }
 }
