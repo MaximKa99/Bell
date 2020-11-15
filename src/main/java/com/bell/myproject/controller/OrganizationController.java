@@ -3,6 +3,7 @@ package com.bell.myproject.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.bell.myproject.exception.IncorrectOrganizationRequest;
 import com.bell.myproject.model.Organization;
 import com.bell.myproject.service.Organization.OrganizationService;
 import com.bell.myproject.view.Data;
@@ -32,12 +33,14 @@ public class OrganizationController {
 
     @PostMapping("/list")
     public DataList getListOfOrganization(@RequestBody OrganizationView organizationView) {
-        List<OrganizationView> organizationViews = service.organizations();
+        if (!service.checkOrganizationRequest(organizationView))
+            throw new IncorrectOrganizationRequest();
+        List<OrganizationView> organizationViews = service.organizations(organizationView);
         return new DataList(organizationViews.stream().map(OrganizationService::toListOrganizationView).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public Data getOrganization(@PathVariable Long id) {
+    public Data getOrganization(@PathVariable int id) {
         return new Data(service.findById(id));
     }
 

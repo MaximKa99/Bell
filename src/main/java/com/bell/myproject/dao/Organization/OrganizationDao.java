@@ -9,9 +9,9 @@ public interface OrganizationDao {
     
     void update(OrganizationView organizationView);
 
-    List<Organization> all();
+    List<Organization> all(OrganizationView organizationView);
 
-    Organization loadById(Long id);
+    Organization loadById(int id);
 
     void save(OrganizationView organizationView);
 }

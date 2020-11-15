@@ -13,6 +13,12 @@ public interface OfficeService {
 
     void save(Office oView);
 
+    /**
+     * Найти по id OfficeView
+     * @param id
+     * @return OfficeView
+     */
+
     OfficeView findById(int id);
 
     /**
@@ -22,6 +28,12 @@ public interface OfficeService {
      */
 
     List<OfficeView> offices();
+
+    /**
+     * Сконвертить Office в OfficeView
+     * @param office
+     * @return
+     */
 
     static OfficeView toView(Office office) {
         return new OfficeView(office.getId(),

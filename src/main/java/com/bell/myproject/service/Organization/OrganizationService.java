@@ -8,6 +8,11 @@ import com.bell.myproject.view.OrganizationView;
 
 public interface OrganizationService {
     
+    /**
+     * Обновить организацию
+     * @param oView
+     */
+
     void update(OrganizationView oView);
 
     /** 
@@ -19,19 +24,28 @@ public interface OrganizationService {
 
     /**
      * Получить список организаций
-     * @return {@Organization}
+     * @param organizationView
+     * @return List<OrganizationView>
      * 
      */
 
-    List<OrganizationView> organizations();
+    List<OrganizationView> organizations(OrganizationView organizationView);
+
+    boolean checkOrganizationRequest(OrganizationView organizationView);
 
     /**
      * поиск организации по id
      * @param id
-     * @return
+     * @return OrganizationView
      */
 
-    OrganizationView findById(Long id);
+    OrganizationView findById(int id);
+
+    /**
+     * Сконвертить OrganizationView в Organization
+     * @param organizationView
+     * @return
+     */
 
     static Organization toModel(OrganizationView organizationView) {
         return new Organization(organizationView.getId(),
@@ -44,6 +58,12 @@ public interface OrganizationService {
                                 organizationView.getIsActive());
     }
 
+    /**
+     * Сконвертить organizationView в Organization без id
+     * @param organizationView
+     * @return
+     */
+
     static Organization toModelWithoutId(OrganizationView organizationView) {
         return new Organization(organizationView.getName(),
                                 organizationView.getFullName(),
@@ -55,7 +75,7 @@ public interface OrganizationService {
     }
 
     /**
-     * трансформируем model в view 
+     * трансформируем Organization в OrganizationView 
      * @param organization
      * @return
      */
@@ -71,9 +91,21 @@ public interface OrganizationService {
                                     organization.getIsActive());
     }
 
+    /**
+     * Сконвертить Organization в OrganizationView в формате списка
+     * @param organization
+     * @return
+     */
+
     static OrganizationView toListResponse(Organization organization) {
         return new OrganizationView(organization.getId(), organization.getName(), organization.getIsActive());
     }
+
+    /**
+     * Сконвертить OrganizationView в ListOrganizationView
+     * @param orView
+     * @return
+     */
 
     static ListOrganizationView toListOrganizationView(OrganizationView orView) {
         return new ListOrganizationView(orView.getId(), orView.getName(), orView.getIsActive());

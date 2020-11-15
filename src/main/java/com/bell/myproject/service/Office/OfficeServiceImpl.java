@@ -3,6 +3,8 @@ package com.bell.myproject.service.Office;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import com.bell.myproject.dao.Office.OfficeDao;
 import com.bell.myproject.model.Office;
 import com.bell.myproject.view.OfficeView;
@@ -20,16 +22,20 @@ public class OfficeServiceImpl implements OfficeService{
         this.dao = dao;
     }
 
+    @Transactional
     public void save(Office oView) {
         dao.save(oView);
     }
 
     @Override
+    @Transactional
     public OfficeView findById(int id) {
         Office office = dao.findById(id);
         return OfficeService.toView(office);
     }
 
+    @Override
+    @Transactional
     public List<OfficeView> offices() {
         List<Office> all = dao.all();
         return all.stream().map(OfficeService::toView).collect(Collectors.toList());
