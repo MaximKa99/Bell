@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS Organization (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(30) NOT NULL UNIQUE,
-    full_name VARCHAR(60) NOT NULL UNIQUE,
+    name VARCHAR(30) NOT NULL,
+    full_name VARCHAR(60) NOT NULL,
     address VARCHAR(100) NOT NULL,
-    inn VARCHAR(12) NOT NULL UNIQUE,
-    kpp VARCHAR(9) NOT NULL UNIQUE,
+    inn VARCHAR(12) NOT NULL,
+    kpp VARCHAR(9) NOT NULL,
     phone VARCHAR(15),
     is_active BOOLEAN NOT NULL
 );
@@ -15,20 +15,18 @@ CREATE TABLE IF NOT EXISTS Office (
     FOREIGN KEY (org_id) REFERENCES Organization(id),
     name VARCHAR(60) NOT NULL,
     address VARCHAR(100) NOT NULL,
-    phone VARCHAR(20) UNIQUE,
-    is_active BOOLEAN NOT NULL
+    phone VARCHAR(20),
+    is_active BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS type_of_document  (
-    id INTEGER PRIMARY KEY NOT NULL,
-    name VARCHAR(115) NOT NULL,
-    code INTEGER NOT NULL UNIQUE
+    code INTEGER PRIMARY KEY NOT NULL,
+    name VARCHAR(115) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS country (
-    id INTEGER PRIMARY KEY NOT NULL,
-    name VARCHAR(30) NOT NULL,
-    code INTEGER NOT NULL UNIQUE
+    code INTEGER PRIMARY KEY NOT NULL,
+    name VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS User (
@@ -40,21 +38,25 @@ CREATE TABLE IF NOT EXISTS User (
     middle_name VARCHAR(30) NOT NULL,
     position VARCHAR(50) NOT NULL,
     phone VARCHAR(15),
-    citizenship_id INTEGER,
-    FOREIGN KEY (citizenship_id) REFERENCES country(id),
+    citizenship_code INTEGER,
+    FOREIGN KEY (citizenship_code) REFERENCES country(code),
     is_indentified BOOLEAN NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS document (
-    id INTEGER PRIMARY KEY NOT NULL,
-    type INTEGER NOT NULL,
-    doc_date DATE NOT NULL,
-    FOREIGN KEY (type) REFERENCES type_of_document(id),
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    type INTEGER,
+    doc_date DATE,
+    doc_number INTEGER,
+    doc_name VARCHAR(50),
+    FOREIGN KEY (type) REFERENCES type_of_document(code),
     FOREIGN KEY (id) REFERENCES User(id)
 );
 
-CREATE INDEX IX_Organization_Id ON Organization (id);
-CREATE INDEX IX_Office_Id ON Office (id);
-CREATE INDEX UX_User_Id ON User (id);
-CREATE INDEX IX_County_Id ON country (id);
-CREATE INDEX IX_Type_Of_Document_Id ON type_of_document(id);
+//TODO поменять индексы
+
+CREATE INDEX IX_Office_Org_Id ON Office (org_id);
+CREATE INDEX IX_User_Office_Id ON User (office_id);
+CREATE INDEX UX_Document_Id ON Document (id);
+CREATE INDEX IX_Citizenship_Code ON user (citizenship_code);
+CREATE INDEX IX_Document_Type ON Document(type);

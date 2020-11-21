@@ -1,8 +1,8 @@
 package com.bell.myproject.service.Organization;
 
-import java.util.List;
-
 import com.bell.myproject.model.Organization;
+import com.bell.myproject.view.Data;
+import com.bell.myproject.view.DataList;
 import com.bell.myproject.view.ListOrganizationView;
 import com.bell.myproject.view.OrganizationView;
 
@@ -25,21 +25,19 @@ public interface OrganizationService {
     /**
      * Получить список организаций
      * @param organizationView
-     * @return List<OrganizationView>
+     * @return DataList
      * 
      */
 
-    List<OrganizationView> organizations(OrganizationView organizationView);
-
-    boolean checkOrganizationRequest(OrganizationView organizationView);
+    DataList organizations(OrganizationView organizationView);
 
     /**
      * поиск организации по id
      * @param id
-     * @return OrganizationView
+     * @return Data
      */
 
-    OrganizationView findById(int id);
+    Data findById(int id);
 
     /**
      * Сконвертить OrganizationView в Organization
@@ -92,22 +90,12 @@ public interface OrganizationService {
     }
 
     /**
-     * Сконвертить Organization в OrganizationView в формате списка
-     * @param organization
-     * @return
-     */
-
-    static OrganizationView toListResponse(Organization organization) {
-        return new OrganizationView(organization.getId(), organization.getName(), organization.getIsActive());
-    }
-
-    /**
-     * Сконвертить OrganizationView в ListOrganizationView
+     * Сконвертить Organization в ListOrganizationView
      * @param orView
      * @return
      */
 
-    static ListOrganizationView toListOrganizationView(OrganizationView orView) {
-        return new ListOrganizationView(orView.getId(), orView.getName(), orView.getIsActive());
+    static ListOrganizationView toListOrganizationView(Organization organization) {
+        return new ListOrganizationView(organization.getId(), organization.getName(), organization.getIsActive());
     }
 }

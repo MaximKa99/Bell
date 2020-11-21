@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.bell.myproject.view.OfficeView;
+import com.bell.myproject.view.UserView;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,4 +43,28 @@ public class Office{
 
     @Column(name = "is_active")
     private Boolean isActive;
+
+    static public Office toModel(OfficeView officeView, Organization organization) {
+        Office office = new Office();
+
+        office.setAddress(officeView.getAddress());
+        office.setIsActive(officeView.getIsActive());
+        office.setName(officeView.getName());
+        office.setOrganization(organization);
+        office.setPhone(officeView.getPhone());
+
+        return office;
+    }
+
+    static public Office toModel(OfficeView officeView) {
+        Office office = new Office();
+
+        office.setId(officeView.getId());
+        office.setAddress(officeView.getAddress());
+        office.setIsActive(officeView.getIsActive());
+        office.setName(officeView.getName());
+        office.setPhone(officeView.getPhone());
+
+        return office;
+    }
 }

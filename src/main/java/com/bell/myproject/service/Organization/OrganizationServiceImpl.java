@@ -6,7 +6,10 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import com.bell.myproject.dao.Organization.OrganizationDao;
+import com.bell.myproject.exception.NoSuchOrganizationException;
 import com.bell.myproject.model.Organization;
+import com.bell.myproject.view.Data;
+import com.bell.myproject.view.DataList;
 import com.bell.myproject.view.OrganizationView;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +22,6 @@ public class OrganizationServiceImpl implements OrganizationService{
     @Autowired
     public OrganizationServiceImpl(OrganizationDao dao) {
         this.dao = dao;
-    }
-
-    @Override
-    public boolean checkOrganizationRequest(OrganizationView organizationView) {
-        if (organizationView.getName().equals(""))
-            return false;
-        return true;
     }
 
     @Override
@@ -42,15 +38,17 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     @Transactional
-    public OrganizationView findById(int id) {
+    public Data findById(int id) {
         Organization organization = dao.loadById(id);
-        return OrganizationService.toView(organization);
+        if (organization == null)
+            throw new NoSuchOrganizationException("Нет такой организации!!!");
+        return new Data(OrganizationService.toView(organization));
     }
 
     @Override
     @Transactional
-    public List<OrganizationView> organizations(OrganizationView organizationView) {
+    public DataList organizations(OrganizationView organizationView) {
         List<Organization> all = dao.all(organizationView);
-        return all.stream().map(OrganizationService::toListResponse).collect(Collectors.toList());
+        return new DataList(all.stream().map(OrganizationService::toListOrganizationView).collect(Collectors.toList()));
     }
 }

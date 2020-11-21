@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.bell.myproject.model.Office;
 import com.bell.myproject.model.Organization;
 import com.bell.myproject.service.Organization.OrganizationService;
 import com.bell.myproject.view.OrganizationView;
@@ -48,21 +49,31 @@ public class OrganizationDaoImpl implements OrganizationDao{
 
     @Override
     public Organization loadById(int id) {
-        CriteriaQuery<Organization> query = builder.createQuery(Organization.class);
-        Root<Organization> root = query.from(Organization.class);
-        Predicate predicate = builder.equal(root.get("id"), id);
-        query.where(predicate);
-        TypedQuery<Organization> typedQuery = em.createQuery(query);
-        return typedQuery.getSingleResult();
+        return em.find(Organization.class, id);
     }
 
     @Override
     public void update(OrganizationView organizationView) {
-        em.merge(OrganizationService.toModel(organizationView));
+        Organization organization = em.find(Organization.class, organizationView.getId());
+        organization.setName(organizationView.getName());
+        organization.setFullName(organizationView.getFullName());
+        organization.setInn(organizationView.getInn());
+        organization.setKpp(organizationView.getKpp());
+        organization.setIsActive(organizationView.getIsActive());
+        organization.setPhone(organizationView.getPhone());
+        em.merge(organization);
     }
 
     @Override
     public void save(OrganizationView organizationView) {
-        em.persist(OrganizationService.toModelWithoutId(organizationView));
+        Organization organization = new Organization();
+        organization.setAddress(organizationView.getAddress());
+        organization.setFullName(organizationView.getFullName());
+        organization.setInn(organizationView.getInn());
+        organization.setIsActive(organizationView.getIsActive());
+        organization.setKpp(organizationView.getKpp());
+        organization.setName(organizationView.getName());
+        organization.setPhone(organizationView.getPhone());
+        em.persist(organization);
     }
 }

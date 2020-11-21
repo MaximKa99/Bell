@@ -3,6 +3,8 @@ package com.bell.myproject.service.Office;
 import java.util.List;
 
 import com.bell.myproject.model.Office;
+import com.bell.myproject.view.Data;
+import com.bell.myproject.view.ListOfficeView;
 import com.bell.myproject.view.OfficeView;
 
 public interface OfficeService {
@@ -11,7 +13,9 @@ public interface OfficeService {
      * @param oView
      */ 
 
-    void save(Office oView);
+    Data save(OfficeView oView);
+
+    Data update(OfficeView oView);
 
     /**
      * Найти по id OfficeView
@@ -27,7 +31,7 @@ public interface OfficeService {
      * 
      */
 
-    List<OfficeView> offices();
+    List<OfficeView> offices(OfficeView officeView);
 
     /**
      * Сконвертить Office в OfficeView
@@ -42,5 +46,13 @@ public interface OfficeService {
                             office.getAddress(),
                             office.getPhone(),
                             office.getIsActive());
+    }
+
+    static OfficeView toListResponse(Office office) {
+        return new OfficeView(office.getId(), office.getName(), office.getIsActive());
+    }
+
+    static ListOfficeView toListOfficeView(OfficeView officeView) {
+        return new ListOfficeView(officeView.getId(), officeView.getName(), officeView.getIsActive());
     }
 }

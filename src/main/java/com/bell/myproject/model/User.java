@@ -1,5 +1,6 @@
 package com.bell.myproject.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -44,8 +45,12 @@ public class User{
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "citizenship_id")
-    private int citizenshipId;
+    @OneToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @JoinColumn(name = "citizenship_code")
+    private Citizenship citizenship;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    private Document document;
 
     @Column(name = "is_indentified")
     private Boolean isUndentified;

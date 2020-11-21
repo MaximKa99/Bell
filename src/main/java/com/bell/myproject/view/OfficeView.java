@@ -14,4 +14,10 @@ public class OfficeView implements View{
     private String address;
     private String phone;
     private Boolean isActive;
+
+    public OfficeView(int id, String name, Boolean isActive) {
+        this.id = id;
+        this.name = name;
+        this.isActive = isActive;
+    }
 }
