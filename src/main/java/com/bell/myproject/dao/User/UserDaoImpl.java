@@ -52,32 +52,14 @@ public class UserDaoImpl implements UserDao {
         Join<Document, TypeOfDocument> joinTypeOfDocument = joinDocument.join("type");
 
         Predicate officeIdPredicate = builder.equal(joinOffice.get("id"), userView.getOfficeId());
-        predicate = builder.and(officeIdPredicate);
-        if (!firstName.equals("")) {
-            Predicate firstNamePredicate = builder.like(rootUser.get("firstName"), "%" + firstName + "%");
-            predicate = builder.and(firstNamePredicate);
-        }
-        if (!secondName.equals("")) {
-            Predicate secondNamePredicate = builder.like(rootUser.get("secondName"), "%" + secondName + "%");
-            predicate = builder.and(secondNamePredicate);
-        }
-        if (!middleName.equals("")) {
-            Predicate middleNamePredicate = builder.like(rootUser.get("middleName"), "%" + middleName + "%");
-            predicate = builder.and(middleNamePredicate);
-        }
-        if (!position.equals("")) {
-            Predicate positionPredicate = builder.like(rootUser.get("position"), "%" + position + "%");
-            predicate = builder.and(positionPredicate);
-        }
-        if (docCode != 0) {
-            Predicate docCodPredicate = builder.equal(joinTypeOfDocument.get("code"), docCode);
-            predicate = builder.and(docCodPredicate);
-        }
-        if (citizenshipCode != 0) {
-            Predicate citizenshipCodPredicate = builder.equal(joinCitizenship.get("code"), citizenshipCode);
-            predicate = builder.and(citizenshipCodPredicate);
-        }
-
+        Predicate firstNamePredicate = builder.like(rootUser.get("firstName"), "%" + firstName + "%");
+        Predicate secondNamePredicate = builder.like(rootUser.get("secondName"), "%" + secondName + "%");
+        Predicate middleNamePredicate = builder.like(rootUser.get("middleName"), "%" + middleName + "%");
+        Predicate positionPredicate = builder.like(rootUser.get("position"), "%" + position + "%");
+        Predicate docCodPredicate = builder.equal(joinTypeOfDocument.get("code"), docCode);
+        Predicate citizenshipCodPredicate = builder.equal(joinCitizenship.get("code"), citizenshipCode);
+        predicate = builder.and(officeIdPredicate, firstNamePredicate, secondNamePredicate, middleNamePredicate, positionPredicate,
+            docCodPredicate, citizenshipCodPredicate);
         query.where(predicate);
         TypedQuery<User> typedQuery = em.createQuery(query);
         return typedQuery.getResultList();

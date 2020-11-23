@@ -1,15 +1,9 @@
 package com.bell.myproject.controller;
 
-import java.util.List;
-
-import javax.servlet.ServletConfig;
-
-import com.bell.myproject.model.User;
 import com.bell.myproject.service.User.UserService;
-import com.bell.myproject.service.User.UserServiceImpl;
-import com.bell.myproject.view.Data;
-import com.bell.myproject.view.DataList;
 import com.bell.myproject.view.UserView;
+import com.bell.myproject.view.data.Data;
+import com.bell.myproject.view.data.DataList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

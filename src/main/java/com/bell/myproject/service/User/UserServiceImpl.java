@@ -3,18 +3,17 @@ package com.bell.myproject.service.User;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
 import com.bell.myproject.dao.User.UserDao;
 import com.bell.myproject.exception.NoSuchUserException;
 import com.bell.myproject.model.User;
-import com.bell.myproject.view.Data;
-import com.bell.myproject.view.DataList;
-import com.bell.myproject.view.Result;
 import com.bell.myproject.view.UserView;
+import com.bell.myproject.view.data.Data;
+import com.bell.myproject.view.data.DataList;
+import com.bell.myproject.view.data.Result;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -24,10 +23,6 @@ public class UserServiceImpl implements UserService{
     public UserServiceImpl(UserDao dao) {
         this.dao = dao;
     }
-
-    // public void save(UserView userView) {
-    //     dao.save(userView);
-    // }
 
     @Override
     @Transactional
@@ -39,10 +34,11 @@ public class UserServiceImpl implements UserService{
         return new Data(UserService.toUserIdView(user));
     }
 
+    @Override
+    @Transactional
     public DataList users(UserView userView) {
         List<User> all = dao.all(userView);
         return new DataList(all.stream().map(UserService::toUserListView).collect(Collectors.toList()));
-        // return null;
     }
 
     @Override

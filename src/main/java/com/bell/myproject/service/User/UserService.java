@@ -1,16 +1,11 @@
 package com.bell.myproject.service.User;
 
-import java.util.List;
-
-import com.bell.myproject.model.Citizenship;
-import com.bell.myproject.model.Document;
-import com.bell.myproject.model.Office;
 import com.bell.myproject.model.User;
-import com.bell.myproject.view.Data;
-import com.bell.myproject.view.DataList;
 import com.bell.myproject.view.UserIdView;
 import com.bell.myproject.view.UserListView;
 import com.bell.myproject.view.UserView;
+import com.bell.myproject.view.data.Data;
+import com.bell.myproject.view.data.DataList;
 
 public interface UserService {
 

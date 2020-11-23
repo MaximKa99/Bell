@@ -1,10 +1,10 @@
 package com.bell.myproject.service.Organization;
 
 import com.bell.myproject.model.Organization;
-import com.bell.myproject.view.Data;
-import com.bell.myproject.view.DataList;
 import com.bell.myproject.view.ListOrganizationView;
 import com.bell.myproject.view.OrganizationView;
+import com.bell.myproject.view.data.Data;
+import com.bell.myproject.view.data.DataList;
 
 public interface OrganizationService {
     

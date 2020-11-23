@@ -24,9 +24,4 @@ public class OrganizationView implements View{
         this.name = name;
         this.isActive = isActive;
     }
-
-    // public Boolean getIsActive() {
-    //     if (this.isActive == null)
-    //         return ()
-    // }
 }

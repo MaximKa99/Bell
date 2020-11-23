@@ -1,15 +1,14 @@
 package com.bell.myproject.controller;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import com.bell.myproject.checker.Office.Checker;
 import com.bell.myproject.exception.IncorrectOfficeRequest;
 import com.bell.myproject.service.Office.OfficeService;
-import com.bell.myproject.view.Data;
-import com.bell.myproject.view.DataList;
 import com.bell.myproject.view.OfficeView;
-import com.bell.myproject.view.Result;
+import com.bell.myproject.view.data.Data;
+import com.bell.myproject.view.data.DataList;
+import com.bell.myproject.view.data.Result;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

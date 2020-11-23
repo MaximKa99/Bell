@@ -3,9 +3,9 @@ package com.bell.myproject.service.Office;
 import java.util.List;
 
 import com.bell.myproject.model.Office;
-import com.bell.myproject.view.Data;
 import com.bell.myproject.view.ListOfficeView;
 import com.bell.myproject.view.OfficeView;
+import com.bell.myproject.view.data.Data;
 
 public interface OfficeService {
     /** 

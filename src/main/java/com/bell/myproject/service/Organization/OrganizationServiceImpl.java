@@ -8,9 +8,9 @@ import javax.transaction.Transactional;
 import com.bell.myproject.dao.Organization.OrganizationDao;
 import com.bell.myproject.exception.NoSuchOrganizationException;
 import com.bell.myproject.model.Organization;
-import com.bell.myproject.view.Data;
-import com.bell.myproject.view.DataList;
 import com.bell.myproject.view.OrganizationView;
+import com.bell.myproject.view.data.Data;
+import com.bell.myproject.view.data.DataList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

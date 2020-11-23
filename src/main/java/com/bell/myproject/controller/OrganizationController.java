@@ -1,15 +1,12 @@
 package com.bell.myproject.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.bell.myproject.checker.Organization.Checker;
 import com.bell.myproject.exception.IncorrectOrganizationRequest;
 import com.bell.myproject.service.Organization.OrganizationService;
-import com.bell.myproject.view.Data;
-import com.bell.myproject.view.DataList;
 import com.bell.myproject.view.OrganizationView;
-import com.bell.myproject.view.Result;
+import com.bell.myproject.view.data.Data;
+import com.bell.myproject.view.data.DataList;
+import com.bell.myproject.view.data.Result;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

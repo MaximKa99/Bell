@@ -8,9 +8,9 @@ import javax.transaction.Transactional;
 import com.bell.myproject.dao.Office.OfficeDao;
 import com.bell.myproject.exception.NoSuchOfficeException;
 import com.bell.myproject.model.Office;
-import com.bell.myproject.view.Data;
 import com.bell.myproject.view.OfficeView;
-import com.bell.myproject.view.Result;
+import com.bell.myproject.view.data.Data;
+import com.bell.myproject.view.data.Result;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
