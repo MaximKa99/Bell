@@ -1,7 +1,6 @@
 package com.bell.myproject.checker.Office;
 
-import com.bell.myproject.view.OfficeView;
-
+import com.bell.myproject.view.office.OfficeView;
 import org.springframework.stereotype.Service;
 
 @Service

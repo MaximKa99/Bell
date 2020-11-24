@@ -1,8 +1,6 @@
-package com.bell.myproject.view;
+package com.bell.myproject.view.user;
 
 import java.sql.Date;
-
-import com.bell.myproject.model.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserView implements View{
+public class UserView{
     private int id;
     private int officeId;
     private String firstName;

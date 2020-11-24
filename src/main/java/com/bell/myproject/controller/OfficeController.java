@@ -1,11 +1,10 @@
 package com.bell.myproject.controller;
 
-import java.util.stream.Collectors;
-
 import com.bell.myproject.checker.Office.Checker;
 import com.bell.myproject.exception.IncorrectOfficeRequest;
 import com.bell.myproject.service.Office.OfficeService;
-import com.bell.myproject.view.OfficeView;
+import com.bell.myproject.view.office.ListOfficeView;
+import com.bell.myproject.view.office.OfficeView;
 import com.bell.myproject.view.data.Data;
 import com.bell.myproject.view.data.DataList;
 import com.bell.myproject.view.data.Result;
@@ -31,36 +30,33 @@ public class OfficeController {
     }
 
     @PostMapping("/list")
-    public DataList getListOfOffice(@RequestBody OfficeView officeView) {
+    public DataList<ListOfficeView> getListOfOffice(@RequestBody OfficeView officeView) {
         if (!checker.checkOfficeListRequest(officeView)) {
             throw new IncorrectOfficeRequest("Отсутствует поле orgId!!!");
         }
-        return new DataList(service.offices(officeView)
-        .stream()
-        .map(OfficeService::toListOfficeView)
-        .collect(Collectors.toList()));
+        return new DataList<ListOfficeView>(service.offices(officeView));
     }
 
     @GetMapping("/{id}")
-    public OfficeView getOffice(@PathVariable int id) {
-        return service.findById(id);
+    public Data<OfficeView> getOffice(@PathVariable int id) {
+        return new Data<OfficeView>(service.findById(id));
     }
 
     @PostMapping("/update")
-    public Data updateOffice(@RequestBody OfficeView officeView) {
+    public Data<Result> updateOffice(@RequestBody OfficeView officeView) {
         if (!checker.checkOfficeUpdate(officeView)) {
             throw new IncorrectOfficeRequest("Неправильно заполнен update request");
         }
         service.update(officeView);
-        return new Data(new Result("Success"));
+        return new Data<Result>(new Result("Success"));
     }
 
     @PostMapping("/save")
-    public Data saveOffice(@RequestBody OfficeView officeView) {
+    public Data<Result> saveOffice(@RequestBody OfficeView officeView) {
         if (!checker.checkOfficeSave(officeView)) {
             throw new IncorrectOfficeRequest("Неправильно заполнен save request");
         }
         service.save(officeView);
-        return new Data(new Result("Success"));
+        return new Data<Result>(new Result("Success"));
     }
 }

@@ -3,7 +3,7 @@ package com.bell.myproject.dao.User;
 import java.util.List;
 
 import com.bell.myproject.model.User;
-import com.bell.myproject.view.UserView;
+import com.bell.myproject.view.user.UserView;
 
 public interface UserDao {
     List<User> all(UserView userView);

@@ -1,6 +1,6 @@
 package com.bell.myproject.checker.Organization;
 
-import com.bell.myproject.view.OrganizationView;
+import com.bell.myproject.view.organization.OrganizationView;
 
 import org.springframework.stereotype.Service;
 

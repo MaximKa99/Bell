@@ -17,7 +17,7 @@ import com.bell.myproject.model.Document;
 import com.bell.myproject.model.Office;
 import com.bell.myproject.model.TypeOfDocument;
 import com.bell.myproject.model.User;
-import com.bell.myproject.view.UserView;
+import com.bell.myproject.view.user.UserView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,9 @@
 package com.bell.myproject.service.docs;
 
-import com.bell.myproject.view.data.DataList;
+import java.util.List;
+
+import com.bell.myproject.view.ListOfDocs;
 
 public interface DocService {
-    DataList all();    
+    List<ListOfDocs> all();    
 }

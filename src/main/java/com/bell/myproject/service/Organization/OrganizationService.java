@@ -1,10 +1,10 @@
 package com.bell.myproject.service.Organization;
 
+import java.util.List;
+
 import com.bell.myproject.model.Organization;
-import com.bell.myproject.view.ListOrganizationView;
-import com.bell.myproject.view.OrganizationView;
-import com.bell.myproject.view.data.Data;
-import com.bell.myproject.view.data.DataList;
+import com.bell.myproject.view.organization.ListOrganizationView;
+import com.bell.myproject.view.organization.OrganizationView;
 
 public interface OrganizationService {
     
@@ -29,7 +29,7 @@ public interface OrganizationService {
      * 
      */
 
-    DataList organizations(OrganizationView organizationView);
+    List<ListOrganizationView> organizations(OrganizationView organizationView);
 
     /**
      * поиск организации по id
@@ -37,7 +37,7 @@ public interface OrganizationService {
      * @return Data
      */
 
-    Data findById(int id);
+    OrganizationView findById(int id);
 
     /**
      * Сконвертить OrganizationView в Organization

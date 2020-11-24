@@ -1,27 +1,28 @@
 package com.bell.myproject.service.Organization;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import com.bell.myproject.dao.Organization.OrganizationDao;
 import com.bell.myproject.exception.NoSuchOrganizationException;
 import com.bell.myproject.model.Organization;
-import com.bell.myproject.view.OrganizationView;
-import com.bell.myproject.view.data.Data;
-import com.bell.myproject.view.data.DataList;
+import com.bell.myproject.model.mapper.MapperFacade;
+import com.bell.myproject.view.organization.ListOrganizationView;
+import com.bell.myproject.view.organization.OrganizationView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService{
-    private final OrganizationDao dao;
+    private OrganizationDao dao;
+    private MapperFacade mapper;
 
     @Autowired
-    public OrganizationServiceImpl(OrganizationDao dao) {
+    public OrganizationServiceImpl(OrganizationDao dao, MapperFacade mapper) {
         this.dao = dao;
+        this.mapper = mapper;
     }
 
     @Override
@@ -38,17 +39,17 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     @Transactional
-    public Data findById(int id) {
+    public OrganizationView findById(int id) {
         Organization organization = dao.loadById(id);
         if (organization == null)
             throw new NoSuchOrganizationException("Нет такой организации!!!");
-        return new Data(OrganizationService.toView(organization));
+        return mapper.map(organization, OrganizationView.class);
     }
 
     @Override
     @Transactional
-    public DataList organizations(OrganizationView organizationView) {
+    public List<ListOrganizationView> organizations(OrganizationView organizationView) {
         List<Organization> all = dao.all(organizationView);
-        return new DataList(all.stream().map(OrganizationService::toListOrganizationView).collect(Collectors.toList()));
+        return mapper.mapAsList(all, ListOrganizationView.class);
     }
 }

@@ -1,11 +1,8 @@
 package com.bell.myproject.service.User;
 
-import com.bell.myproject.model.User;
-import com.bell.myproject.view.UserIdView;
-import com.bell.myproject.view.UserListView;
-import com.bell.myproject.view.UserView;
-import com.bell.myproject.view.data.Data;
-import com.bell.myproject.view.data.DataList;
+import java.util.List;
+import com.bell.myproject.view.user.UserListView;
+import com.bell.myproject.view.user.UserView;
 
 public interface UserService {
 
@@ -15,31 +12,11 @@ public interface UserService {
      * 
      */
 
-    DataList users(UserView userView);
+    List<UserListView> users(UserView userView);
 
-    Data update(UserView userView);
+    void update(UserView userView);
 
-    Data save(UserView userView);
+    void save(UserView userView);
 
-    Data findUserById(int id);
-
-    static UserIdView toUserIdView(User user) {
-        return new UserIdView(user.getId(),
-                            user.getFirstName(),
-                            user.getSecondName(),
-                            user.getMiddleName(),
-                            user.getPosition(),
-                            user.getPhone(),
-                            user.getDocument().getType().getName(),
-                            user.getDocument().getDocNumber(),
-                            user.getDocument().getDate(),
-                            user.getCitizenship().getCode(),
-                            user.getCitizenship().getName(),
-                            user.getIsUndentified());
-    }
-
-    static UserListView toUserListView(User user) {
-        return new UserListView(user.getId(), user.getFirstName(), user.getSecondName(),
-        user.getMiddleName(), user.getPosition());
-    }
+    UserView findUserById(int id);
 }

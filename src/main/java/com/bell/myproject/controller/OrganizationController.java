@@ -1,9 +1,12 @@
 package com.bell.myproject.controller;
 
+import java.util.List;
+
 import com.bell.myproject.checker.Organization.Checker;
 import com.bell.myproject.exception.IncorrectOrganizationRequest;
 import com.bell.myproject.service.Organization.OrganizationService;
-import com.bell.myproject.view.OrganizationView;
+import com.bell.myproject.view.organization.ListOrganizationView;
+import com.bell.myproject.view.organization.OrganizationView;
 import com.bell.myproject.view.data.Data;
 import com.bell.myproject.view.data.DataList;
 import com.bell.myproject.view.data.Result;
@@ -30,31 +33,33 @@ public class OrganizationController {
     }
 
     @PostMapping("/list")
-    public DataList getListOfOrganization(@RequestBody OrganizationView organizationView) {
+    public DataList<ListOrganizationView> getListOfOrganization(@RequestBody OrganizationView organizationView) {
         if (!checker.checkListRequest(organizationView)) {
             throw new IncorrectOrganizationRequest("Отсутствует поле name!!!");
         }
-        return service.organizations(organizationView);
+        List<ListOrganizationView> list = service.organizations(organizationView);
+        return new DataList<ListOrganizationView>(list);
     }
 
     @GetMapping("/{id}")
-    public Data getOrganization(@PathVariable int id) {
-        return service.findById(id);
+    public Data<OrganizationView> getOrganization(@PathVariable int id) {
+        OrganizationView org = service.findById(id);
+        return new Data<OrganizationView>(org);
     }
 
     @PostMapping("/update")
-    public Data updateOrganization(@RequestBody OrganizationView organizationView) {
+    public Data<Result> updateOrganization(@RequestBody OrganizationView organizationView) {
         if (!checker.checkUpdateRequest(organizationView))
             throw new IncorrectOrganizationRequest("Неправильно составлен запрос");
         service.update(organizationView);
-        return new Data(new Result("Success"));
+        return new Data<Result>(new Result("Success"));
     }
 
     @PostMapping("/save")
-    public Data saveOrganization(@RequestBody OrganizationView organizationView) {
+    public Data<Result> saveOrganization(@RequestBody OrganizationView organizationView) {
         if (!checker.checkSaveRequest(organizationView))
             throw new IncorrectOrganizationRequest("Неправильно составлен запрос");
         service.save(organizationView);
-        return new Data(new Result("Success"));
+        return new Data<Result>(new Result("Success"));
     }
 }

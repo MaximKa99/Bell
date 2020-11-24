@@ -2,6 +2,8 @@ package com.bell.myproject.controller;
 
 import com.bell.myproject.service.country.CountryService;
 import com.bell.myproject.service.docs.DocService;
+import com.bell.myproject.view.ListOfCitizenship;
+import com.bell.myproject.view.ListOfDocs;
 import com.bell.myproject.view.data.DataList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,12 @@ public class OtherController {
     }
 
     @PostMapping("api/docs")
-    public DataList getDocs() {
-        return docService.all();
+    public DataList<ListOfDocs> getDocs() {
+        return new DataList<ListOfDocs>(docService.all());
     }
 
     @PostMapping("api/countries")
-    public DataList getCountry() {
-        return countryService.all();
+    public DataList<ListOfCitizenship> getCountry() {
+        return new DataList<ListOfCitizenship>(countryService.all());
     }
 }

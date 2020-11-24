@@ -1,6 +1,4 @@
-package com.bell.myproject.view;
-
-import com.bell.myproject.model.Organization;
+package com.bell.myproject.view.organization;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrganizationView implements View{
+public class OrganizationView{
     private int id;
     private String name;
     private String fullName;
@@ -24,4 +22,6 @@ public class OrganizationView implements View{
         this.name = name;
         this.isActive = isActive;
     }
+
+    
 }

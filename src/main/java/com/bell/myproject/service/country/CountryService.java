@@ -1,7 +1,9 @@
 package com.bell.myproject.service.country;
 
-import com.bell.myproject.view.data.DataList;
+import java.util.List;
+
+import com.bell.myproject.view.ListOfCitizenship;
 
 public interface CountryService {
-    DataList all();
+    List<ListOfCitizenship> all();
 }

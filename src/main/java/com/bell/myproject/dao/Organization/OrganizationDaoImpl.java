@@ -9,10 +9,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.bell.myproject.model.Office;
 import com.bell.myproject.model.Organization;
-import com.bell.myproject.service.Organization.OrganizationService;
-import com.bell.myproject.view.OrganizationView;
+import com.bell.myproject.view.organization.OrganizationView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

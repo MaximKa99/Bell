@@ -1,9 +1,11 @@
 package com.bell.myproject.controller;
 
 import com.bell.myproject.service.User.UserService;
-import com.bell.myproject.view.UserView;
+import com.bell.myproject.view.user.UserListView;
+import com.bell.myproject.view.user.UserView;
 import com.bell.myproject.view.data.Data;
 import com.bell.myproject.view.data.DataList;
+import com.bell.myproject.view.data.Result;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,22 +26,24 @@ public class UserController {
     }
 
     @PostMapping("/list")
-    public DataList getuserList(@RequestBody UserView userView) {
-        return service.users(userView);
+    public DataList<UserListView> getuserList(@RequestBody UserView userView) {
+        return new DataList<UserListView>(service.users(userView));
     }
 
     @GetMapping("/{id}")
-    public Data getUser(@PathVariable int id) {
-        return service.findUserById(id);
+    public Data<UserView> getUser(@PathVariable int id) {
+        return new Data<UserView>(service.findUserById(id));
     }
 
     @PostMapping("/update")
-    public Data updateUser(@RequestBody UserView userView) {
-        return service.update(userView);
+    public Data<Result> updateUser(@RequestBody UserView userView) {
+        service.update(userView);
+        return new Data<Result>(new Result("Success"));
     }
 
     @PostMapping("/save")
-    public Data saveUser(@RequestBody UserView userView) {
-        return service.save(userView);
+    public Data<Result> saveUser(@RequestBody UserView userView) {
+        service.save(userView);
+        return new Data<Result>(new Result("Success"));
     }
 }

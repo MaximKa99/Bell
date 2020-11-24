@@ -1,4 +1,4 @@
-package com.bell.myproject.view;
+package com.bell.myproject.view.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserListView implements View{
+public class UserListView{
     private int id;
     private String firstName;
     private String secondName;

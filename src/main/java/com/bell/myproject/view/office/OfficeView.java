@@ -1,4 +1,4 @@
-package com.bell.myproject.view;
+package com.bell.myproject.view.office;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OfficeView implements View{
+public class OfficeView{
     private int id;
     private int orgId;
     private String name;

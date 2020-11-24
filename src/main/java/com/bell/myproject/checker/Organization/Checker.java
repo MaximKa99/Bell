@@ -1,6 +1,6 @@
 package com.bell.myproject.checker.Organization;
 
-import com.bell.myproject.view.OrganizationView;
+import com.bell.myproject.view.organization.OrganizationView;
 
 public interface Checker {
     boolean checkListRequest(OrganizationView organizationView);

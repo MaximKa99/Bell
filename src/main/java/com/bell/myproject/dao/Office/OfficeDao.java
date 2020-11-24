@@ -4,7 +4,7 @@ package com.bell.myproject.dao.Office;
 import java.util.List;
 
 import com.bell.myproject.model.Office;
-import com.bell.myproject.view.OfficeView;
+import com.bell.myproject.view.office.OfficeView;
 
 public interface OfficeDao {
     List<Office> all(OfficeView officeView);

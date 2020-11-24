@@ -2,6 +2,21 @@ package com.bell.myproject.model.mapper;
 
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+
+import com.bell.myproject.model.Citizenship;
+import com.bell.myproject.model.Office;
+import com.bell.myproject.model.Organization;
+import com.bell.myproject.model.TypeOfDocument;
+import com.bell.myproject.model.User;
+import com.bell.myproject.view.ListOfCitizenship;
+import com.bell.myproject.view.ListOfDocs;
+import com.bell.myproject.view.office.ListOfficeView;
+import com.bell.myproject.view.organization.ListOrganizationView;
+import com.bell.myproject.view.office.OfficeView;
+import com.bell.myproject.view.organization.OrganizationView;
+import com.bell.myproject.view.user.UserListView;
+import com.bell.myproject.view.user.UserView;
+
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +24,49 @@ import org.springframework.stereotype.Service;
 public class CustomMapperFactory implements FactoryBean<MapperFactory> {
     @Override
     public MapperFactory getObject() {
-        return new DefaultMapperFactory.Builder()
+        MapperFactory mapperFactory = new DefaultMapperFactory.Builder()
                 .constructorResolverStrategy(null)
                 .build();
+
+        mapperFactory.classMap(Organization.class, OrganizationView.class);
+
+        mapperFactory.classMap(Organization.class, ListOrganizationView.class)
+                .byDefault()
+                .register();
+
+        mapperFactory.classMap(Office.class, OfficeView.class)
+                .field("organization.id", "orgId")
+                .byDefault()
+                .register();
+        
+        mapperFactory.classMap(Office.class, ListOfficeView.class)
+                .byDefault()
+                .register();
+
+        mapperFactory.classMap(User.class, UserView.class)
+                .field("office.id", "officeId")
+                .field("document.docName", "docName")
+                .field("document.docNumber", "docNumber")
+                .field("document.date", "docDate")
+                .field("document.type.code", "docCode")
+                .field("citizenship.code", "citizenshipCode")
+                .field("citizenship.name", "citizenshipName")
+                .field("isUndentified", "isUndentified")
+                .byDefault()
+                .register();
+
+        mapperFactory.classMap(User.class, UserListView.class)
+                .byDefault()
+                .register();
+
+        mapperFactory.classMap(TypeOfDocument.class, ListOfDocs.class)
+                .byDefault()
+                .register();
+
+        mapperFactory.classMap(Citizenship.class, ListOfCitizenship.class)
+                .byDefault()
+                .register();
+        return mapperFactory;
     }
 
     @Override
