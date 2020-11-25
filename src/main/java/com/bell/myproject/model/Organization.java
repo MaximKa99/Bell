@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,13 +44,6 @@ public class Organization{
     @Column(name = "is_active")
     private Boolean isActive;
 
-    public Organization(String name, String fullName, String address, String inn, String kpp, String phone, Boolean isActive) {
-        this.name = name;
-        this.fullName = fullName;
-        this.address = address;
-        this.inn = inn;
-        this.kpp = kpp;
-        this.phone = phone;
-        this.isActive = isActive;
-    }
+    @Version
+    private Integer version;
 }

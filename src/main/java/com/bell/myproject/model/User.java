@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -54,4 +55,7 @@ public class User{
 
     @Column(name = "is_indentified")
     private Boolean isUndentified;
+
+    @Version
+    private Integer version;
 }

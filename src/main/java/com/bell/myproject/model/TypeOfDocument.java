@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,4 +21,7 @@ public class TypeOfDocument {
 
     @Column(name = "name")
     private String name;
+
+    @Version
+    private Integer version;
 }

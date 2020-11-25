@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,4 +41,7 @@ public class Office{
 
     @Column(name = "is_active")
     private Boolean isActive;
+
+    @Version
+    private Integer version;
 }
