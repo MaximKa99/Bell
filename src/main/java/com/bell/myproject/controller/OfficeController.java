@@ -1,8 +1,8 @@
 package com.bell.myproject.controller;
 
-import com.bell.myproject.checker.Office.Checker;
+import com.bell.myproject.checker.office.Checker;
 import com.bell.myproject.exception.IncorrectOfficeRequest;
-import com.bell.myproject.service.Office.OfficeService;
+import com.bell.myproject.service.office.OfficeService;
 import com.bell.myproject.view.office.ListOfficeView;
 import com.bell.myproject.view.office.OfficeView;
 import com.bell.myproject.view.data.Data;

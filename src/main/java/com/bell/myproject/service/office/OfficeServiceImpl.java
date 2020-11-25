@@ -1,8 +1,8 @@
-package com.bell.myproject.service.Office;
+package com.bell.myproject.service.office;
 
 import java.util.List;
 
-import com.bell.myproject.dao.Office.OfficeDao;
+import com.bell.myproject.dao.office.OfficeDao;
 import com.bell.myproject.exception.NoSuchOfficeException;
 import com.bell.myproject.model.Office;
 import com.bell.myproject.model.mapper.MapperFacade;

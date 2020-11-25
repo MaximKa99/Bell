@@ -22,28 +22,29 @@ public class Organization{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-
-    @Column(name = "name")
+    
+    @Version
+    private Integer version;
+    
+    @Column(name = "name", length = 30, nullable = false)
     private String name;
 
-    @Column(name = "full_name")
+    @Column(name = "full_name", length = 60, nullable = false)
     private String fullName;
     
-    @Column(name = "address")
+    @Column(name = "address", length = 100, nullable = false)
     private String address;
     
-    @Column(name = "inn")
+    @Column(name = "inn", length = 12, nullable = false)
     private String inn;
     
-    @Column(name = "kpp")
+    @Column(name = "kpp", length = 9, nullable = false)
     private String kpp;
     
-    @Column(name = "phone")
+    @Column(name = "phone", length = 15)
     private String phone;
     
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @Version
-    private Integer version;
 }

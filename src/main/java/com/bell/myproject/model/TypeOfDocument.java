@@ -17,11 +17,13 @@ import lombok.NoArgsConstructor;
 @Table(name = "type_of_document")
 public class TypeOfDocument {
     @Id
+    @Column(name = "code", nullable = false)
     private int code;
-
-    @Column(name = "name")
-    private String name;
-
+    
     @Version
     private Integer version;
+
+    @Column(name = "name", length = 115, nullable = false)
+    private String name;
+
 }

@@ -1,8 +1,8 @@
-package com.bell.myproject.service.Organization;
+package com.bell.myproject.service.organization;
 
 import java.util.List;
 
-import com.bell.myproject.dao.Organization.OrganizationDao;
+import com.bell.myproject.dao.organization.OrganizationDao;
 import com.bell.myproject.exception.NoSuchOrganizationException;
 import com.bell.myproject.model.Organization;
 import com.bell.myproject.model.mapper.MapperFacade;

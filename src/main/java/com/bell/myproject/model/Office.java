@@ -26,22 +26,23 @@ public class Office{
     @Column(name = "id")
     private int id;
 
+    @Version
+    private Integer version;
+    
+    @Column(name = "name", length = 60)
+    private String name;
+    
+    @Column(name = "address", length = 100)
+    private String address;
+    
+    @Column(name = "phone", length = 20)
+    private String phone;
+    
+    @Column(name = "is_active")
+    private Boolean isActive;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id")
     private Organization organization;
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "phone")
-    private String phone;
-
-    @Column(name = "is_active")
-    private Boolean isActive;
-
-    @Version
-    private Integer version;
+    
 }

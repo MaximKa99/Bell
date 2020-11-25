@@ -1,8 +1,7 @@
-package com.bell.myproject.service.Office;
+package com.bell.myproject.service.office;
 
 import java.util.List;
 
-import com.bell.myproject.model.Office;
 import com.bell.myproject.view.office.ListOfficeView;
 import com.bell.myproject.view.office.OfficeView;
 
@@ -31,19 +30,4 @@ public interface OfficeService {
      */
 
     List<ListOfficeView> offices(OfficeView officeView);
-
-    /**
-     * Сконвертить Office в OfficeView
-     * @param office
-     * @return
-     */
-
-    static OfficeView toView(Office office) {
-        return new OfficeView(office.getId(),
-                            office.getOrganization().getId(),
-                            office.getName(),
-                            office.getAddress(),
-                            office.getPhone(),
-                            office.getIsActive());
-    }
 }

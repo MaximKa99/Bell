@@ -15,8 +15,11 @@
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>11</java.version>
-	</properties>
+        <java.version>11</java.version>
+        <encoding>UTF-8</encoding>
+        <swagger.version>2.2.2</swagger.version>
+        <orika.mapper.version>1.5.2</orika.mapper.version>
+    </properties>
 
 	<dependencies>
 		<dependency>
@@ -26,7 +29,7 @@
 		<dependency>
     		<groupId>ma.glasnost.orika</groupId>
     		<artifactId>orika-core</artifactId>
-    		<version>1.5.2</version>
+    		<version>${orika.mapper.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

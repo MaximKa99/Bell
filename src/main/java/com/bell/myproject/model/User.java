@@ -26,36 +26,36 @@ public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "office_id")
-    private Office office;
-
-    @Column(name = "first_name")
+    
+    @Version
+    private Integer version;
+    
+    @Column(name = "first_name", length = 30, nullable = false)
     private String firstName;
-
-    @Column(name = "second_name")
+    
+    @Column(name = "second_name", length = 30)
     private String secondName;
-
-    @Column(name = "middle_name")
+    
+    @Column(name = "middle_name", length = 30)
     private String middleName;
-
-    @Column(name = "position")
+    
+    @Column(name = "position", length = 50, nullable = false)
     private String position;
-
-    @Column(name = "phone")
+    
+    @Column(name = "phone", length = 15)
     private String phone;
-
+    
+    @Column(name = "is_indentified")
+    private Boolean isUndentified;
+    
     @OneToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     @JoinColumn(name = "citizenship_code")
     private Citizenship citizenship;
-
+    
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
     private Document document;
-
-    @Column(name = "is_indentified")
-    private Boolean isUndentified;
-
-    @Version
-    private Integer version;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "office_id")
+    private Office office;
 }

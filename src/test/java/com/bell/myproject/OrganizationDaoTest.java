@@ -2,7 +2,7 @@ package com.bell.myproject;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.bell.myproject.dao.Organization.OrganizationDao;
+import com.bell.myproject.dao.organization.OrganizationDao;
 import com.bell.myproject.model.Organization;
 
 import org.junit.jupiter.api.Test;

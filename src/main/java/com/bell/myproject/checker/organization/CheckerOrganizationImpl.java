@@ -1,4 +1,4 @@
-package com.bell.myproject.checker.Organization;
+package com.bell.myproject.checker.organization;
 
 import com.bell.myproject.view.organization.OrganizationView;
 

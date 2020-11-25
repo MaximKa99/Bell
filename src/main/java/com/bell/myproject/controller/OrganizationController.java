@@ -2,9 +2,9 @@ package com.bell.myproject.controller;
 
 import java.util.List;
 
-import com.bell.myproject.checker.Organization.Checker;
+import com.bell.myproject.checker.organization.Checker;
 import com.bell.myproject.exception.IncorrectOrganizationRequest;
-import com.bell.myproject.service.Organization.OrganizationService;
+import com.bell.myproject.service.organization.OrganizationService;
 import com.bell.myproject.view.organization.ListOrganizationView;
 import com.bell.myproject.view.organization.OrganizationView;
 import com.bell.myproject.view.data.Data;

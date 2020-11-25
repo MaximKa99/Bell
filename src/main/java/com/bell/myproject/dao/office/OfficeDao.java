@@ -1,4 +1,4 @@
-package com.bell.myproject.dao.Office;
+package com.bell.myproject.dao.office;
 
 
 import java.util.List;

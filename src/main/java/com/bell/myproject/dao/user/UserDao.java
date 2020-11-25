@@ -1,4 +1,4 @@
-package com.bell.myproject.dao.User;
+package com.bell.myproject.dao.user;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.bell.myproject.service.User;
+package com.bell.myproject.service.user;
 
 import java.util.List;
 import com.bell.myproject.view.user.UserListView;

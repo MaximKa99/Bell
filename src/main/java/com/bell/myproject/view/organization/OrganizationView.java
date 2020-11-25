@@ -16,12 +16,4 @@ public class OrganizationView{
     private String kpp;
     private String phone;
     private Boolean isActive;
-
-    public OrganizationView(int id, String name, Boolean isActive) {
-        this.id = id;
-        this.name = name;
-        this.isActive = isActive;
-    }
-
-    
 }

@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS Organization (
     inn VARCHAR(12) NOT NULL,
     kpp VARCHAR(9) NOT NULL,
     phone VARCHAR(15),
-    is_active BOOLEAN NOT NULL
+    is_active BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS Office (
@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS User (
     office_id INTEGER,
     FOREIGN KEY (office_id) REFERENCES Office(id),
     first_name VARCHAR(30) NOT NULL,
-    second_name VARCHAR(30) NOT NULL,
-    middle_name VARCHAR(30) NOT NULL,
+    second_name VARCHAR(30),
+    middle_name VARCHAR(30),
     position VARCHAR(50) NOT NULL,
     phone VARCHAR(15),
     citizenship_code INTEGER,
@@ -52,8 +52,6 @@ CREATE TABLE IF NOT EXISTS document (
     FOREIGN KEY (type) REFERENCES type_of_document(code),
     FOREIGN KEY (id) REFERENCES User(id)
 );
-
-//TODO поменять индексы
 
 CREATE INDEX IX_Office_Org_Id ON Office (org_id);
 CREATE INDEX IX_User_Office_Id ON User (office_id);

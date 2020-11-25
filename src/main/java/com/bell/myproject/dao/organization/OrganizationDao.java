@@ -1,4 +1,4 @@
-package com.bell.myproject.dao.Organization;
+package com.bell.myproject.dao.organization;
 
 import java.util.List;
 

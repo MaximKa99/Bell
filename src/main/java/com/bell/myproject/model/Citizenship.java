@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 @Table(name = "country")
 public class Citizenship {
     @Id
+    @Column(name = "code", nullable = false)
     private int code;
 
     @Version
     private Integer version;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 30, nullable = false)
     private String name;
-
     
 }

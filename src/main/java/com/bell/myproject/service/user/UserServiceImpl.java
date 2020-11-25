@@ -1,8 +1,8 @@
-package com.bell.myproject.service.User;
+package com.bell.myproject.service.user;
 
 import java.util.List;
 
-import com.bell.myproject.dao.User.UserDao;
+import com.bell.myproject.dao.user.UserDao;
 import com.bell.myproject.exception.NoSuchUserException;
 import com.bell.myproject.model.User;
 import com.bell.myproject.model.mapper.MapperFacade;

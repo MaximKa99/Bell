@@ -28,9 +28,8 @@ public class Document {
     @Column(name = "id")
     private int id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "type")
-    private TypeOfDocument type;
+    @Version
+    private Integer version;
 
     @Column(name = "doc_date")
     private Date date;
@@ -38,13 +37,14 @@ public class Document {
     @Column(name = "doc_number")
     private int docNumber;
 
-    @Column(name = "doc_name")
+    @Column(name = "doc_name", length = 50)
     private String docName;
     
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private User user;
 
-    @Version
-    private Integer version;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "type")
+    private TypeOfDocument type;
 }

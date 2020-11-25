@@ -1,4 +1,4 @@
-package com.bell.myproject.service.Organization;
+package com.bell.myproject.service.organization;
 
 import java.util.List;
 
@@ -37,10 +37,4 @@ public interface OrganizationService {
      */
 
     OrganizationView findById(int id);
-
-    /**
-     * Сконвертить OrganizationView в Organization
-     * @param organizationView
-     * @return
-     */
 }

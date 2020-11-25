@@ -1,4 +1,4 @@
-package com.bell.myproject.dao.User;
+package com.bell.myproject.dao.user;
 
 import java.sql.Date;
 import java.util.List;
@@ -136,7 +136,6 @@ public class UserDaoImpl implements UserDao {
             user.setCitizenship(citizenship);
         user.setIsUndentified(userView.getIsUndentified());
         em.persist(user);
-        // em.flush();
 
         Document document = null;
         if (userView.getDocDate() != null) {
