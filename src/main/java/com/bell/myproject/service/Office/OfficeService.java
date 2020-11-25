@@ -46,12 +46,4 @@ public interface OfficeService {
                             office.getPhone(),
                             office.getIsActive());
     }
-
-    static OfficeView toListResponse(Office office) {
-        return new OfficeView(office.getId(), office.getName(), office.getIsActive());
-    }
-
-    static ListOfficeView toListOfficeView(OfficeView officeView) {
-        return new ListOfficeView(officeView.getId(), officeView.getName(), officeView.getIsActive());
-    }
 }

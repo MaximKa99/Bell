@@ -2,8 +2,6 @@ package com.bell.myproject.service.Organization;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import com.bell.myproject.dao.Organization.OrganizationDao;
 import com.bell.myproject.exception.NoSuchOrganizationException;
 import com.bell.myproject.model.Organization;
@@ -13,6 +11,7 @@ import com.bell.myproject.view.organization.OrganizationView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService{
@@ -38,7 +37,7 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public OrganizationView findById(int id) {
         Organization organization = dao.loadById(id);
         if (organization == null)
@@ -47,7 +46,7 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ListOrganizationView> organizations(OrganizationView organizationView) {
         List<Organization> all = dao.all(organizationView);
         return mapper.mapAsList(all, ListOrganizationView.class);

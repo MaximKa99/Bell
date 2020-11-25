@@ -33,8 +33,6 @@ public class UserDaoImpl implements UserDao {
         this.builder = builder;
     }
 
-    //TODO доделать юзера. Подвести под норму гетПоИд, добавить сохранение и проверить остальные
-
     public List<User> all(UserView userView) {
         String firstName = userView.getFirstName();
         String secondName = userView.getSecondName();
@@ -110,8 +108,6 @@ public class UserDaoImpl implements UserDao {
         }
 
         Boolean isUndentified = userView.getIsUndentified();
-
-        //TODO доделать
 
         if (isUndentified != null) {
             user.setIsUndentified(isUndentified);

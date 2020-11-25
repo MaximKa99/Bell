@@ -2,8 +2,6 @@ package com.bell.myproject.service.Office;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import com.bell.myproject.dao.Office.OfficeDao;
 import com.bell.myproject.exception.NoSuchOfficeException;
 import com.bell.myproject.model.Office;
@@ -13,6 +11,7 @@ import com.bell.myproject.view.office.OfficeView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -38,7 +37,7 @@ public class OfficeServiceImpl implements OfficeService{
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public OfficeView findById(int id) {
         Office office = dao.findById(id);
         if (office == null) {
@@ -48,7 +47,7 @@ public class OfficeServiceImpl implements OfficeService{
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ListOfficeView> offices(OfficeView officeView) {
         List<Office> all = dao.all(officeView);
         return mapper.mapAsList(all, ListOfficeView.class);

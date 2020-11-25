@@ -9,6 +9,7 @@ import com.bell.myproject.view.ListOfCitizenship;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CountryServiceImpl implements CountryService {
@@ -22,6 +23,7 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ListOfCitizenship> all() {
         List<Citizenship> list = dao.all();
         return mapper.mapAsList(list, ListOfCitizenship.class);

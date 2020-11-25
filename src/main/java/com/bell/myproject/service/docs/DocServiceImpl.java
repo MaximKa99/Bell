@@ -9,6 +9,7 @@ import com.bell.myproject.view.ListOfDocs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DocServiceImpl implements DocService {
@@ -22,6 +23,7 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ListOfDocs> all() {
         List<TypeOfDocument> list = dao.all();
         return mapper.mapAsList(list, ListOfDocs.class);

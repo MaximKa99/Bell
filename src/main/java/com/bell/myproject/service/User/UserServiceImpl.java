@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public UserView findUserById(int id) {
         User user = dao.loadById(id);
         if (user == null) {
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<UserListView> users(UserView userView) {
         List<User> all = dao.all(userView);
         return mapper.mapAsList(all, UserListView.class);
