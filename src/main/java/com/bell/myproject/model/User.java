@@ -48,7 +48,7 @@ public class User{
     @Column(name = "is_indentified")
     private Boolean isUndentified;
     
-    @OneToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     @JoinColumn(name = "citizenship_code")
     private Citizenship citizenship;
     

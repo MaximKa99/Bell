@@ -24,4 +24,11 @@ public class DocDaoImpl implements DocDao {
         TypedQuery<TypeOfDocument> query = em.createQuery("SELECT d FROM TypeOfDocument d", TypeOfDocument.class);
         return query.getResultList();
     }
+
+    @Override
+    public TypeOfDocument getByCode(int code) {
+        TypedQuery<TypeOfDocument> query = em.createQuery("SELECT a FROM TypeOfDocument a WHERE a.code=:code", TypeOfDocument.class);
+        query.setParameter("code", code);
+        return query.getSingleResult();
+    }
 }

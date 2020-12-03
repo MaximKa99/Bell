@@ -3,6 +3,9 @@ package com.bell.myproject.service.office;
 import java.util.List;
 
 import com.bell.myproject.view.office.ListOfficeView;
+import com.bell.myproject.view.office.OfficeFilter;
+import com.bell.myproject.view.office.OfficeSave;
+import com.bell.myproject.view.office.OfficeUpdate;
 import com.bell.myproject.view.office.OfficeView;
 
 public interface OfficeService {
@@ -11,9 +14,9 @@ public interface OfficeService {
      * @param oView
      */ 
 
-    void save(OfficeView oView);
+    void save(OfficeSave save);
 
-    void update(OfficeView oView);
+    void update(OfficeUpdate update);
 
     /**
      * Найти по id OfficeView
@@ -29,5 +32,5 @@ public interface OfficeService {
      * 
      */
 
-    List<ListOfficeView> offices(OfficeView officeView);
+    List<ListOfficeView> offices(OfficeFilter filter);
 }

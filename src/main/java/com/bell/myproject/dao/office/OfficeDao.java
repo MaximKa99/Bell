@@ -2,18 +2,18 @@ package com.bell.myproject.dao.office;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.bell.myproject.model.Office;
-import com.bell.myproject.view.office.OfficeView;
 
 public interface OfficeDao {
-    List<Office> all(OfficeView officeView);
+    List<Office> all(Map<String,Object> filter);
 
     Office loadById(Long id);
 
-    void save(OfficeView officeView);
+    void save(Office office);
 
-    void update(OfficeView officeView);
+    void update(Office update);
 
     Office findById(int id);
 }

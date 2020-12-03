@@ -25,4 +25,11 @@ public class CountryDaoImpl implements CountryDao {
         TypedQuery<Citizenship> query = em.createQuery("SELECT a FROM Citizenship a", Citizenship.class);
         return query.getResultList();
     }
+
+    @Override
+    public Citizenship getByCode(int code) {
+        TypedQuery<Citizenship> query = em.createQuery("SELECT a FROM Citizenship a WHERE a.code=:code", Citizenship.class);
+        query.setParameter("code", code);
+        return query.getSingleResult();
+    }
 }

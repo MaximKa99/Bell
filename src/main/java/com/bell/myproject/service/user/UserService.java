@@ -1,7 +1,11 @@
 package com.bell.myproject.service.user;
 
 import java.util.List;
+
+import com.bell.myproject.view.user.UserFilter;
 import com.bell.myproject.view.user.UserListView;
+import com.bell.myproject.view.user.UserSave;
+import com.bell.myproject.view.user.UserUpdate;
 import com.bell.myproject.view.user.UserView;
 
 public interface UserService {
@@ -12,11 +16,11 @@ public interface UserService {
      * 
      */
 
-    List<UserListView> users(UserView userView);
+    List<UserListView> users(UserFilter filter);
 
-    void update(UserView userView);
+    void update(UserUpdate update);
 
-    void save(UserView userView);
+    void save(UserSave save);
 
     UserView findUserById(int id);
 }

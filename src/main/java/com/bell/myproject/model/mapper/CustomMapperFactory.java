@@ -15,6 +15,7 @@ import com.bell.myproject.view.organization.ListOrganizationView;
 import com.bell.myproject.view.office.OfficeView;
 import com.bell.myproject.view.organization.OrganizationView;
 import com.bell.myproject.view.user.UserListView;
+import com.bell.myproject.view.user.UserUpdate;
 import com.bell.myproject.view.user.UserView;
 
 import org.springframework.beans.factory.FactoryBean;
@@ -64,6 +65,14 @@ public class CustomMapperFactory implements FactoryBean<MapperFactory> {
                 .register();
 
         mapperFactory.classMap(Citizenship.class, ListOfCitizenship.class)
+                .byDefault()
+                .register();
+
+        mapperFactory.classMap(UserUpdate.class, User.class)
+                .field("citizenshipCode", "citizenship.code")
+                .field("docName", "document.docName")
+                .field("docNumber", "document.docNumber")
+                .field("docDate", "document.date")
                 .byDefault()
                 .register();
         return mapperFactory;

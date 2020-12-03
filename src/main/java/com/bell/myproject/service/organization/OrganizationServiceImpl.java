@@ -2,12 +2,17 @@ package com.bell.myproject.service.organization;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.bell.myproject.dao.organization.OrganizationDao;
 import com.bell.myproject.exception.NoSuchOrganizationException;
 import com.bell.myproject.model.Organization;
 import com.bell.myproject.model.mapper.MapperFacade;
 import com.bell.myproject.view.organization.ListOrganizationView;
+import com.bell.myproject.view.organization.OrganizationFilter;
 import com.bell.myproject.view.organization.OrganizationView;
+import com.bell.myproject.view.organization.SaveOrganization;
+import com.bell.myproject.view.organization.UpdateOrganization;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,14 +31,16 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     @Transactional
-    public void update(OrganizationView oView) {
-        dao.update(oView);
+    public void update(UpdateOrganization update) {
+        Organization OrgUpdate = mapper.map(update, Organization.class);
+        dao.update(OrgUpdate);
     }
 
     @Override
     @Transactional
-    public void save(OrganizationView oView) {
-        dao.save(oView);
+    public void save(SaveOrganization save) {
+        Organization OrgSave = mapper.map(save, Organization.class);
+        dao.save(OrgSave);
     }
 
     @Override
@@ -47,8 +54,9 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<ListOrganizationView> organizations(OrganizationView organizationView) {
-        List<Organization> all = dao.all(organizationView);
+    public List<ListOrganizationView> organizations(OrganizationFilter filter) {
+        Organization OrgFilter = mapper.map(filter, Organization.class);
+        List<Organization> all = dao.all(OrgFilter);
         return mapper.mapAsList(all, ListOrganizationView.class);
     }
 }

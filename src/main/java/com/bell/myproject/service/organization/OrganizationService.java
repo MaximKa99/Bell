@@ -3,7 +3,10 @@ package com.bell.myproject.service.organization;
 import java.util.List;
 
 import com.bell.myproject.view.organization.ListOrganizationView;
+import com.bell.myproject.view.organization.OrganizationFilter;
 import com.bell.myproject.view.organization.OrganizationView;
+import com.bell.myproject.view.organization.SaveOrganization;
+import com.bell.myproject.view.organization.UpdateOrganization;
 
 public interface OrganizationService {
     
@@ -12,23 +15,23 @@ public interface OrganizationService {
      * @param oView
      */
 
-    void update(OrganizationView oView);
+    void update(UpdateOrganization update);
 
     /** 
      * Добавить организацию
      * @param oView
      */ 
 
-    void save(OrganizationView oView);
+    void save(SaveOrganization save);
 
     /**
      * Получить список организаций
-     * @param organizationView
+     * @param OrganizationFilterList
      * @return DataList
      * 
      */
 
-    List<ListOrganizationView> organizations(OrganizationView organizationView);
+    List<ListOrganizationView> organizations(OrganizationFilter filter);
 
     /**
      * поиск организации по id

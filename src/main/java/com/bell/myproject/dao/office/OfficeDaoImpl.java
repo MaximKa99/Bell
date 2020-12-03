@@ -1,6 +1,7 @@
 package com.bell.myproject.dao.office;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -29,17 +30,17 @@ public class OfficeDaoImpl implements OfficeDao{
     }
 
     @Override
-    public List<Office> all(OfficeView officeView) {
+    public List<Office> all(Map<String,Object> filter) {
         Predicate predicate;
 
         CriteriaQuery<Office> query = builder.createQuery(Office.class);
         Root<Office> rootOffice = query.from(Office.class);
         Join<Office, Organization> rootOrganization = rootOffice.join("organization");
-        Predicate orgIdPredicate = builder.equal(rootOrganization.get("id"), officeView.getOrgId());
-        Predicate namePredicate = builder.like(rootOffice.get("name"), "%" + officeView.getName() + "%");
-        Predicate phonePredicate = builder.like(rootOffice.get("phone"), "%" + officeView.getPhone() + "%");
-        Predicate isActivePredicate = builder.equal(rootOffice.get("isActive"), officeView.getIsActive());
-        if (officeView.getIsActive() != null) {
+        Predicate orgIdPredicate = builder.equal(rootOrganization.get("id"), filter.get("orgId"));
+        Predicate namePredicate = builder.like(rootOffice.get("name"), "%" + filter.get("name") + "%");
+        Predicate phonePredicate = builder.like(rootOffice.get("phone"), "%" + filter.get("phone") + "%");
+        Predicate isActivePredicate = builder.equal(rootOffice.get("isActive"), filter.get("isActive"));
+        if (filter.get("isActive") != null) {
             predicate = builder.and(orgIdPredicate, namePredicate, phonePredicate, isActivePredicate);
         } else {
             predicate = builder.and(orgIdPredicate, namePredicate, phonePredicate);
@@ -55,47 +56,24 @@ public class OfficeDaoImpl implements OfficeDao{
     }
 
     @Override
-    public void save(OfficeView officeView) {
-        Office office = new Office();
-        String address = officeView.getAddress();
-        String name = officeView.getName();
-        String phone = officeView.getPhone();
-        Boolean active = officeView.getIsActive();
-        int orgId = officeView.getOrgId();
-
-        if (!address.equals("")) {
-            office.setAddress(address);
-        }
-        if (!name.equals("")) {
-            office.setName(name);
-        }
-        if (!phone.equals("")) {
-            office.setPhone(phone);
-        }
-        if (active == null) {
-            office.setIsActive(active);
-        }
-        if (orgId != 0) {
-            office.setOrganization(em.find(Organization.class, orgId));
-        }
+    public void save(Office office) {
         em.persist(office);
     }
 
     @Override
-    public void update(OfficeView officeView) {
-        Office currOffice = em.find(Office.class, officeView.getId());
-        String phone = officeView.getPhone();
-        Boolean active = officeView.getIsActive();
+    public void update(Office update) {
+        Office currOffice = em.find(Office.class, update.getId());
+        String phone = update.getPhone();
+        Boolean active = update.getIsActive();
 
-        currOffice.setAddress(officeView.getAddress());
+        currOffice.setAddress(update.getAddress());
         if (active != null) {
             currOffice.setIsActive(active);
         }
-        currOffice.setName(officeView.getName());
+        currOffice.setName(update.getName());
         if (!phone.equals("")) {
             currOffice.setPhone(phone);
         }
-        em.merge(currOffice);
     }
 
     @Override

@@ -27,15 +27,15 @@ public class OrganizationDaoImpl implements OrganizationDao{
     }
 
     @Override
-    public List<Organization> all(OrganizationView organizationView) {
+    public List<Organization> all(Organization filter) {
         Predicate predicate;
 
         CriteriaQuery<Organization> query = builder.createQuery(Organization.class);
         Root<Organization> root = query.from(Organization.class);
-        Predicate activePredicate = builder.equal(root.get("isActive"), organizationView.getIsActive());
-        Predicate innPredicate = builder.like(root.get("inn"), "%" + organizationView.getInn() + "%");
-        Predicate namePredicate = builder.like(root.get("name"), "%" + organizationView.getName() + "%");
-        if (organizationView.getIsActive() != null) {
+        Predicate activePredicate = builder.equal(root.get("isActive"), filter.getIsActive());
+        Predicate innPredicate = builder.like(root.get("inn"), "%" + filter.getInn() + "%");
+        Predicate namePredicate = builder.like(root.get("name"), "%" + filter.getName() + "%");
+        if (filter.getIsActive() != null) {
             predicate = builder.and(namePredicate, activePredicate, innPredicate);
         } else {
             predicate = builder.and(namePredicate, innPredicate);
@@ -51,27 +51,26 @@ public class OrganizationDaoImpl implements OrganizationDao{
     }
 
     @Override
-    public void update(OrganizationView organizationView) {
-        Organization organization = em.find(Organization.class, organizationView.getId());
-        organization.setName(organizationView.getName());
-        organization.setFullName(organizationView.getFullName());
-        organization.setInn(organizationView.getInn());
-        organization.setKpp(organizationView.getKpp());
-        organization.setIsActive(organizationView.getIsActive());
-        organization.setPhone(organizationView.getPhone());
-        em.merge(organization);
+    public void update(Organization update) {
+        Organization organization = em.find(Organization.class, update.getId());
+        organization.setName(update.getName());
+        organization.setFullName(update.getFullName());
+        organization.setInn(update.getInn());
+        organization.setKpp(update.getKpp());
+        organization.setIsActive(update.getIsActive());
+        organization.setPhone(update.getPhone());
     }
 
     @Override
-    public void save(OrganizationView organizationView) {
+    public void save(Organization save) {
         Organization organization = new Organization();
-        organization.setAddress(organizationView.getAddress());
-        organization.setFullName(organizationView.getFullName());
-        organization.setInn(organizationView.getInn());
-        organization.setIsActive(organizationView.getIsActive());
-        organization.setKpp(organizationView.getKpp());
-        organization.setName(organizationView.getName());
-        organization.setPhone(organizationView.getPhone());
+        organization.setAddress(save.getAddress());
+        organization.setFullName(save.getFullName());
+        organization.setInn(save.getInn());
+        organization.setIsActive(save.getIsActive());
+        organization.setKpp(save.getKpp());
+        organization.setName(save.getName());
+        organization.setPhone(save.getPhone());
         em.persist(organization);
     }
 }

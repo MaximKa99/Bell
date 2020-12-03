@@ -1,6 +1,6 @@
 package com.bell.myproject.dao.user;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -17,6 +17,7 @@ import com.bell.myproject.model.Document;
 import com.bell.myproject.model.Office;
 import com.bell.myproject.model.TypeOfDocument;
 import com.bell.myproject.model.User;
+import com.bell.myproject.view.user.UserFilter;
 import com.bell.myproject.view.user.UserView;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +34,13 @@ public class UserDaoImpl implements UserDao {
         this.builder = builder;
     }
 
-    public List<User> all(UserView userView) {
-        String firstName = userView.getFirstName();
-        String secondName = userView.getSecondName();
-        String middleName = userView.getMiddleName();
-        String position = userView.getPosition();
-        int docCode = userView.getDocCode();
-        int citizenshipCode = userView.getCitizenshipCode();
+    public List<User> all(User userFilter) {
+        String firstName = userFilter.getFirstName();
+        String secondName = userFilter.getSecondName();
+        String middleName = userFilter.getMiddleName();
+        String position = userFilter.getPosition();
+        int docCode = userFilter.getDocument().getType().getCode();
+        int citizenshipCode = userFilter.getCitizenship().getCode();
         Predicate predicate = null;
 
         CriteriaQuery<User> query = builder.createQuery(User.class);
@@ -49,7 +50,7 @@ public class UserDaoImpl implements UserDao {
         Join<User, Office> joinOffice = rootUser.join("office");
         Join<Document, TypeOfDocument> joinTypeOfDocument = joinDocument.join("type");
 
-        Predicate officeIdPredicate = builder.equal(joinOffice.get("id"), userView.getOfficeId());
+        Predicate officeIdPredicate = builder.equal(joinOffice.get("id"), userFilter.getOffice().getId());
         Predicate firstNamePredicate = builder.like(rootUser.get("firstName"), "%" + firstName + "%");
         Predicate secondNamePredicate = builder.like(rootUser.get("secondName"), "%" + secondName + "%");
         Predicate middleNamePredicate = builder.like(rootUser.get("middleName"), "%" + middleName + "%");
@@ -68,94 +69,91 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void update(UserView userView) {
-        User user = loadById(userView.getId());
-        String firstName = userView.getFirstName();
-        String secondName = userView.getSecondName();
-        String middleName = userView.getMiddleName();
-        String position = userView.getPosition();
-        String phone = userView.getPhone();
+    public void update(User userUpdate) {
+        User currentUser = loadById(userUpdate.getId());
+        String firstName = userUpdate.getFirstName();
+        String secondName = userUpdate.getSecondName();
+        String middleName = userUpdate.getMiddleName();
+        String position = userUpdate.getPosition();
+        String phone = userUpdate.getPhone();
 
         if (!firstName.equals("")) {
-            user.setFirstName(firstName);
+            currentUser.setFirstName(firstName);
         }
         if (!secondName.equals("")){
-            user.setSecondName(secondName);
+            currentUser.setSecondName(secondName);
         }
         if (!middleName.equals("")) {
-            user.setMiddleName(middleName);
+            currentUser.setMiddleName(middleName);
         }
         if (!position.equals("")) {
-            user.setPosition(position);
+            currentUser.setPosition(position);
         }
         if (!phone.equals("")) {
-            user.setPhone(phone);
+            currentUser.setPhone(phone);
         }
 
-        Document document = user.getDocument();
-        String docName = userView.getDocName();
-        Date date = userView.getDocDate();
-        int docNumber = userView.getDocNumber();
+        Document document = currentUser.getDocument();
+        String docName = userUpdate.getDocument().getDocName();
+        Date date = userUpdate.getDocument().getDate();
+        String docNumber = userUpdate.getDocument().getDocNumber();
 
         if (!docName.equals("")) {
             document.setDocName(docName);
         }
-        if (docNumber != 0) {
+        if (docNumber.equals("")) {
             document.setDocNumber(docNumber);
         }
         if (date != null) {
             document.setDate(date);
         }
 
-        Boolean isUndentified = userView.getIsUndentified();
+        Boolean isUndentified = userUpdate.getIsUndentified();
 
         if (isUndentified != null) {
-            user.setIsUndentified(isUndentified);
+            currentUser.setIsUndentified(isUndentified);
         }
-
-        em.merge(document);
-        em.merge(user);
     }
 
-    public void save(UserView userView) {
+    public void save(User userSave) {
         User user = new User();
-        Office office = em.find(Office.class, userView.getOfficeId());
+        Office office = em.find(Office.class, userSave.getOffice().getId());
         if (office == null)
             throw new IncorrectOfficeRequest("Нет такого офиса");
         user.setOffice(office);
-        user.setFirstName(userView.getFirstName());
-        user.setSecondName(userView.getSecondName());
-        user.setMiddleName(userView.getMiddleName());
-        user.setPosition(userView.getPosition());
-        user.setPhone(userView.getPhone());
+        user.setFirstName(userSave.getFirstName());
+        user.setSecondName(userSave.getSecondName());
+        user.setMiddleName(userSave.getMiddleName());
+        user.setPosition(userSave.getPosition());
+        user.setPhone(userSave.getPhone());
 
         Citizenship citizenship = null;
-        if (userView.getCitizenshipCode() != 0)
-            citizenship = em.find(Citizenship.class, userView.getCitizenshipCode());
+        if (userSave.getCitizenship().getCode() != 0)
+            citizenship = em.find(Citizenship.class, userSave.getCitizenship().getCode());
         if (citizenship != null)
             user.setCitizenship(citizenship);
-        user.setIsUndentified(userView.getIsUndentified());
+        user.setIsUndentified(userSave.getIsUndentified());
         em.persist(user);
 
         Document document = null;
-        if (userView.getDocDate() != null) {
+        if (userSave.getDocument().getDate() != null) {
             if (document == null)
                 document = new Document();
-            document.setDate(userView.getDocDate());
+            document.setDate(userSave.getDocument().getDate());
         }
-        if (!userView.getDocName().equals("")) {
+        if (!userSave.getDocument().getDocName().equals("")) {
             if (document == null)
                 document = new Document();
-            document.setDocName(userView.getDocName());
+            document.setDocName(userSave.getDocument().getDocName());
         }
-        if (userView.getDocNumber() != 0) {
+        if (userSave.getDocument().getDocNumber().equals("")) {
             if (document == null)
                 document = new Document();
-            document.setDocNumber(userView.getDocNumber());
+            document.setDocNumber(userSave.getDocument().getDocNumber());
         }
         TypeOfDocument typeOfDocument = null;
-        if (userView.getDocCode() != 0)
-            typeOfDocument = em.find(TypeOfDocument.class, userView.getDocCode());
+        if (userSave.getDocument().getType().getCode() != 0)
+            typeOfDocument = em.find(TypeOfDocument.class, userSave.getDocument().getType().getCode());
         if (typeOfDocument != null)
             document.setType(typeOfDocument);
         if (document != null)

@@ -1,10 +1,17 @@
 package com.bell.myproject.controller;
 
+import com.bell.myproject.view.user.UserFilter;
 import com.bell.myproject.view.user.UserListView;
+import com.bell.myproject.view.user.UserSave;
+import com.bell.myproject.view.user.UserUpdate;
 import com.bell.myproject.view.user.UserView;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
 import com.bell.myproject.service.user.UserService;
 import com.bell.myproject.view.data.Data;
-import com.bell.myproject.view.data.DataList;
 import com.bell.myproject.view.data.Result;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,24 +33,25 @@ public class UserController {
     }
 
     @PostMapping("/list")
-    public DataList<UserListView> getuserList(@RequestBody UserView userView) {
-        return new DataList<UserListView>(service.users(userView));
+    public List<UserListView> getuserList(@RequestBody @Valid UserFilter filter) {
+        List<UserListView> list = service.users(filter);
+        return list;
     }
 
     @GetMapping("/{id}")
-    public Data<UserView> getUser(@PathVariable int id) {
-        return new Data<UserView>(service.findUserById(id));
+    public UserView getUser(@PathVariable int id) {
+        return service.findUserById(id);
     }
 
     @PostMapping("/update")
-    public Data<Result> updateUser(@RequestBody UserView userView) {
-        service.update(userView);
-        return new Data<Result>(new Result("Success"));
+    public Result updateUser(@RequestBody @Valid UserUpdate update) {
+        service.update(update);
+        return new Result("Success");
     }
 
     @PostMapping("/save")
-    public Data<Result> saveUser(@RequestBody UserView userView) {
-        service.save(userView);
-        return new Data<Result>(new Result("Success"));
+    public Result saveUser(@RequestBody @Valid UserSave save) {
+        service.save(save);
+        return new Result("Success");
     }
 }

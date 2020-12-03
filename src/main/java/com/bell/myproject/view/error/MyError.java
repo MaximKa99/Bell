@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MyError {
-    private String error;
+public class MyError<T> {
+    private T error;
 }

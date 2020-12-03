@@ -6,4 +6,6 @@ import com.bell.myproject.model.Citizenship;
 
 public interface CountryDao {
     List<Citizenship> all();
+
+    Citizenship getByCode(int code);
 }
