@@ -119,7 +119,7 @@ public class UserDaoImpl implements UserDao {
         document.setDate((Date)update.get("docDate"));
 
 
-        user.setIsUndentified((Boolean)update.get("isIdentified"));
+        user.setIsIdentified((Boolean)update.get("isIdentified"));
 
         if (update.get("citizenshipCode") != null) {
             Citizenship citizenship = countryDao.getByCode((Integer)update.get("citizenshipCode"));
@@ -147,7 +147,7 @@ public class UserDaoImpl implements UserDao {
             citizenship = em.find(Citizenship.class, userSave.getCitizenship().getCode());
         if (citizenship != null)
             user.setCitizenship(citizenship);
-        user.setIsUndentified(userSave.getIsUndentified());
+        user.setIsIdentified(userSave.getIsIdentified());
         em.persist(user);
 
         Document document = null;

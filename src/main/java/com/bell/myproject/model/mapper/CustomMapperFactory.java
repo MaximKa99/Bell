@@ -43,7 +43,7 @@ public class CustomMapperFactory implements FactoryBean<MapperFactory> {
                 .field("document.type.code", "docCode")
                 .field("citizenship.code", "citizenshipCode")
                 .field("citizenship.name", "citizenshipName")
-                .field("isUndentified", "isUndentified")
+                .field("isIdentified", "isIdentified")
                 .byDefault()
                 .register();
 

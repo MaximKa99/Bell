@@ -45,8 +45,8 @@ public class User{
     @Column(name = "phone", length = 15)
     private String phone;
     
-    @Column(name = "is_indentified")
-    private Boolean isUndentified;
+    @Column(name = "is_identified")
+    private Boolean isIdentified;
     
     @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     @JoinColumn(name = "citizenship_id")

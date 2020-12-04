@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS User (
     phone VARCHAR(15),
     citizenship_id INTEGER,
     FOREIGN KEY (citizenship_id) REFERENCES country(id),
-    is_indentified BOOLEAN
+    is_identified BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS document (

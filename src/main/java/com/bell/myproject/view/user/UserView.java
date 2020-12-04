@@ -23,5 +23,5 @@ public class UserView{
     private Date docDate;
     private int citizenshipCode;
     private String citizenshipName;
-    private Boolean isUndentified;
+    private Boolean isIdentified;
 }
