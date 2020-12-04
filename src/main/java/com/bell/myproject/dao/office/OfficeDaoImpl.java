@@ -1,5 +1,6 @@
 package com.bell.myproject.dao.office;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,20 +32,31 @@ public class OfficeDaoImpl implements OfficeDao{
 
     @Override
     public List<Office> all(Map<String,Object> filter) {
-        Predicate predicate;
+        Predicate predicate = null;
 
         CriteriaQuery<Office> query = builder.createQuery(Office.class);
         Root<Office> rootOffice = query.from(Office.class);
         Join<Office, Organization> rootOrganization = rootOffice.join("organization");
+
+        List<Predicate> listOfPredicates = new ArrayList<>();
         Predicate orgIdPredicate = builder.equal(rootOrganization.get("id"), filter.get("orgId"));
-        Predicate namePredicate = builder.like(rootOffice.get("name"), "%" + filter.get("name") + "%");
-        Predicate phonePredicate = builder.like(rootOffice.get("phone"), "%" + filter.get("phone") + "%");
-        Predicate isActivePredicate = builder.equal(rootOffice.get("isActive"), filter.get("isActive"));
-        if (filter.get("isActive") != null) {
-            predicate = builder.and(orgIdPredicate, namePredicate, phonePredicate, isActivePredicate);
-        } else {
-            predicate = builder.and(orgIdPredicate, namePredicate, phonePredicate);
+        listOfPredicates.add(orgIdPredicate);
+        if (!filter.get("name").equals("")) {
+            Predicate namePredicate = builder.like(rootOffice.get("name"), "%" + filter.get("name") + "%");
+            listOfPredicates.add(namePredicate);
         }
+        if (!filter.get("phone").equals("")) {
+            Predicate phonePredicate = builder.like(rootOffice.get("phone"), "%" + filter.get("phone") + "%");
+            listOfPredicates.add(phonePredicate);
+        }
+        if (filter.get("isActive") != null) {
+            Predicate isActivePredicate = builder.equal(rootOffice.get("isActive"), filter.get("isActive"));
+            listOfPredicates.add(isActivePredicate);
+        }
+
+        Predicate[] arrayOfPredicates = new Predicate[listOfPredicates.size()];
+        predicate = builder.and(listOfPredicates.toArray(arrayOfPredicates));
+
         query.where(predicate);
         TypedQuery<Office> typedQuery = em.createQuery(query);
         return typedQuery.getResultList();

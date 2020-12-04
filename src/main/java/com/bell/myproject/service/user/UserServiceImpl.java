@@ -55,6 +55,12 @@ public class UserServiceImpl implements UserService{
     @Transactional(readOnly = true)
     public List<UserListView> users(UserFilter filter) {
         User userFilter = new User();
+        userFilter = mapper.map(filter, User.class);
+        userFilter.setOffice(OfficeDao.findById(filter.getOfficeId()));
+        userFilter.setCitizenship(countryDao.getByCode(filter.getCitizenshipCode()));
+        Document document = new Document();
+        document.setType(docDao.getByCode(filter.getDocCode()));
+        userFilter.setDocument(document);
         List<User> all = dao.all(userFilter);
         return mapper.mapAsList(all, UserListView.class);
     }

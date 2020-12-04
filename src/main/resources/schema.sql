@@ -45,8 +45,8 @@ CREATE TABLE IF NOT EXISTS User (
     middle_name VARCHAR(30),
     position VARCHAR(50) NOT NULL,
     phone VARCHAR(15),
-    citizenship_code INTEGER,
-    FOREIGN KEY (citizenship_code) REFERENCES country(code),
+    citizenship_id INTEGER,
+    FOREIGN KEY (citizenship_id) REFERENCES country(id),
     is_indentified BOOLEAN
 );
 
@@ -63,5 +63,5 @@ CREATE TABLE IF NOT EXISTS document (
 
 CREATE INDEX IX_Office_Org_Id ON Office (org_id);
 CREATE INDEX IX_User_Office_Id ON User (office_id);
-CREATE INDEX IX_Citizenship_Code ON user (citizenship_code);
+CREATE INDEX IX_Citizenship_Id ON user (citizenship_id);
 CREATE INDEX IX_Document_Type ON Document(type);

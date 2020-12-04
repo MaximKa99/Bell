@@ -46,6 +46,7 @@ public class CustomMapperFactory implements FactoryBean<MapperFactory> {
 
         mapperFactory.classMap(User.class, UserView.class)
                 .field("office.id", "officeId")
+                .field("secondName", "secondName")
                 .field("document.docName", "docName")
                 .field("document.docNumber", "docNumber")
                 .field("document.date", "docDate")

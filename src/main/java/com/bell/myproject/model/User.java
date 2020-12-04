@@ -49,7 +49,7 @@ public class User{
     private Boolean isUndentified;
     
     @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
-    @JoinColumn(name = "citizenship_code")
+    @JoinColumn(name = "citizenship_id")
     private Citizenship citizenship;
     
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")

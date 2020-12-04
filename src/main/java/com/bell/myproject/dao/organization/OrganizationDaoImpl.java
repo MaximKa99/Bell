@@ -1,5 +1,6 @@
 package com.bell.myproject.dao.organization;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -28,18 +29,25 @@ public class OrganizationDaoImpl implements OrganizationDao{
 
     @Override
     public List<Organization> all(Organization filter) {
-        Predicate predicate;
+        Predicate predicate = null;
+        List<Predicate> listOfPredicates = new ArrayList<>();
 
         CriteriaQuery<Organization> query = builder.createQuery(Organization.class);
         Root<Organization> root = query.from(Organization.class);
-        Predicate activePredicate = builder.equal(root.get("isActive"), filter.getIsActive());
-        Predicate innPredicate = builder.like(root.get("inn"), "%" + filter.getInn() + "%");
-        Predicate namePredicate = builder.like(root.get("name"), "%" + filter.getName() + "%");
         if (filter.getIsActive() != null) {
-            predicate = builder.and(namePredicate, activePredicate, innPredicate);
-        } else {
-            predicate = builder.and(namePredicate, innPredicate);
+            Predicate activePredicate = builder.equal(root.get("isActive"), filter.getIsActive());
+            listOfPredicates.add(activePredicate);
         }
+        if (!filter.getName().equals("")) {
+            Predicate innPredicate = builder.like(root.get("inn"), "%" + filter.getInn() + "%");
+            listOfPredicates.add(innPredicate);
+        }
+        Predicate namePredicate = builder.like(root.get("name"), "%" + filter.getName() + "%");
+        listOfPredicates.add(namePredicate);
+
+        Predicate[] arrayOfPredicates = new Predicate[listOfPredicates.size()];
+        predicate = builder.and(listOfPredicates.toArray(arrayOfPredicates));
+
         query.where(predicate);
         TypedQuery<Organization> typedQuery = em.createQuery(query);
         return typedQuery.getResultList();

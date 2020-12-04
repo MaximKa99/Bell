@@ -1,5 +1,6 @@
 package com.bell.myproject.dao.user;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +18,6 @@ import com.bell.myproject.model.Document;
 import com.bell.myproject.model.Office;
 import com.bell.myproject.model.TypeOfDocument;
 import com.bell.myproject.model.User;
-import com.bell.myproject.view.user.UserFilter;
-import com.bell.myproject.view.user.UserView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -41,7 +40,7 @@ public class UserDaoImpl implements UserDao {
         String position = userFilter.getPosition();
         int docCode = userFilter.getDocument().getType().getCode();
         int citizenshipCode = userFilter.getCitizenship().getCode();
-        Predicate predicate = null;
+        List<Predicate> listOfPredicates = new ArrayList<>();
 
         CriteriaQuery<User> query = builder.createQuery(User.class);
         Root<User> rootUser = query.from(User.class);
@@ -51,14 +50,36 @@ public class UserDaoImpl implements UserDao {
         Join<Document, TypeOfDocument> joinTypeOfDocument = joinDocument.join("type");
 
         Predicate officeIdPredicate = builder.equal(joinOffice.get("id"), userFilter.getOffice().getId());
-        Predicate firstNamePredicate = builder.like(rootUser.get("firstName"), "%" + firstName + "%");
-        Predicate secondNamePredicate = builder.like(rootUser.get("secondName"), "%" + secondName + "%");
-        Predicate middleNamePredicate = builder.like(rootUser.get("middleName"), "%" + middleName + "%");
-        Predicate positionPredicate = builder.like(rootUser.get("position"), "%" + position + "%");
-        Predicate docCodPredicate = builder.equal(joinTypeOfDocument.get("code"), docCode);
-        Predicate citizenshipCodPredicate = builder.equal(joinCitizenship.get("code"), citizenshipCode);
-        predicate = builder.and(officeIdPredicate, firstNamePredicate, secondNamePredicate, middleNamePredicate, positionPredicate,
-            docCodPredicate, citizenshipCodPredicate);
+        listOfPredicates.add(officeIdPredicate);
+        if (!firstName.equals("")) {
+            Predicate firstNamePredicate = builder.like(rootUser.get("firstName"), "%" + firstName + "%");
+            listOfPredicates.add(firstNamePredicate);
+        }
+        if (!secondName.equals("")) {
+            Predicate secondNamePredicate = builder.like(rootUser.get("secondName"), "%" + secondName + "%");
+            listOfPredicates.add(secondNamePredicate);
+        }
+        if (!middleName.equals("")) {
+            Predicate middleNamePredicate = builder.like(rootUser.get("middleName"), "%" + middleName + "%");
+            listOfPredicates.add(middleNamePredicate);
+        }
+        if (!position.equals("")) {
+            Predicate positionPredicate = builder.like(rootUser.get("position"), "%" + position + "%");
+            listOfPredicates.add(positionPredicate);
+        }
+        if (docCode != 0) {
+            Predicate docCodPredicate = builder.equal(joinTypeOfDocument.get("code"), docCode);
+            listOfPredicates.add(docCodPredicate);
+        }
+        if (citizenshipCode != 0) {
+            Predicate citizenshipCodPredicate = builder.equal(joinCitizenship.get("code"), citizenshipCode);
+            listOfPredicates.add(citizenshipCodPredicate);
+        }
+
+        Predicate[] arrayOfPredicate = new Predicate[listOfPredicates.size()];
+        Predicate predicate = null;
+        predicate = builder.and(listOfPredicates.toArray(arrayOfPredicate));
+
         query.where(predicate);
         TypedQuery<User> typedQuery = em.createQuery(query);
         return typedQuery.getResultList();

@@ -15,6 +15,7 @@ public class UserFilter {
     private int officeId;
     private String firstName;
     private String lastName;
+    private String secondName;
     private String middleName;
     private String position;
     private int docCode;
