@@ -1,6 +1,8 @@
 package com.bell.myproject.service.user;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.bell.myproject.dao.country.CountryDao;
 import com.bell.myproject.dao.docs.DocDao;
@@ -54,14 +56,15 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional(readOnly = true)
     public List<UserListView> users(UserFilter filter) {
-        User userFilter = new User();
-        userFilter = mapper.map(filter, User.class);
-        userFilter.setOffice(OfficeDao.findById(filter.getOfficeId()));
-        userFilter.setCitizenship(countryDao.getByCode(filter.getCitizenshipCode()));
-        Document document = new Document();
-        document.setType(docDao.getByCode(filter.getDocCode()));
-        userFilter.setDocument(document);
-        List<User> all = dao.all(userFilter);
+        Map<String, Object> filterAsMap = new HashMap<>();
+        filterAsMap.put("officeId", filter.getOfficeId());
+        filterAsMap.put("firstName", filter.getFirstName());
+        filterAsMap.put("secondName", filter.getSecondName());
+        filterAsMap.put("middleName", filter.getMiddleName());
+        filterAsMap.put("position", filter.getPosition());
+        filterAsMap.put("docCode", filter.getDocCode());
+        filterAsMap.put("citizenshipCode", filter.getCitizenshipCode());
+        List<User> all = dao.all(filterAsMap);
         return mapper.mapAsList(all, UserListView.class);
     }
 

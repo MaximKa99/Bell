@@ -12,12 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserFilter {
     @Min(value = 1 ,message = "Задайте officeId")
-    private int officeId;
+    private Integer officeId;
     private String firstName;
-    private String lastName;
     private String secondName;
     private String middleName;
     private String position;
-    private int docCode;
-    private int citizenshipCode;
+    private Integer docCode;
+    private Integer citizenshipCode;
 }
