@@ -29,18 +29,8 @@ public class CustomMapperFactory implements FactoryBean<MapperFactory> {
                 .constructorResolverStrategy(null)
                 .build();
 
-        mapperFactory.classMap(Organization.class, OrganizationView.class);
-
-        mapperFactory.classMap(Organization.class, ListOrganizationView.class)
-                .byDefault()
-                .register();
-
         mapperFactory.classMap(Office.class, OfficeView.class)
                 .field("organization.id", "orgId")
-                .byDefault()
-                .register();
-        
-        mapperFactory.classMap(Office.class, ListOfficeView.class)
                 .byDefault()
                 .register();
 
@@ -57,17 +47,6 @@ public class CustomMapperFactory implements FactoryBean<MapperFactory> {
                 .byDefault()
                 .register();
 
-        mapperFactory.classMap(User.class, UserListView.class)
-                .byDefault()
-                .register();
-
-        mapperFactory.classMap(TypeOfDocument.class, ListOfDocs.class)
-                .byDefault()
-                .register();
-
-        mapperFactory.classMap(Citizenship.class, ListOfCitizenship.class)
-                .byDefault()
-                .register();
 
         mapperFactory.classMap(UserUpdate.class, User.class)
                 .field("citizenshipCode", "citizenship.code")
