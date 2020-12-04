@@ -51,6 +51,6 @@ public class Document {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "type")
+    @JoinColumn(name = "type_id")
     private TypeOfDocument type;
 }

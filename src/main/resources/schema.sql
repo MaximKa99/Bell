@@ -53,15 +53,15 @@ CREATE TABLE IF NOT EXISTS User (
 CREATE TABLE IF NOT EXISTS document (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     version INTEGER default 0,
-    type INTEGER,
+    type_id INTEGER,
     doc_date DATE,
     doc_number VARCHAR(15),
     doc_name VARCHAR(50),
-    FOREIGN KEY (type) REFERENCES type_of_document(code),
+    FOREIGN KEY (type_id) REFERENCES type_of_document(id),
     FOREIGN KEY (id) REFERENCES User(id)
 );
 
 CREATE INDEX IX_Office_Org_Id ON Office (org_id);
 CREATE INDEX IX_User_Office_Id ON User (office_id);
 CREATE INDEX IX_Citizenship_Id ON user (citizenship_id);
-CREATE INDEX IX_Document_Type ON Document(type);
+CREATE INDEX IX_Document_Id ON Document(type_id);

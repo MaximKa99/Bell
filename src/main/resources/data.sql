@@ -57,7 +57,7 @@ insert into user (id, office_id, first_name, second_name, middle_name, position,
 documents
 */
 
-insert into document (id, type, doc_date, doc_number) values (1, 21, '2019-10-05', 133444);
-insert into document (id, type, doc_date, doc_number) values (2, 21, '2019-10-05', 228322);
-insert into document (id, type, doc_date, doc_number) values (3, 21, '1980-07-09', 322228);
-insert into document (id, type, doc_date, doc_number) values (4, 21, '2000-09-07', 133737);
+insert into document (id, type_id, doc_date, doc_number) values (1, 10, '2019-10-05', 133444);
+insert into document (id, type_id, doc_date, doc_number) values (2, 10, '2019-10-05', 228322);
+insert into document (id, type_id, doc_date, doc_number) values (3, 10, '1980-07-09', 322228);
+insert into document (id, type_id, doc_date, doc_number) values (4, 10, '2000-09-07', 133737);
