@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserView{
-    private int id;
+    private Integer id;
     private int officeId;
     private String firstName;
     private String secondName;

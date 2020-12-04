@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OfficeView{
-    private int id;
+    private Integer id;
     private int orgId;
     private String name;
     private String address;

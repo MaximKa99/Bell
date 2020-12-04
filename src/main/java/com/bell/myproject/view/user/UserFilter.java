@@ -1,7 +1,6 @@
 package com.bell.myproject.view.user;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserFilter {
-    @Min(value = 1 ,message = "Задайте officeId")
+    @NotNull(message = "Задайте officeId")
     private Integer officeId;
     private String firstName;
     private String secondName;

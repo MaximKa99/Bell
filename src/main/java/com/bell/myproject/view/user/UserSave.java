@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserSave {
     @Min(value = 1 ,message = "Задайте officeId")
-    private int officeId;
+    private Integer officeId;
     @NotEmpty(message = "Задайте firstName")
     private String firstName;
     private String secondName;

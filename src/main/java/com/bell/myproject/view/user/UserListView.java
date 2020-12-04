@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserListView{
-    private int id;
+    private Integer id;
     private String firstName;
     private String secondName;
     private String middleName;

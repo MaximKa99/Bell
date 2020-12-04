@@ -2,6 +2,7 @@ package com.bell.myproject.view.organization;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateOrganization {
-    @Min(message = "Задайте id", value = 1)
-    private int id;
+    @NotNull(message = "Задайте id")
+    private Integer id;
     @NotEmpty(message = "Задайте name")
     private String name;
     @NotEmpty(message = "Задайте fullName")

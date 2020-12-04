@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ListOrganizationView{
-    private int id;
+    private Integer id;
     private String name;
     private Boolean isActive;
 }
