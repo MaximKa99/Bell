@@ -89,7 +89,18 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public void update(UserUpdate update) {
-        User userUpdate = mapper.map(update, User.class);
-        dao.update(userUpdate);
+        Map<String, Object> updateAsMap = new HashMap<>();
+        updateAsMap.put("id", update.getId());
+        updateAsMap.put("officeId", update.getOfficeId());
+        updateAsMap.put("firstName", update.getFirstName());
+        updateAsMap.put("secondName", update.getSecondName());
+        updateAsMap.put("position", update.getPosition());
+        updateAsMap.put("phone", update.getPhone());
+        updateAsMap.put("docName", update.getDocName());
+        updateAsMap.put("docNumber", update.getDocNumber());
+        updateAsMap.put("docDate", update.getDocDate());
+        updateAsMap.put("citizenshipCode", update.getCitizenshipCode());
+        updateAsMap.put("isIdentified", update.getIsIdentified());
+        dao.update(updateAsMap);
     }
 }

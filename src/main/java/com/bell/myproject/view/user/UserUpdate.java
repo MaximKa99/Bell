@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class UserUpdate {
     @NotNull(message = "Задайте id")
     private Integer id;
-    private int officeId;
+    private Integer officeId;
     @NotEmpty(message = "Задайте firstName")
     private String firstName;
     private String secondName;
@@ -27,6 +27,6 @@ public class UserUpdate {
     private String docName;
     private String docNumber;
     private Date docDate;
-    private int citizenshipCode;
+    private Integer citizenshipCode;
     private Boolean isIdentified;
 }

@@ -12,5 +12,5 @@ public interface UserDao {
 
     void save(User userSave);
 
-    void update(User userUpdate);
+    void update(Map<String, Object> userUpdate);
 }

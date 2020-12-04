@@ -13,7 +13,10 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.bell.myproject.dao.country.CountryDao;
 import com.bell.myproject.exception.IncorrectOfficeRequest;
+import com.bell.myproject.exception.NoSuchOfficeException;
+import com.bell.myproject.exception.NoSuchUserException;
 import com.bell.myproject.model.Citizenship;
 import com.bell.myproject.model.Document;
 import com.bell.myproject.model.Office;
@@ -26,12 +29,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserDaoImpl implements UserDao {
     private final EntityManager em;
+    private final CountryDao countryDao;
     private final CriteriaBuilder builder;
 
     @Autowired
-    public UserDaoImpl(EntityManager em, CriteriaBuilder builder) {
+    public UserDaoImpl(EntityManager em, CriteriaBuilder builder, CountryDao countryDao) {
         this.em = em;
         this.builder = builder;
+        this.countryDao = countryDao;
     }
 
     public List<User> all(Map<String, Object> filter) {
@@ -86,32 +91,43 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void update(User userUpdate) {
-        User currentUser = loadById(userUpdate.getId());
-        String firstName = userUpdate.getFirstName();
-        String secondName = userUpdate.getSecondName();
-        String middleName = userUpdate.getMiddleName();
-        String position = userUpdate.getPosition();
-        String phone = userUpdate.getPhone();
+    public void update(Map<String, Object> update) {
+        User user = em.find(User.class, update.get("id"));
 
-        currentUser.setFirstName(firstName);
-        currentUser.setSecondName(secondName);
-        currentUser.setMiddleName(middleName);
-        currentUser.setPosition(position);
-        currentUser.setPhone(phone);
+        if (user == null) {
+            throw new NoSuchUserException("нет такого юзера");
+        }
+        if (update.get("officeId") != null) {
+            Office office = em.find(Office.class, update.get("officeId"));
+            if (office == null) {
+                throw new NoSuchOfficeException("нет такого офиса!");
+            }
+            user.setOffice(office);
+        } else {
+            user.setOffice(null);
+        }
+        user.setFirstName((String)update.get("firstName"));
+        user.setSecondName((String)update.get("secondName"));
+        user.setMiddleName((String)update.get("middleName"));
+        user.setPosition((String)update.get("position"));
+        user.setPhone((String)update.get("phone"));
 
-        Document document = currentUser.getDocument();
-        String docName = userUpdate.getDocument().getDocName();
-        Date date = userUpdate.getDocument().getDate();
-        String docNumber = userUpdate.getDocument().getDocNumber();
+        Document document = user.getDocument();
 
-        document.setDocName(docName);
-        document.setDocNumber(docNumber);
-        document.setDate(date);
+        document.setDocName((String)update.get("docName"));
+        document.setDocNumber((String)update.get("docNumber"));
+        document.setDate((Date)update.get("docDate"));
 
-        Boolean isUndentified = userUpdate.getIsUndentified();
 
-        currentUser.setIsUndentified(isUndentified);
+        user.setIsUndentified((Boolean)update.get("isIdentified"));
+
+        if (update.get("citizenshipCode") != null) {
+            Citizenship citizenship = countryDao.getByCode((Integer)update.get("citizenshipCode"));
+            user.setCitizenship(citizenship);
+        } else {
+            user.setCitizenship(null);
+        }
+
     }
 
     public void save(User userSave) {
