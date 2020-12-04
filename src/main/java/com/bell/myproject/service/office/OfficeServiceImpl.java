@@ -46,8 +46,13 @@ public class OfficeServiceImpl implements OfficeService{
     @Override
     @Transactional
     public void update(OfficeUpdate update) {
-        Office officeUpdate = mapper.map(update, Office.class);
-        dao.update(officeUpdate);
+        Map<String, Object> updateAsMap = new HashMap<>();
+        updateAsMap.put("id", update.getId());
+        updateAsMap.put("name", update.getName());
+        updateAsMap.put("address", update.getAddress());
+        updateAsMap.put("phone", update.getPhone());
+        updateAsMap.put("isActive", update.getIsActive());
+        dao.update(updateAsMap);
     }
 
     @Override

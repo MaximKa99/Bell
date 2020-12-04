@@ -12,6 +12,7 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.bell.myproject.exception.NoSuchOfficeException;
 import com.bell.myproject.model.Office;
 import com.bell.myproject.model.Organization;
 import com.bell.myproject.view.office.OfficeView;
@@ -73,19 +74,16 @@ public class OfficeDaoImpl implements OfficeDao{
     }
 
     @Override
-    public void update(Office update) {
-        Office currOffice = em.find(Office.class, update.getId());
-        String phone = update.getPhone();
-        Boolean active = update.getIsActive();
+    public void update(Map<String, Object> update) {
+        Office office = em.find(Office.class, update.get("id"));
 
-        currOffice.setAddress(update.getAddress());
-        if (active != null) {
-            currOffice.setIsActive(active);
+        if (office == null) {
+            throw new NoSuchOfficeException("не найден такой офис");
         }
-        currOffice.setName(update.getName());
-        if (!phone.equals("")) {
-            currOffice.setPhone(phone);
-        }
+        office.setAddress((String)update.get("address"));
+        office.setIsActive((Boolean)update.get("isActive"));
+        office.setName((String)update.get("name"));
+        office.setPhone((String)update.get("phone"));
     }
 
     @Override

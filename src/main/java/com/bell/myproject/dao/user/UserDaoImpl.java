@@ -94,42 +94,24 @@ public class UserDaoImpl implements UserDao {
         String position = userUpdate.getPosition();
         String phone = userUpdate.getPhone();
 
-        if (!firstName.equals("")) {
-            currentUser.setFirstName(firstName);
-        }
-        if (!secondName.equals("")){
-            currentUser.setSecondName(secondName);
-        }
-        if (!middleName.equals("")) {
-            currentUser.setMiddleName(middleName);
-        }
-        if (!position.equals("")) {
-            currentUser.setPosition(position);
-        }
-        if (!phone.equals("")) {
-            currentUser.setPhone(phone);
-        }
+        currentUser.setFirstName(firstName);
+        currentUser.setSecondName(secondName);
+        currentUser.setMiddleName(middleName);
+        currentUser.setPosition(position);
+        currentUser.setPhone(phone);
 
         Document document = currentUser.getDocument();
         String docName = userUpdate.getDocument().getDocName();
         Date date = userUpdate.getDocument().getDate();
         String docNumber = userUpdate.getDocument().getDocNumber();
 
-        if (!docName.equals("")) {
-            document.setDocName(docName);
-        }
-        if (docNumber.equals("")) {
-            document.setDocNumber(docNumber);
-        }
-        if (date != null) {
-            document.setDate(date);
-        }
+        document.setDocName(docName);
+        document.setDocNumber(docNumber);
+        document.setDate(date);
 
         Boolean isUndentified = userUpdate.getIsUndentified();
 
-        if (isUndentified != null) {
-            currentUser.setIsUndentified(isUndentified);
-        }
+        currentUser.setIsUndentified(isUndentified);
     }
 
     public void save(User userSave) {

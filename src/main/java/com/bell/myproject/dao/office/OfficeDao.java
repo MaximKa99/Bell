@@ -13,7 +13,7 @@ public interface OfficeDao {
 
     void save(Office office);
 
-    void update(Office update);
+    void update(Map<String, Object> update);
 
     Office findById(int id);
 }
