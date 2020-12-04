@@ -7,7 +7,7 @@ import com.bell.myproject.model.Organization;
 
 public interface OrganizationDao {
     
-    void update(Organization update);
+    void update(Map<String, Object> update);
 
     List<Organization> all(Map<String, Object> filter);
 

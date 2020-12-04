@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.bell.myproject.exception.NoSuchOrganizationException;
 import com.bell.myproject.model.Organization;
 import com.bell.myproject.view.organization.OrganizationView;
 
@@ -60,14 +61,18 @@ public class OrganizationDaoImpl implements OrganizationDao{
     }
 
     @Override
-    public void update(Organization update) {
-        Organization organization = em.find(Organization.class, update.getId());
-        organization.setName(update.getName());
-        organization.setFullName(update.getFullName());
-        organization.setInn(update.getInn());
-        organization.setKpp(update.getKpp());
-        organization.setIsActive(update.getIsActive());
-        organization.setPhone(update.getPhone());
+    public void update(Map<String, Object> update) {
+        Organization organization = em.find(Organization.class, update.get("id"));
+        if (organization == null) {
+            throw new NoSuchOrganizationException("нет такой организации");
+        }
+        organization.setName((String)update.get("name"));
+        organization.setFullName((String)update.get("fullName"));
+        organization.setInn((String)update.get("inn"));
+        organization.setKpp((String)update.get("kpp"));
+        organization.setIsActive((Boolean)update.get("isActive"));
+        organization.setPhone((String)update.get("phone"));
+        organization.setAddress((String)update.get("address"));
     }
 
     @Override

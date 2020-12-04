@@ -34,8 +34,16 @@ public class OrganizationServiceImpl implements OrganizationService{
     @Override
     @Transactional
     public void update(UpdateOrganization update) {
-        Organization OrgUpdate = mapper.map(update, Organization.class);
-        dao.update(OrgUpdate);
+        Map<String, Object> updateAsMap = new HashMap<>();
+        updateAsMap.put("id", update.getId());
+        updateAsMap.put("name", update.getName());
+        updateAsMap.put("fullName", update.getFullName());
+        updateAsMap.put("inn", update.getInn());
+        updateAsMap.put("kpp", update.getKpp());
+        updateAsMap.put("address", update.getAddress());
+        updateAsMap.put("phone", update.getPhone());
+        updateAsMap.put("isActive", update.getIsActive());
+        dao.update(updateAsMap);
     }
 
     @Override
