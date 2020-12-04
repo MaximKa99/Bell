@@ -17,6 +17,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "type_of_document")
 public class TypeOfDocument {
     @Id
+    private int id;
+
     @Column(name = "code", nullable = false)
     private int code;
     

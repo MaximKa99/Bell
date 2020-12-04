@@ -17,6 +17,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "country")
 public class Citizenship {
     @Id
+    private int id;
+
     @Column(name = "code", nullable = false)
     private int code;
 
