@@ -1,6 +1,8 @@
 package com.bell.myproject.service.organization;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -55,8 +57,11 @@ public class OrganizationServiceImpl implements OrganizationService{
     @Override
     @Transactional(readOnly = true)
     public List<ListOrganizationView> organizations(OrganizationFilter filter) {
-        Organization OrgFilter = mapper.map(filter, Organization.class);
-        List<Organization> all = dao.all(OrgFilter);
+        Map<String, Object> filterAsMap = new HashMap<>();
+        filterAsMap.put("name", filter.getName());
+        filterAsMap.put("inn", filter.getInn());
+        filterAsMap.put("isActive", filter.getIsActive());
+        List<Organization> all = dao.all(filterAsMap);
         return mapper.mapAsList(all, ListOrganizationView.class);
     }
 }
