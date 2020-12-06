@@ -13,7 +13,6 @@ import javax.persistence.criteria.Root;
 
 import com.bell.myproject.exception.NoSuchOrganizationException;
 import com.bell.myproject.model.Organization;
-import com.bell.myproject.view.organization.OrganizationView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

@@ -11,7 +11,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.bell.myproject.service.user.UserService;
-import com.bell.myproject.view.data.Data;
 import com.bell.myproject.view.data.Result;
 
 import org.springframework.beans.factory.annotation.Autowired;

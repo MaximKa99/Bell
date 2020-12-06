@@ -15,7 +15,6 @@ import javax.persistence.criteria.Root;
 import com.bell.myproject.exception.NoSuchOfficeException;
 import com.bell.myproject.model.Office;
 import com.bell.myproject.model.Organization;
-import com.bell.myproject.view.office.OfficeView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

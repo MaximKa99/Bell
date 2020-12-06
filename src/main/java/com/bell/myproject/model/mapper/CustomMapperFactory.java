@@ -3,18 +3,9 @@ package com.bell.myproject.model.mapper;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
-import com.bell.myproject.model.Citizenship;
 import com.bell.myproject.model.Office;
-import com.bell.myproject.model.Organization;
-import com.bell.myproject.model.TypeOfDocument;
 import com.bell.myproject.model.User;
-import com.bell.myproject.view.ListOfCitizenship;
-import com.bell.myproject.view.ListOfDocs;
-import com.bell.myproject.view.office.ListOfficeView;
-import com.bell.myproject.view.organization.ListOrganizationView;
 import com.bell.myproject.view.office.OfficeView;
-import com.bell.myproject.view.organization.OrganizationView;
-import com.bell.myproject.view.user.UserListView;
 import com.bell.myproject.view.user.UserUpdate;
 import com.bell.myproject.view.user.UserView;
 

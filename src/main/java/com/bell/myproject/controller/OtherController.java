@@ -6,7 +6,6 @@ import com.bell.myproject.service.country.CountryService;
 import com.bell.myproject.service.docs.DocService;
 import com.bell.myproject.view.ListOfCitizenship;
 import com.bell.myproject.view.ListOfDocs;
-import com.bell.myproject.view.data.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

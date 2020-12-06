@@ -2,8 +2,8 @@ package com.bell.myproject.view.user;
 
 import java.util.Date;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserSave {
-    @Min(value = 1 ,message = "Задайте officeId")
+    @NotNull(message = "Задайте officeId")
     private Integer officeId;
     @NotEmpty(message = "Задайте firstName")
     private String firstName;

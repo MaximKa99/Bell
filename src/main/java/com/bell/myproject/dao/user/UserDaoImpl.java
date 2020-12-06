@@ -14,7 +14,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.bell.myproject.dao.country.CountryDao;
-import com.bell.myproject.exception.IncorrectOfficeRequest;
 import com.bell.myproject.exception.NoSuchOfficeException;
 import com.bell.myproject.exception.NoSuchUserException;
 import com.bell.myproject.model.Citizenship;
@@ -134,7 +133,7 @@ public class UserDaoImpl implements UserDao {
         User user = new User();
         Office office = em.find(Office.class, userSave.getOffice().getId());
         if (office == null)
-            throw new IncorrectOfficeRequest("Нет такого офиса");
+            throw new NoSuchOfficeException("Нет такого офиса");
         user.setOffice(office);
         user.setFirstName(userSave.getFirstName());
         user.setSecondName(userSave.getSecondName());

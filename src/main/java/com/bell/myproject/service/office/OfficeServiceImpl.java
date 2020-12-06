@@ -8,6 +8,7 @@ import java.util.Objects;
 import com.bell.myproject.dao.office.OfficeDao;
 import com.bell.myproject.dao.organization.OrganizationDao;
 import com.bell.myproject.exception.NoSuchOfficeException;
+import com.bell.myproject.exception.NoSuchOrganizationException;
 import com.bell.myproject.model.Office;
 import com.bell.myproject.model.Organization;
 import com.bell.myproject.model.mapper.MapperFacade;
@@ -39,6 +40,9 @@ public class OfficeServiceImpl implements OfficeService{
     public void save(OfficeSave save) {
         Office office = mapper.map(save, Office.class);
         Organization org = orgDao.loadById(save.getOrgId());
+        if (org == null) {
+            throw new NoSuchOrganizationException();
+        }
         office.setOrganization(org);
         dao.save(office);
     }
