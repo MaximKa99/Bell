@@ -1,7 +1,5 @@
 package com.bell.myproject;
 
-import java.util.UUID;
-
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 
@@ -21,11 +19,6 @@ public class MyprojectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyprojectApplication.class, args);
-	}
-
-	@Bean
-	public CriteriaBuilder criteriaBuilder(EntityManager em) {
-		return em.getCriteriaBuilder();
 	}
 
 	@Bean

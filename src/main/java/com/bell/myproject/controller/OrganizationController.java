@@ -21,9 +21,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("api/organization")
 @Validated
+@Api(value = "OrganizationController", description = "Управление информации о организациях")
 public class OrganizationController {
 
     private final OrganizationService service;
@@ -34,6 +37,7 @@ public class OrganizationController {
     }
 
     @PostMapping("/list")
+    
     public List<ListOrganizationView> getListOfOrganization(@RequestBody @Valid OrganizationFilter filter) {
         List<ListOrganizationView> list = service.organizations(filter);
         return list;

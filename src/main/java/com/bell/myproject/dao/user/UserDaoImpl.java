@@ -29,16 +29,15 @@ import org.springframework.stereotype.Repository;
 public class UserDaoImpl implements UserDao {
     private final EntityManager em;
     private final CountryDao countryDao;
-    private final CriteriaBuilder builder;
 
     @Autowired
-    public UserDaoImpl(EntityManager em, CriteriaBuilder builder, CountryDao countryDao) {
+    public UserDaoImpl(EntityManager em, CountryDao countryDao) {
         this.em = em;
-        this.builder = builder;
         this.countryDao = countryDao;
     }
 
     public List<User> all(Map<String, Object> filter) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
         List<Predicate> listOfPredicates = new ArrayList<>();
 
         CriteriaQuery<User> query = builder.createQuery(User.class);

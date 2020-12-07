@@ -20,16 +20,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class OrganizationDaoImpl implements OrganizationDao{
     private final EntityManager em;
-    private final CriteriaBuilder builder;
 
     @Autowired
-    public OrganizationDaoImpl(EntityManager em, CriteriaBuilder builder) {
+    public OrganizationDaoImpl(EntityManager em) {
         this.em = em;
-        this.builder = builder;
     }
 
     @Override
     public List<Organization> all(Map<String, Object> filter) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
         Predicate predicate = null;
         List<Predicate> listOfPredicates = new ArrayList<>();
 

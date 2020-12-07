@@ -22,16 +22,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class OfficeDaoImpl implements OfficeDao{
     private final EntityManager em;
-    private final CriteriaBuilder builder;
     
     @Autowired
-    public OfficeDaoImpl(EntityManager em, CriteriaBuilder builder) {
+    public OfficeDaoImpl(EntityManager em) {
         this.em = em;
-        this.builder = builder;
     }
 
     @Override
     public List<Office> all(Map<String,Object> filter) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
         Predicate predicate = null;
 
         CriteriaQuery<Office> query = builder.createQuery(Office.class);
