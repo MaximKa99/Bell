@@ -49,20 +49,26 @@ public class UserDaoImpl implements UserDao {
 
         Predicate officeIdPredicate = builder.equal(joinOffice.get("id"), filter.get("officeId"));
         listOfPredicates.add(officeIdPredicate);
+        if (filter.get("firstName") != null) {
+            Predicate firstNamePredicate = builder.like(rootUser.get("firstName"), "%" + filter.get("firstName") + "%");
+            listOfPredicates.add(firstNamePredicate);
+        }
         
-        Predicate firstNamePredicate = builder.like(rootUser.get("firstName"), "%" + filter.get("firstName") + "%");
-        listOfPredicates.add(firstNamePredicate);
-        
-        Predicate secondNamePredicate = builder.like(rootUser.get("secondName"), "%" + filter.get("secondName") + "%");
-        listOfPredicates.add(secondNamePredicate);
-        
-        
-        Predicate middleNamePredicate = builder.like(rootUser.get("middleName"), "%" + filter.get("middleName") + "%");
-        listOfPredicates.add(middleNamePredicate);
+        if (filter.get("secondName") != null) {
+            Predicate secondNamePredicate = builder.like(rootUser.get("secondName"), "%" + filter.get("secondName") + "%");
+            listOfPredicates.add(secondNamePredicate);}
         
         
-        Predicate positionPredicate = builder.like(rootUser.get("position"), "%" + filter.get("position") + "%");
-        listOfPredicates.add(positionPredicate);
+        if (filter.get("middleName") != null) {
+            Predicate middleNamePredicate = builder.like(rootUser.get("middleName"), "%" + filter.get("middleName") + "%");
+            listOfPredicates.add(middleNamePredicate);
+        }
+        
+        
+        if (filter.get("position") != null) {
+            Predicate positionPredicate = builder.like(rootUser.get("position"), "%" + filter.get("position") + "%");
+            listOfPredicates.add(positionPredicate);
+        }
         
         if (filter.get("docCode") != null) {
             Predicate docCodPredicate = builder.equal(joinTypeOfDocument.get("code"), filter.get("docCode"));
