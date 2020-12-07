@@ -37,7 +37,7 @@ public class ExceptionController {
             String errorText = e.getMessage();
             String uuid = helper.createRandomUuidAsString();
             logger.logError(errorText, uuid);
-            return new ResponseEntity<MyError<String>>(new MyError<String>(uuid + " " + errorText), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<MyError<String>>(new MyError<String>(uuid + " " + errorText), HttpStatus.NOT_FOUND);
         } else {
             String uuid = helper.createRandomUuidAsString();
             String errorText = "Внутренняя ошибка сервера";

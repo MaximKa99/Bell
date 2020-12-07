@@ -3,15 +3,18 @@ package com.bell.myproject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@EnableAspectJAutoProxy
+@EnableSwagger2
 public class MyprojectApplication {
 
 	public static void main(String[] args) {
@@ -22,4 +25,13 @@ public class MyprojectApplication {
 	public CriteriaBuilder criteriaBuilder(EntityManager em) {
 		return em.getCriteriaBuilder();
 	}
+
+	@Bean
+    public Docket api() { 
+		return new Docket(DocumentationType.SWAGGER_2)
+          .select()                                  
+          .apis(RequestHandlerSelectors.any())              
+          .paths(PathSelectors.any())                          
+		  .build();
+    }
 }
