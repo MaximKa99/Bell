@@ -5,11 +5,11 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.bell.myproject.service.office.OfficeService;
-import com.bell.myproject.view.office.ListOfficeView;
-import com.bell.myproject.view.office.OfficeFilter;
-import com.bell.myproject.view.office.OfficeSave;
-import com.bell.myproject.view.office.OfficeUpdate;
-import com.bell.myproject.view.office.OfficeView;
+import com.bell.myproject.view.office.OfficeListView;
+import com.bell.myproject.view.office.OfficeFilterView;
+import com.bell.myproject.view.office.OfficeSaveView;
+import com.bell.myproject.view.office.OfficeUpdateView;
+import com.bell.myproject.view.office.OfficeIdView;
 import com.bell.myproject.view.data.Result;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,22 +38,22 @@ public class OfficeController {
 
     @PostMapping("/list")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Success", response = ListOfficeView.class),
+        @ApiResponse(code = 200, message = "Success", response = OfficeListView.class),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")})
     @ApiOperation(value = "список всех офисов", httpMethod = "POST")
-    public List<ListOfficeView> getListOfOffice(@RequestBody @Valid OfficeFilter filter) {
-        List<ListOfficeView> list = service.offices(filter);
+    public List<OfficeListView> getListOfOffice(@RequestBody @Valid OfficeFilterView filter) {
+        List<OfficeListView> list = service.offices(filter);
         return list;
     }
 
     @GetMapping("/{id}")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Success", response = OfficeView.class),
+        @ApiResponse(code = 200, message = "Success", response = OfficeIdView.class),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")})
     @ApiOperation(value = "получить офис по id", httpMethod = "GET")
-    public OfficeView getOffice(@PathVariable int id) {
+    public OfficeIdView getOffice(@PathVariable int id) {
         return service.findById(id);
     }
 
@@ -63,7 +63,7 @@ public class OfficeController {
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")})
     @ApiOperation(value = "обновить офис", httpMethod = "POST")
-    public Result updateOffice(@RequestBody @Valid OfficeUpdate update) {
+    public Result updateOffice(@RequestBody @Valid OfficeUpdateView update) {
         service.update(update);
         return new Result("Success");
     }
@@ -74,7 +74,7 @@ public class OfficeController {
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")})
     @ApiOperation(value = "сохранить офис", httpMethod = "POST")
-    public Result saveOffice(@RequestBody @Valid OfficeSave save) {
+    public Result saveOffice(@RequestBody @Valid OfficeSaveView save) {
         service.save(save);
         return new Result("Success");
     }

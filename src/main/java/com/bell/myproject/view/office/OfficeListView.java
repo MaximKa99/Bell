@@ -1,4 +1,4 @@
-package com.bell.myproject.view.organization;
+package com.bell.myproject.view.office;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,13 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrganizationView{
+public class OfficeListView {
     private Integer id;
     private String name;
-    private String fullName;
-    private String address;
-    private String inn;
-    private String kpp;
-    private String phone;
     private Boolean isActive;
 }

@@ -7,9 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserView{
+@NoArgsConstructor
+public class UserIdView{
     private Integer id;
     private int officeId;
     private String firstName;

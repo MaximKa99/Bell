@@ -5,11 +5,11 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.bell.myproject.service.organization.OrganizationService;
-import com.bell.myproject.view.organization.ListOrganizationView;
-import com.bell.myproject.view.organization.OrganizationFilter;
-import com.bell.myproject.view.organization.OrganizationView;
-import com.bell.myproject.view.organization.SaveOrganization;
-import com.bell.myproject.view.organization.UpdateOrganization;
+import com.bell.myproject.view.organization.OrganizationFilterView;
+import com.bell.myproject.view.organization.OrganizationIdView;
+import com.bell.myproject.view.organization.OrganizationListView;
+import com.bell.myproject.view.organization.OrganizationSaveView;
+import com.bell.myproject.view.organization.OrganizationUpdateView;
 import com.bell.myproject.view.data.Result;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,23 +41,23 @@ public class OrganizationController {
 
     @PostMapping("/list")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Success", response = ListOrganizationView.class),
+        @ApiResponse(code = 200, message = "Success", response = OrganizationListView.class),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")})
     @ApiOperation(value = "список всех организаций", httpMethod = "POST")
-    public List<ListOrganizationView> getListOfOrganization(@RequestBody @Valid OrganizationFilter filter) {
-        List<ListOrganizationView> list = service.organizations(filter);
+    public List<OrganizationListView> getListOfOrganization(@RequestBody @Valid OrganizationFilterView filter) {
+        List<OrganizationListView> list = service.organizations(filter);
         return list;
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "получить организацию по id", httpMethod = "GET")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Success", response = OrganizationView.class),
+        @ApiResponse(code = 200, message = "Success", response = OrganizationIdView.class),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")})
-    public OrganizationView getOrganization(@PathVariable int id) {
-        OrganizationView org = service.findById(id);
+    public OrganizationIdView getOrganization(@PathVariable int id) {
+        OrganizationIdView org = service.findById(id);
         return org;
     }
 
@@ -67,7 +67,7 @@ public class OrganizationController {
         @ApiResponse(code = 200, message = "Success", response = Result.class),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")})
-    public Result updateOrganization(@RequestBody @Valid UpdateOrganization update) {
+    public Result updateOrganization(@RequestBody @Valid OrganizationUpdateView update) {
         service.update(update);
         return new Result("Success");
     }
@@ -78,7 +78,7 @@ public class OrganizationController {
         @ApiResponse(code = 200, message = "Success", response = Result.class),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")})
-    public Result saveOrganization(@RequestBody @Valid SaveOrganization save) {
+    public Result saveOrganization(@RequestBody @Valid OrganizationSaveView save) {
         service.save(save);
         return new Result("Success");
     }

@@ -15,11 +15,11 @@ import com.bell.myproject.model.Office;
 import com.bell.myproject.model.TypeOfDocument;
 import com.bell.myproject.model.User;
 import com.bell.myproject.model.mapper.MapperFacade;
-import com.bell.myproject.view.user.UserFilter;
+import com.bell.myproject.view.user.UserFilterView;
 import com.bell.myproject.view.user.UserListView;
-import com.bell.myproject.view.user.UserSave;
-import com.bell.myproject.view.user.UserUpdate;
-import com.bell.myproject.view.user.UserView;
+import com.bell.myproject.view.user.UserSaveView;
+import com.bell.myproject.view.user.UserUpdateView;
+import com.bell.myproject.view.user.UserIdView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,17 +45,17 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional(readOnly = true)
-    public UserView findUserById(int id) {
+    public UserIdView findUserById(int id) {
         User user = dao.loadById(id);
         if (user == null) {
             throw new NoSuchUserException("Нет такого пользавателя");
         }
-        return mapper.map(user, UserView.class);
+        return mapper.map(user, UserIdView.class);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserListView> users(UserFilter filter) {
+    public List<UserListView> users(UserFilterView filter) {
         Map<String, Object> filterAsMap = new HashMap<>();
         filterAsMap.put("officeId", filter.getOfficeId());
         filterAsMap.put("firstName", filter.getFirstName());
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public void save(UserSave save) {
+    public void save(UserSaveView save) {
         User userSave = mapper.map(save, User.class);
         Office office = OfficeDao.findById(save.getOfficeId());
         userSave.setOffice(office);
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public void update(UserUpdate update) {
+    public void update(UserUpdateView update) {
         Map<String, Object> updateAsMap = new HashMap<>();
         updateAsMap.put("id", update.getId());
         updateAsMap.put("officeId", update.getOfficeId());

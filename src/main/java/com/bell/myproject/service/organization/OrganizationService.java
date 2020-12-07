@@ -2,11 +2,11 @@ package com.bell.myproject.service.organization;
 
 import java.util.List;
 
-import com.bell.myproject.view.organization.ListOrganizationView;
-import com.bell.myproject.view.organization.OrganizationFilter;
-import com.bell.myproject.view.organization.OrganizationView;
-import com.bell.myproject.view.organization.SaveOrganization;
-import com.bell.myproject.view.organization.UpdateOrganization;
+import com.bell.myproject.view.organization.OrganizationFilterView;
+import com.bell.myproject.view.organization.OrganizationIdView;
+import com.bell.myproject.view.organization.OrganizationListView;
+import com.bell.myproject.view.organization.OrganizationSaveView;
+import com.bell.myproject.view.organization.OrganizationUpdateView;
 
 public interface OrganizationService {
     
@@ -15,14 +15,14 @@ public interface OrganizationService {
      * @param oView
      */
 
-    void update(UpdateOrganization update);
+    void update(OrganizationUpdateView update);
 
     /** 
      * Добавить организацию
      * @param oView
      */ 
 
-    void save(SaveOrganization save);
+    void save(OrganizationSaveView save);
 
     /**
      * Получить список организаций
@@ -31,7 +31,7 @@ public interface OrganizationService {
      * 
      */
 
-    List<ListOrganizationView> organizations(OrganizationFilter filter);
+    List<OrganizationListView> organizations(OrganizationFilterView filter);
 
     /**
      * поиск организации по id
@@ -39,5 +39,5 @@ public interface OrganizationService {
      * @return Data
      */
 
-    OrganizationView findById(int id);
+    OrganizationIdView findById(int id);
 }

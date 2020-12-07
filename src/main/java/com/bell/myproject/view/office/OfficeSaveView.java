@@ -1,5 +1,7 @@
 package com.bell.myproject.view.office;
 
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OfficeView{
-    private Integer id;
-    private int orgId;
+public class OfficeSaveView {
+    @NotNull(message = "Задайте orgId")
+    private Integer orgId;
     private String name;
     private String address;
     private String phone;

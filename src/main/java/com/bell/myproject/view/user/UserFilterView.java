@@ -7,9 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserFilter {
+@NoArgsConstructor
+public class UserFilterView {
     @NotNull(message = "Задайте officeId")
     private Integer officeId;
     private String firstName;

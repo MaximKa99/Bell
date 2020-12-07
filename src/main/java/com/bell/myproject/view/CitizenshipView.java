@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CitizenshipView implements View{
+public class CitizenshipView{
     private String name;
     private int code;
 }

@@ -1,10 +1,10 @@
 package com.bell.myproject.controller;
 
-import com.bell.myproject.view.user.UserFilter;
+import com.bell.myproject.view.user.UserFilterView;
 import com.bell.myproject.view.user.UserListView;
-import com.bell.myproject.view.user.UserSave;
-import com.bell.myproject.view.user.UserUpdate;
-import com.bell.myproject.view.user.UserView;
+import com.bell.myproject.view.user.UserSaveView;
+import com.bell.myproject.view.user.UserUpdateView;
+import com.bell.myproject.view.user.UserIdView;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class UserController {
         @ApiResponse(code = 200, message = "Success", response = UserListView.class),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")})
-    public List<UserListView> getuserList(@RequestBody @Valid UserFilter filter) {
+    public List<UserListView> getuserList(@RequestBody @Valid UserFilterView filter) {
         List<UserListView> list = service.users(filter);
         return list;
     }
@@ -51,10 +51,10 @@ public class UserController {
     @GetMapping("/{id}")
     @ApiOperation(value = "получить юзера по id", httpMethod = "GET")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Success", response = UserView.class),
+        @ApiResponse(code = 200, message = "Success", response = UserIdView.class),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")})
-    public UserView getUser(@PathVariable int id) {
+    public UserIdView getUser(@PathVariable int id) {
         return service.findUserById(id);
     }
 
@@ -64,7 +64,7 @@ public class UserController {
         @ApiResponse(code = 200, message = "Success", response = Result.class),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")})
-    public Result updateUser(@RequestBody @Valid UserUpdate update) {
+    public Result updateUser(@RequestBody @Valid UserUpdateView update) {
         service.update(update);
         return new Result("Success");
     }
@@ -75,7 +75,7 @@ public class UserController {
         @ApiResponse(code = 200, message = "Success", response = Result.class),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")})
-    public Result saveUser(@RequestBody @Valid UserSave save) {
+    public Result saveUser(@RequestBody @Valid UserSaveView save) {
         service.save(save);
         return new Result("Success");
     }

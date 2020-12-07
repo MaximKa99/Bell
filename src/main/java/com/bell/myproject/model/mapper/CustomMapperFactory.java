@@ -5,9 +5,9 @@ import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 import com.bell.myproject.model.Office;
 import com.bell.myproject.model.User;
-import com.bell.myproject.view.office.OfficeView;
-import com.bell.myproject.view.user.UserUpdate;
-import com.bell.myproject.view.user.UserView;
+import com.bell.myproject.view.office.OfficeIdView;
+import com.bell.myproject.view.user.UserUpdateView;
+import com.bell.myproject.view.user.UserIdView;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Service;
@@ -20,12 +20,12 @@ public class CustomMapperFactory implements FactoryBean<MapperFactory> {
                 .constructorResolverStrategy(null)
                 .build();
 
-        mapperFactory.classMap(Office.class, OfficeView.class)
+        mapperFactory.classMap(Office.class, OfficeIdView.class)
                 .field("organization.id", "orgId")
                 .byDefault()
                 .register();
 
-        mapperFactory.classMap(User.class, UserView.class)
+        mapperFactory.classMap(User.class, UserIdView.class)
                 .field("office.id", "officeId")
                 .field("secondName", "secondName")
                 .field("document.docName", "docName")
@@ -39,7 +39,7 @@ public class CustomMapperFactory implements FactoryBean<MapperFactory> {
                 .register();
 
 
-        mapperFactory.classMap(UserUpdate.class, User.class)
+        mapperFactory.classMap(UserUpdateView.class, User.class)
                 .field("citizenshipCode", "citizenship.code")
                 .field("docName", "document.docName")
                 .field("docNumber", "document.docNumber")

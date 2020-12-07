@@ -12,11 +12,11 @@ import com.bell.myproject.exception.NoSuchOrganizationException;
 import com.bell.myproject.model.Office;
 import com.bell.myproject.model.Organization;
 import com.bell.myproject.model.mapper.MapperFacade;
-import com.bell.myproject.view.office.ListOfficeView;
-import com.bell.myproject.view.office.OfficeFilter;
-import com.bell.myproject.view.office.OfficeSave;
-import com.bell.myproject.view.office.OfficeUpdate;
-import com.bell.myproject.view.office.OfficeView;
+import com.bell.myproject.view.office.OfficeListView;
+import com.bell.myproject.view.office.OfficeFilterView;
+import com.bell.myproject.view.office.OfficeSaveView;
+import com.bell.myproject.view.office.OfficeUpdateView;
+import com.bell.myproject.view.office.OfficeIdView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class OfficeServiceImpl implements OfficeService{
     }
 
     @Transactional
-    public void save(OfficeSave save) {
+    public void save(OfficeSaveView save) {
         Office office = mapper.map(save, Office.class);
         Organization org = orgDao.loadById(save.getOrgId());
         if (org == null) {
@@ -49,7 +49,7 @@ public class OfficeServiceImpl implements OfficeService{
 
     @Override
     @Transactional
-    public void update(OfficeUpdate update) {
+    public void update(OfficeUpdateView update) {
         Map<String, Object> updateAsMap = new HashMap<>();
         updateAsMap.put("id", update.getId());
         updateAsMap.put("name", update.getName());
@@ -61,17 +61,17 @@ public class OfficeServiceImpl implements OfficeService{
 
     @Override
     @Transactional(readOnly = true)
-    public OfficeView findById(int id) {
+    public OfficeIdView findById(int id) {
         Office office = dao.findById(id);
         if (office == null) {
             throw new NoSuchOfficeException("Нет такого офиса!!!");
         }
-        return mapper.map(office, OfficeView.class);
+        return mapper.map(office, OfficeIdView.class);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<ListOfficeView> offices(OfficeFilter filter) {
+    public List<OfficeListView> offices(OfficeFilterView filter) {
         Map<String,Object> map = new HashMap<>();
         if(Objects.nonNull(filter)){
             map.put("orgId", filter.getOrgId());
@@ -80,6 +80,6 @@ public class OfficeServiceImpl implements OfficeService{
             map.put("isActive", filter.getIsActive());
         }
         List<Office> all = dao.all(map);
-        return mapper.mapAsList(all, ListOfficeView.class);
+        return mapper.mapAsList(all, OfficeListView.class);
     }
 }

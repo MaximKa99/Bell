@@ -7,9 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class SaveOrganization {
+@NoArgsConstructor
+public class OrganizationSaveView {
     @NotEmpty(message = "Задайте name")
     private String name;
     @NotEmpty(message = "Задайте fullName")

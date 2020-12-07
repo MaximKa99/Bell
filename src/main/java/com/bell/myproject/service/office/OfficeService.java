@@ -2,11 +2,11 @@ package com.bell.myproject.service.office;
 
 import java.util.List;
 
-import com.bell.myproject.view.office.ListOfficeView;
-import com.bell.myproject.view.office.OfficeFilter;
-import com.bell.myproject.view.office.OfficeSave;
-import com.bell.myproject.view.office.OfficeUpdate;
-import com.bell.myproject.view.office.OfficeView;
+import com.bell.myproject.view.office.OfficeListView;
+import com.bell.myproject.view.office.OfficeFilterView;
+import com.bell.myproject.view.office.OfficeSaveView;
+import com.bell.myproject.view.office.OfficeUpdateView;
+import com.bell.myproject.view.office.OfficeIdView;
 
 public interface OfficeService {
     /** 
@@ -14,9 +14,9 @@ public interface OfficeService {
      * @param oView
      */ 
 
-    void save(OfficeSave save);
+    void save(OfficeSaveView save);
 
-    void update(OfficeUpdate update);
+    void update(OfficeUpdateView update);
 
     /**
      * Найти по id OfficeView
@@ -24,7 +24,7 @@ public interface OfficeService {
      * @return OfficeView
      */
 
-    OfficeView findById(int id);
+    OfficeIdView findById(int id);
 
     /**
      * Получить список офисов
@@ -32,5 +32,5 @@ public interface OfficeService {
      * 
      */
 
-    List<ListOfficeView> offices(OfficeFilter filter);
+    List<OfficeListView> offices(OfficeFilterView filter);
 }

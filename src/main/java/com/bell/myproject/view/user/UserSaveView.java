@@ -10,9 +10,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserSave {
+@NoArgsConstructor
+public class UserSaveView {
     @NotNull(message = "Задайте officeId")
     private Integer officeId;
     @NotEmpty(message = "Задайте firstName")

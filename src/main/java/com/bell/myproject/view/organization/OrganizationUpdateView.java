@@ -8,9 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class UpdateOrganization {
+@NoArgsConstructor
+public class OrganizationUpdateView {
     @NotNull(message = "Задайте id")
     private Integer id;
     @NotEmpty(message = "Задайте name")

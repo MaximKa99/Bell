@@ -8,11 +8,11 @@ import com.bell.myproject.dao.organization.OrganizationDao;
 import com.bell.myproject.exception.NoSuchOrganizationException;
 import com.bell.myproject.model.Organization;
 import com.bell.myproject.model.mapper.MapperFacade;
-import com.bell.myproject.view.organization.ListOrganizationView;
-import com.bell.myproject.view.organization.OrganizationFilter;
-import com.bell.myproject.view.organization.OrganizationView;
-import com.bell.myproject.view.organization.SaveOrganization;
-import com.bell.myproject.view.organization.UpdateOrganization;
+import com.bell.myproject.view.organization.OrganizationFilterView;
+import com.bell.myproject.view.organization.OrganizationIdView;
+import com.bell.myproject.view.organization.OrganizationListView;
+import com.bell.myproject.view.organization.OrganizationSaveView;
+import com.bell.myproject.view.organization.OrganizationUpdateView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     @Transactional
-    public void update(UpdateOrganization update) {
+    public void update(OrganizationUpdateView update) {
         Map<String, Object> updateAsMap = new HashMap<>();
         updateAsMap.put("id", update.getId());
         updateAsMap.put("name", update.getName());
@@ -46,28 +46,28 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     @Transactional
-    public void save(SaveOrganization save) {
+    public void save(OrganizationSaveView save) {
         Organization OrgSave = mapper.map(save, Organization.class);
         dao.save(OrgSave);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public OrganizationView findById(int id) {
+    public OrganizationIdView findById(int id) {
         Organization organization = dao.loadById(id);
         if (organization == null)
             throw new NoSuchOrganizationException("Нет такой организации!!!");
-        return mapper.map(organization, OrganizationView.class);
+        return mapper.map(organization, OrganizationIdView.class);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<ListOrganizationView> organizations(OrganizationFilter filter) {
+    public List<OrganizationListView> organizations(OrganizationFilterView filter) {
         Map<String, Object> filterAsMap = new HashMap<>();
         filterAsMap.put("name", filter.getName());
         filterAsMap.put("inn", filter.getInn());
         filterAsMap.put("isActive", filter.getIsActive());
         List<Organization> all = dao.all(filterAsMap);
-        return mapper.mapAsList(all, ListOrganizationView.class);
+        return mapper.mapAsList(all, OrganizationListView.class);
     }
 }
