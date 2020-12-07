@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListOfDocs implements View{
+public class Doc implements View{
     private String name;
     private int code;
 }

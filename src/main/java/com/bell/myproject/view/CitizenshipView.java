@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ListOfCitizenship implements View{
+@NoArgsConstructor
+public class CitizenshipView implements View{
     private String name;
     private int code;
 }

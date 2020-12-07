@@ -5,7 +5,7 @@ import java.util.List;
 import com.bell.myproject.dao.docs.DocDao;
 import com.bell.myproject.model.TypeOfDocument;
 import com.bell.myproject.model.mapper.MapperFacade;
-import com.bell.myproject.view.ListOfDocs;
+import com.bell.myproject.view.Doc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +24,8 @@ public class DocServiceImpl implements DocService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ListOfDocs> all() {
+    public List<Doc> all() {
         List<TypeOfDocument> list = dao.all();
-        return mapper.mapAsList(list, ListOfDocs.class);
+        return mapper.mapAsList(list, Doc.class);
     }
 }

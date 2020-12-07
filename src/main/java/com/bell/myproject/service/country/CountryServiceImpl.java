@@ -5,7 +5,7 @@ import java.util.List;
 import com.bell.myproject.dao.country.CountryDao;
 import com.bell.myproject.model.Citizenship;
 import com.bell.myproject.model.mapper.MapperFacade;
-import com.bell.myproject.view.ListOfCitizenship;
+import com.bell.myproject.view.CitizenshipView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +24,8 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ListOfCitizenship> all() {
+    public List<CitizenshipView> all() {
         List<Citizenship> list = dao.all();
-        return mapper.mapAsList(list, ListOfCitizenship.class);
+        return mapper.mapAsList(list, CitizenshipView.class);
     }
 }

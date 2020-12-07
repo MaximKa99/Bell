@@ -2,8 +2,8 @@ package com.bell.myproject.service.country;
 
 import java.util.List;
 
-import com.bell.myproject.view.ListOfCitizenship;
+import com.bell.myproject.view.CitizenshipView;
 
 public interface CountryService {
-    List<ListOfCitizenship> all();
+    List<CitizenshipView> all();
 }

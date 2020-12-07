@@ -21,8 +21,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping("api/user")
+@Api(value = "UserController", description = "Управление информации о юзерах")
 public class UserController {
     private final UserService service;
 
@@ -32,23 +38,43 @@ public class UserController {
     }
 
     @PostMapping("/list")
+    @ApiOperation(value = "список всех юзеров", httpMethod = "POST")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Success", response = UserListView.class),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 500, message = "Internal Server Error")})
     public List<UserListView> getuserList(@RequestBody @Valid UserFilter filter) {
         List<UserListView> list = service.users(filter);
         return list;
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "получить юзера по id", httpMethod = "GET")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Success", response = UserView.class),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 500, message = "Internal Server Error")})
     public UserView getUser(@PathVariable int id) {
         return service.findUserById(id);
     }
 
     @PostMapping("/update")
+    @ApiOperation(value = "обновить юзера", httpMethod = "POST")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Success", response = Result.class),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 500, message = "Internal Server Error")})
     public Result updateUser(@RequestBody @Valid UserUpdate update) {
         service.update(update);
         return new Result("Success");
     }
 
     @PostMapping("/save")
+    @ApiOperation(value = "сохранить юзера", httpMethod = "POST")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Success", response = Result.class),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 500, message = "Internal Server Error")})
     public Result saveUser(@RequestBody @Valid UserSave save) {
         service.save(save);
         return new Result("Success");

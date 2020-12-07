@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("api/organization")
@@ -37,25 +40,44 @@ public class OrganizationController {
     }
 
     @PostMapping("/list")
-    
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Success", response = ListOrganizationView.class),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 500, message = "Internal Server Error")})
+    @ApiOperation(value = "список всех организаций", httpMethod = "POST")
     public List<ListOrganizationView> getListOfOrganization(@RequestBody @Valid OrganizationFilter filter) {
         List<ListOrganizationView> list = service.organizations(filter);
         return list;
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "получить организацию по id", httpMethod = "GET")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Success", response = OrganizationView.class),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 500, message = "Internal Server Error")})
     public OrganizationView getOrganization(@PathVariable int id) {
         OrganizationView org = service.findById(id);
         return org;
     }
 
     @PostMapping("/update")
+    @ApiOperation(value = "обновить организацию", httpMethod = "POST")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Success", response = Result.class),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 500, message = "Internal Server Error")})
     public Result updateOrganization(@RequestBody @Valid UpdateOrganization update) {
         service.update(update);
         return new Result("Success");
     }
 
     @PostMapping("/save")
+    @ApiOperation(value = "сохранить организацию", httpMethod = "POST")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Success", response = Result.class),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 500, message = "Internal Server Error")})
     public Result saveOrganization(@RequestBody @Valid SaveOrganization save) {
         service.save(save);
         return new Result("Success");
