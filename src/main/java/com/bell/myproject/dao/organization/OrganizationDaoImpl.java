@@ -38,7 +38,7 @@ public class OrganizationDaoImpl implements OrganizationDao{
             Predicate activePredicate = builder.equal(root.get("isActive"), filter.get("isActive"));
             listOfPredicates.add(activePredicate);
         }
-        if (!filter.get("inn").equals("")) {
+        if (filter.get("inn") != null) {
             Predicate innPredicate = builder.like(root.get("inn"), "%" + filter.get("inn") + "%");
             listOfPredicates.add(innPredicate);
         }

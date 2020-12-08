@@ -2,6 +2,7 @@ package com.bell.myproject.view.organization;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,8 +19,10 @@ public class OrganizationUpdateView {
     @NotEmpty(message = "Задайте fullName")
     private String fullName;
     @NotEmpty(message = "Задайте inn")
+    @Size(min = 12, max = 12)
     private String inn;
     @NotEmpty(message = "Задайте kpp")
+    @Size(min = 9, max = 9)
     private String kpp;
     @NotEmpty(message = "Задайте address")
     private String address;

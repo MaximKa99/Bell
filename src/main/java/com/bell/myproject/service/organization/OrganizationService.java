@@ -12,22 +12,22 @@ public interface OrganizationService {
     
     /**
      * Обновить организацию
-     * @param oView
+     * @param update
      */
 
     void update(OrganizationUpdateView update);
 
     /** 
      * Добавить организацию
-     * @param oView
+     * @param save
      */ 
 
     void save(OrganizationSaveView save);
 
     /**
-     * Получить список организаций
+     * Получить список организаций с учетом фильтра
      * @param OrganizationFilterList
-     * @return DataList
+     * @return List<OrganizationListView>
      * 
      */
 
@@ -36,7 +36,7 @@ public interface OrganizationService {
     /**
      * поиск организации по id
      * @param id
-     * @return Data
+     * @return OrganizationIdView
      */
 
     OrganizationIdView findById(int id);

@@ -6,11 +6,33 @@ import java.util.Map;
 import com.bell.myproject.model.User;
 
 public interface UserDao {
+    /**
+     * Получить список юзеров с учетом фильтра
+     * @param filter
+     * @return List<User>
+     */
+
     List<User> all(Map<String, Object> filter);
+
+    /**
+     * Получить пользователя по id
+     * @param id
+     * @return User
+     */
 
     User loadById(int id);
 
+    /**
+     * Сохранить юзера
+     * @param userSave
+     */
+
     void save(User userSave);
+
+    /**
+     * Обновить пользователя
+     * @param userUpdate
+     */
 
     void update(Map<String, Object> userUpdate);
 }

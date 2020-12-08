@@ -11,25 +11,29 @@ import com.bell.myproject.view.office.OfficeIdView;
 public interface OfficeService {
     /** 
      * Добавить офис
-     * @param oView
+     * @param save
      */ 
 
     void save(OfficeSaveView save);
+
+    /**
+     * Обновить офис
+     * @param update
+     */
 
     void update(OfficeUpdateView update);
 
     /**
      * Найти по id OfficeView
      * @param id
-     * @return OfficeView
+     * @return OfficeIdView
      */
 
     OfficeIdView findById(int id);
 
     /**
-     * Получить список офисов
-     * @return {@Organization}
-     * 
+     * Получить список офисов с учетом фильтра
+     * @return List<OfficeListView>
      */
 
     List<OfficeListView> offices(OfficeFilterView filter);

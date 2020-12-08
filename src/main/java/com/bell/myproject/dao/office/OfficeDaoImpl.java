@@ -62,11 +62,6 @@ public class OfficeDaoImpl implements OfficeDao{
     }
 
     @Override
-    public Office loadById(Long id) {
-        return null;
-    }
-
-    @Override
     public void save(Office office) {
         em.persist(office);
     }

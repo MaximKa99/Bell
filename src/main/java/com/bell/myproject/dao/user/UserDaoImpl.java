@@ -58,12 +58,10 @@ public class UserDaoImpl implements UserDao {
             Predicate secondNamePredicate = builder.like(rootUser.get("secondName"), "%" + filter.get("secondName") + "%");
             listOfPredicates.add(secondNamePredicate);}
         
-        
         if (filter.get("middleName") != null) {
             Predicate middleNamePredicate = builder.like(rootUser.get("middleName"), "%" + filter.get("middleName") + "%");
             listOfPredicates.add(middleNamePredicate);
         }
-        
         
         if (filter.get("position") != null) {
             Predicate positionPredicate = builder.like(rootUser.get("position"), "%" + filter.get("position") + "%");
