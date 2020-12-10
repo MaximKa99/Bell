@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS Office (
     version INTEGER default 0,
     org_id INTEGER,
     FOREIGN KEY (org_id) REFERENCES Organization(id),
-    name VARCHAR(60) NOT NULL,
-    address VARCHAR(100) NOT NULL,
+    name VARCHAR(60),
+    address VARCHAR(100),
     phone VARCHAR(20),
     is_active BOOLEAN
 );

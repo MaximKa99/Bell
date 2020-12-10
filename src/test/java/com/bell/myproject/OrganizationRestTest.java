@@ -3,11 +3,10 @@ package com.bell.myproject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-import lombok.val;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,10 +23,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 public class OrganizationRestTest {
+    @LocalServerPort
+    int serverPort = 8888;
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
@@ -52,8 +53,8 @@ public class OrganizationRestTest {
     public void GetListOfOrganization_FilterNameEqual_S_Success() throws Exception {
         OrganizationFilterView filter = new OrganizationFilterView("s", null, null);
         this.mockMvc.perform(post("/api/organization/list")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(filter)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(filter)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.data[0].id").value(1))
             .andExpect(jsonPath("$.data[0].name").value("sberbank"))
@@ -74,8 +75,8 @@ public class OrganizationRestTest {
         update.setAddress("Москва");
 
         this.mockMvc.perform(post("/api/organization/update")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(update)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(update)))
             .andDo(print())
             .andExpect(status().isOk());
     }
@@ -91,8 +92,8 @@ public class OrganizationRestTest {
         update.setAddress("Москва");
 
         this.mockMvc.perform(post("/api/organization/update")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(update)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(update)))
             .andDo(print())
             .andExpect(status().isNotFound());
     }
@@ -108,8 +109,8 @@ public class OrganizationRestTest {
         update.setAddress("Москва");
 
         this.mockMvc.perform(post("/api/organization/update")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(update)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(update)))
             .andDo(print())
             .andExpect(status().isBadRequest());
     }
@@ -124,8 +125,8 @@ public class OrganizationRestTest {
         save.setAddress("Москва");
 
         this.mockMvc.perform(post("/api/organization/save")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(save)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(save)))
             .andDo(print())
             .andExpect(status().isOk());
     }
@@ -140,8 +141,8 @@ public class OrganizationRestTest {
         save.setAddress("Москва");
 
         this.mockMvc.perform(post("/api/organization/save")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(save)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(save)))
             .andDo(print())
             .andExpect(status().isBadRequest());
     }

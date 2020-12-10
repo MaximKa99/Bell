@@ -40,11 +40,11 @@ public class OfficeDaoImpl implements OfficeDao{
         List<Predicate> listOfPredicates = new ArrayList<>();
         Predicate orgIdPredicate = builder.equal(rootOrganization.get("id"), filter.get("orgId"));
         listOfPredicates.add(orgIdPredicate);
-        if (!filter.get("name").equals("")) {
+        if (filter.get("name") != null) {
             Predicate namePredicate = builder.like(rootOffice.get("name"), "%" + filter.get("name") + "%");
             listOfPredicates.add(namePredicate);
         }
-        if (!filter.get("phone").equals("")) {
+        if (filter.get("phone") != null) {
             Predicate phonePredicate = builder.like(rootOffice.get("phone"), "%" + filter.get("phone") + "%");
             listOfPredicates.add(phonePredicate);
         }
