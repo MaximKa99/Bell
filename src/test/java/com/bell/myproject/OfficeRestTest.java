@@ -48,7 +48,7 @@ public class OfficeRestTest {
 
     @Test
     public void getOfficeById_NoSuchOffice_NoSuchExceptionThrown() throws Exception {
-        this.mockMvc.perform(get("/api/office/5"))
+        this.mockMvc.perform(get("/api/office/15"))
             .andDo(print())
             .andExpect(status().isNotFound());
     }

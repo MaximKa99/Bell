@@ -67,7 +67,7 @@ public class OrganizationRestTest {
     @Test
     public void UpdateOrganization_WithSomeValues_Success() throws Exception {
         OrganizationUpdateView update = new OrganizationUpdateView();
-        update.setId(1);
+        update.setId(4);
         update.setName("рога и копыта");
         update.setFullName("ООО Рога и Копыта");
         update.setInn("780204893181");
@@ -84,7 +84,7 @@ public class OrganizationRestTest {
     @Test
     public void UpdateOrganization_NoSuchOrgId_NoSuchExceptionThrown() throws Exception {
         OrganizationUpdateView update = new OrganizationUpdateView();
-        update.setId(5);
+        update.setId(17);
         update.setName("рога и копыта");
         update.setFullName("ООО Рога и Копыта");
         update.setInn("780204893181");
