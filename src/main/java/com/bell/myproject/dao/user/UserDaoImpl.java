@@ -132,52 +132,50 @@ public class UserDaoImpl implements UserDao {
 
     }
 
-    public void save(User userSave) {
-        User user = new User();
-        Office office = em.find(Office.class, userSave.getOffice().getId());
-        if (office == null)
-            throw new NoSuchOfficeException("Нет такого офиса");
-        user.setOffice(office);
-        user.setFirstName(userSave.getFirstName());
-        user.setSecondName(userSave.getSecondName());
-        user.setMiddleName(userSave.getMiddleName());
-        user.setPosition(userSave.getPosition());
-        user.setPhone(userSave.getPhone());
-
-        Citizenship citizenship = null;
-        if (userSave.getCitizenship().getCode() != 0)
-            citizenship = em.find(Citizenship.class, userSave.getCitizenship().getCode());
-        if (citizenship != null)
-            user.setCitizenship(citizenship);
-        user.setIsIdentified(userSave.getIsIdentified());
-        em.persist(user);
-
-        Document document = null;
-        if (userSave.getDocument().getDate() != null) {
-            if (document == null)
-                document = new Document();
-            document.setDate(userSave.getDocument().getDate());
+    public void save(Map<String, Object> save) {
+        User newUser = new User();
+        Office office = em.find(Office.class, (Integer)save.get("officeId"));
+        if (office == null) {
+            throw new NoSuchOfficeException();
         }
-        if (!userSave.getDocument().getDocName().equals("")) {
-            if (document == null)
-                document = new Document();
-            document.setDocName(userSave.getDocument().getDocName());
+        newUser.setOffice(office);
+        newUser.setFirstName((String)save.get("firstName"));
+        newUser.setPosition((String)save.get("position"));
+        if (save.get("citizenshipCode") != null) {
+            Citizenship citizenship = em.find(Citizenship.class, (Integer)save.get("citizenshipCode"));
+            newUser.setCitizenship(citizenship);
         }
-        if (userSave.getDocument().getDocNumber().equals("")) {
-            if (document == null)
-                document = new Document();
-            document.setDocNumber(userSave.getDocument().getDocNumber());
+        if (save.get("secondName") != null) {
+            newUser.setSecondName((String)save.get("secondName"));
         }
-        TypeOfDocument typeOfDocument = null;
-        if (userSave.getDocument().getType().getCode() != 0)
-            typeOfDocument = em.find(TypeOfDocument.class, userSave.getDocument().getType().getCode());
-        if (typeOfDocument != null)
-            document.setType(typeOfDocument);
-        if (document != null)
-            document.setUser(user);
-        if (document == null) {
-            document = new Document();
+        if (save.get("middleName") != null) {
+            newUser.setMiddleName((String)save.get("middleName"));
         }
+        if (save.get("phone") != null) {
+            newUser.setPhone("phone");
+        }
+        if (save.get("isIdentified") != null) {
+            newUser.setIsIdentified((Boolean)save.get("isIdentified"));
+        }
+        Document document = new Document();
+        if (save.get("docCode") != null) {
+            TypeOfDocument type = em.find(TypeOfDocument.class, save.get("docCode"));
+            if (type != null) {
+                document.setType(type);
+            }
+        }
+        if (save.get("docName") != null) {
+            document.setDocName((String)save.get("docName"));
+        }
+        if (save.get("docNumber") != null) {
+            document.setDocNumber((String)save.get("docNumber"));
+        }
+        if (save.get("docDate") != null) {
+            document.setDate((Date)save.get("docDate"));
+        }
+        document.setUser(newUser);
+        newUser.setOffice(office);
+        em.persist(newUser);
         em.persist(document);
     }
 }

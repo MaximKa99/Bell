@@ -27,7 +27,7 @@ public interface UserDao {
      * @param userSave
      */
 
-    void save(User userSave);
+    void save(Map<String, Object> update);
 
     /**
      * Обновить пользователя

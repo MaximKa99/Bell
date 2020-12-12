@@ -71,19 +71,20 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public void save(UserSaveView save) {
-        User userSave = mapper.map(save, User.class);
-        Office office = OfficeDao.findById(save.getOfficeId());
-        userSave.setOffice(office);
-        Citizenship citizenship = countryDao.getByCode(save.getCitizenshipCode());
-        userSave.setCitizenship(citizenship);
-        Document document = new Document();
-        document.setDocName(save.getDocName());
-        document.setDate(save.getDocDate());
-        document.setDocNumber(save.getDocNumber());
-        TypeOfDocument type = docDao.getByCode(save.getDocCode());
-        document.setType(type);
-        userSave.setDocument(document);
-        dao.save(userSave);
+        Map<String, Object> saveAsMap = new HashMap<>();
+        saveAsMap.put("officeId", save.getOfficeId());
+        saveAsMap.put("firstName", save.getFirstName());
+        saveAsMap.put("secondName", save.getSecondName());
+        saveAsMap.put("middleName", save.getMiddleName());
+        saveAsMap.put("position", save.getPosition());
+        saveAsMap.put("phone", save.getPhone());
+        saveAsMap.put("docCode", save.getDocCode());
+        saveAsMap.put("docName", save.getDocName());
+        saveAsMap.put("docNumber", save.getDocNumber());
+        saveAsMap.put("docDate", save.getDocDate());
+        saveAsMap.put("citizenshipCode", save.getCitizenshipCode());
+        saveAsMap.put("isIdentified", save.getIsIdentified());
+        dao.save(saveAsMap);
     }
 
     @Override

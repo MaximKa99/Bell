@@ -22,10 +22,10 @@ public class UserSaveView {
     @NotEmpty(message = "Задайте position")
     private String position;
     private String phone;
-    private int docCode;
+    private Integer docCode;
     private String docName;
     private String docNumber;
     private Date docDate;
-    private int citizenshipCode;
+    private Integer citizenshipCode;
     private Boolean isIdentified;
 }
