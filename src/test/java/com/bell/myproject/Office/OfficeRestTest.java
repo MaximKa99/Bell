@@ -1,4 +1,4 @@
-package com.bell.myproject;
+package com.bell.myproject.Office;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureMockMvc
-public class OfficeRestTest {
+public class OfficeRestTest implements OfficeRest {
     @LocalServerPort
     int serverPort = 8888;
     @Autowired
@@ -33,6 +33,7 @@ public class OfficeRestTest {
     @Autowired
     private MockMvc mockMvc;
 
+    /*секция для проверки получения оффиса по id */
 
     @Test
     public void getOfficeById_IdEqualOne_Success() throws Exception {
@@ -52,6 +53,8 @@ public class OfficeRestTest {
             .andDo(print())
             .andExpect(status().isNotFound());
     }
+
+    /*секция для проверки update у оффиса */
 
     @Test
     public void updateOfficeById_IdEqualTwo_Success() throws Exception {
@@ -84,6 +87,64 @@ public class OfficeRestTest {
     }
 
     @Test
+    public void updateOfficeById_EmptyAddress_NoValidRequestExceptionThrown() throws Exception {
+        OfficeUpdateView update = new OfficeUpdateView();
+
+        update.setId(1);
+        update.setAddress("");
+        update.setName("БЦ Тест");
+
+        this.mockMvc.perform(post("/api/office/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(update)))
+            .andDo(print())
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void updateOfficeById_EmptyName_NoValidRequestExceptionThrown() throws Exception {
+        OfficeUpdateView update = new OfficeUpdateView();
+
+        update.setId(1);
+        update.setAddress("Питер");
+        update.setName("");
+
+        this.mockMvc.perform(post("/api/office/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(update)))
+            .andDo(print())
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void updateOfficeById_NoAddress_NoValidRequestExceptionThrown() throws Exception {
+        OfficeUpdateView update = new OfficeUpdateView();
+
+        update.setId(1);
+        update.setName("БЦ Тест");
+
+        this.mockMvc.perform(post("/api/office/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(update)))
+            .andDo(print())
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void updateOfficeById_NoName_NoValidRequestExceptionThrown() throws Exception {
+        OfficeUpdateView update = new OfficeUpdateView();
+
+        update.setId(1);
+        update.setAddress("Питер");
+
+        this.mockMvc.perform(post("/api/office/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(update)))
+            .andDo(print())
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void updateOfficeById_NoValidRequest_NoValidRequestExceptionThrown() throws Exception {
         OfficeUpdateView update = new OfficeUpdateView();
 
@@ -93,6 +154,8 @@ public class OfficeRestTest {
             .andDo(print())
             .andExpect(status().isBadRequest());
     }
+
+    /*секция для проверки save у оффиса */
 
     @Test
     public void saveOfficeById_CorrectRequest_Success() throws Exception {
@@ -131,11 +194,48 @@ public class OfficeRestTest {
             .andExpect(status().isBadRequest());
     }
 
+    /*секция для проверки получения списка по фильтру */
+
     @Test
     public void getListOfOffices_ValidRequestOrgIdEqualTwo_Success() throws Exception {
         OfficeFilterView filter = new OfficeFilterView();
 
         filter.setOrgId(2);
+
+        this.mockMvc.perform(post("/api/office/list")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(filter)))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.data[0].id").value(2))
+            .andExpect(jsonPath("$.data[0].name").value("Здание штаб-квартиры «Газпрома»"))
+            .andExpect(jsonPath("$.data[0].isActive").value(true));
+    }
+
+    @Test
+    public void getListOfOffices_ValidRequestOrgIdEqualTwoAndNameIsEmpty_Success() throws Exception {
+        OfficeFilterView filter = new OfficeFilterView();
+
+        filter.setOrgId(2);
+        filter.setName("");
+
+        this.mockMvc.perform(post("/api/office/list")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(filter)))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.data[0].id").value(2))
+            .andExpect(jsonPath("$.data[0].name").value("Здание штаб-квартиры «Газпрома»"))
+            .andExpect(jsonPath("$.data[0].isActive").value(true));
+    }
+
+    @Test
+    public void getListOfOffices_ValidRequestOrgIdEqualTwoAndNameIsEmptyAndPhoneEqualSeven_Success() throws Exception {
+        OfficeFilterView filter = new OfficeFilterView();
+
+        filter.setPhone("7");
+        filter.setOrgId(2);
+        filter.setName("");
 
         this.mockMvc.perform(post("/api/office/list")
                 .contentType(MediaType.APPLICATION_JSON)

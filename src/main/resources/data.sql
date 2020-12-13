@@ -47,11 +47,11 @@ users
 insert into user (id, office_id, first_name, second_name, middle_name, position, phone, citizenship_id, is_identified)
     values (1, 1, 'Максим', 'Валентинович', 'Походин', 'стажер', '8-916-908-03-01', 1, true);
 insert into user (id, office_id, first_name, second_name, middle_name, position, phone, citizenship_id, is_identified)
-    values (2, 1, 'Максим', 'Валентинович', 'Походин', 'стажер', '8-916-908-03-01', 1, true);
+    values (2, 2, 'Максим', 'Валентинович', 'Походин', 'стажер', '8-916-908-03-01', 1, true);
 insert into user (id, office_id, first_name, second_name, middle_name, position, phone, citizenship_id, is_identified)
-    values (3, 1, 'Петр', 'Иванович', 'Понурый', 'вахтер', '8-916-292-74-22', 1, true);
+    values (3, 2, 'Петр', 'Иванович', 'Понурый', 'вахтер', '8-916-292-74-22', 1, true);
 insert into user (id, office_id, first_name, second_name, middle_name, position, phone, citizenship_id, is_identified)
-    values (4, 1, 'Иван', 'Семенович', 'Простой', 'эйчар', '8-916-292-23-74', 1, true);
+    values (4, 2, 'Иван', 'Семенович', 'Простой', 'эйчар', '8-916-292-23-74', 1, true);
 
 /*
 documents
