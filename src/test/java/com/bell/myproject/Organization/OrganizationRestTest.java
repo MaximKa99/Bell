@@ -34,59 +34,51 @@ public class OrganizationRestTest implements OrganizationRest {
     @Autowired
     private MockMvc mockMvc;
 
-    /*тесты для проверки получения организации по id */
-
+    /* #region тесты для проверки получения организации по id */
     @Test
     public void GetOrganizationById_IdEqualsOne_Success() throws Exception {
-        this.mockMvc.perform(get("/api/organization/1"))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.data.id").value(1))
-            .andExpect(jsonPath("$.data.fullName").value("ПАО СБЕРБАНК"))
-            .andExpect(jsonPath("$.data.name").value("sberbank"))
-            .andExpect(jsonPath("$.data.inn").value("780204893183"))
-            .andExpect(jsonPath("$.data.kpp").value("771443001"))
-            .andExpect(jsonPath("$.data.address").value("Moscow"))
-            .andExpect(jsonPath("$.data.phone").value("8-916-292-45-87"))
-            .andExpect(jsonPath("$.data.isActive").value(true));
+        this.mockMvc.perform(get("/api/organization/1")).andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.id").value(1)).andExpect(jsonPath("$.data.fullName").value("ПАО СБЕРБАНК"))
+                .andExpect(jsonPath("$.data.name").value("sberbank"))
+                .andExpect(jsonPath("$.data.inn").value("780204893183"))
+                .andExpect(jsonPath("$.data.kpp").value("771443001"))
+                .andExpect(jsonPath("$.data.address").value("Moscow"))
+                .andExpect(jsonPath("$.data.phone").value("8-916-292-45-87"))
+                .andExpect(jsonPath("$.data.isActive").value(true));
     }
 
     @Test
     public void GetOrganizationById_IdEqualsOneHundred_NoSuchOrganizationExceptionThrown() throws Exception {
-        this.mockMvc.perform(get("/api/organization/100"))
-            .andDo(print())
-            .andExpect(status().isNotFound());
+        this.mockMvc.perform(get("/api/organization/100")).andDo(print()).andExpect(status().isNotFound());
     }
+    /* #endregion */
 
-    /*тесты для проверки получения списка организаций с учетом фильтра */
-
+    /* #region тесты для проверки получения списка организаций с учетом фильтра */
     @Test
     public void GetListOfOrganization_FilterNameEqual_S_Success() throws Exception {
         OrganizationFilterView filter = new OrganizationFilterView("s", null, null);
-        this.mockMvc.perform(post("/api/organization/list")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(filter)))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.data[0].id").value(1))
-            .andExpect(jsonPath("$.data[0].name").value("sberbank"))
-            .andExpect(jsonPath("$.data[0].isActive").value(true))
-            .andExpect(jsonPath("$.data[1].id").value(3))
-            .andExpect(jsonPath("$.data[1].name").value("rosneft"))
-            .andExpect(jsonPath("$.data[1].isActive").value(true));
+        this.mockMvc
+                .perform(post("/api/organization/list").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(filter)))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.data[0].id").value(1))
+                .andExpect(jsonPath("$.data[2]").doesNotExist())
+                .andExpect(jsonPath("$.data[0].name").value("sberbank"))
+                .andExpect(jsonPath("$.data[0].isActive").value(true)).andExpect(jsonPath("$.data[1].id").value(3))
+                .andExpect(jsonPath("$.data[1].name").value("rosneft"))
+                .andExpect(jsonPath("$.data[1].isActive").value(true));
     }
 
     @Test
     public void GetListOfOrganization_LengthOfInnEqual13_BadRequest() throws Exception {
         OrganizationFilterView filter = new OrganizationFilterView("s", "1111111111111", null);
-        this.mockMvc.perform(post("/api/organization/list")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(filter)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/list").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(filter)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
+    /* #endregion */
 
-    /*проверка update секции у организаций */
-
+    /* #region проверка update секции у организаций */
     @Test
     public void UpdateOrganization_WithSomeValues_Success() throws Exception {
         OrganizationUpdateView update = new OrganizationUpdateView();
@@ -97,11 +89,8 @@ public class OrganizationRestTest implements OrganizationRest {
         update.setKpp("771443002");
         update.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/organization/update").contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(update))).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
@@ -114,11 +103,10 @@ public class OrganizationRestTest implements OrganizationRest {
         update.setKpp("771443002");
         update.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isNotFound());
+        this.mockMvc
+                .perform(post("/api/organization/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isNotFound());
     }
 
     @Test
@@ -131,11 +119,10 @@ public class OrganizationRestTest implements OrganizationRest {
         update.setKpp("771443002");
         update.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -148,11 +135,10 @@ public class OrganizationRestTest implements OrganizationRest {
         update.setKpp("77144300211111111111");
         update.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -164,11 +150,10 @@ public class OrganizationRestTest implements OrganizationRest {
         update.setInn("780204893181");
         update.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -181,11 +166,10 @@ public class OrganizationRestTest implements OrganizationRest {
         update.setKpp("771443002");
         update.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -197,11 +181,10 @@ public class OrganizationRestTest implements OrganizationRest {
         update.setKpp("771443002");
         update.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -213,11 +196,10 @@ public class OrganizationRestTest implements OrganizationRest {
         update.setKpp("771443002");
         update.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -229,11 +211,10 @@ public class OrganizationRestTest implements OrganizationRest {
         update.setInn("780204893181");
         update.setKpp("771443002");
 
-        this.mockMvc.perform(post("/api/organization/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -245,11 +226,10 @@ public class OrganizationRestTest implements OrganizationRest {
         update.setKpp("771443002");
         update.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -261,15 +241,14 @@ public class OrganizationRestTest implements OrganizationRest {
         update.setKpp("771443002");
         update.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
+    /* #endregion */
 
-    /*проверка save секции для организации */
-
+    /* #region проверка save секции для организации*/
     @Test
     public void SaveOrganization_CorrectRequest_Success() throws Exception {
         OrganizationSaveView save = new OrganizationSaveView();
@@ -279,11 +258,8 @@ public class OrganizationRestTest implements OrganizationRest {
         save.setKpp("771443002");
         save.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/organization/save").contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(save))).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
@@ -294,11 +270,10 @@ public class OrganizationRestTest implements OrganizationRest {
         save.setKpp("771443002");
         save.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -309,11 +284,10 @@ public class OrganizationRestTest implements OrganizationRest {
         save.setKpp("771443002");
         save.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -324,11 +298,10 @@ public class OrganizationRestTest implements OrganizationRest {
         save.setInn("780204893181");
         save.setKpp("771443002");
 
-        this.mockMvc.perform(post("/api/organization/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -340,11 +313,10 @@ public class OrganizationRestTest implements OrganizationRest {
         save.setKpp("7714430021");
         save.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -356,11 +328,10 @@ public class OrganizationRestTest implements OrganizationRest {
         save.setKpp("7714430021");
         save.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -372,11 +343,10 @@ public class OrganizationRestTest implements OrganizationRest {
         save.setKpp("7714430021");
         save.setAddress("");
 
-        this.mockMvc.perform(post("/api/organization/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -388,11 +358,10 @@ public class OrganizationRestTest implements OrganizationRest {
         save.setKpp("7714430021");
         save.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -404,10 +373,10 @@ public class OrganizationRestTest implements OrganizationRest {
         save.setKpp("771443002");
         save.setAddress("Москва");
 
-        this.mockMvc.perform(post("/api/organization/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/organization/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
+    /* #endregion */
 }

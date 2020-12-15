@@ -33,29 +33,23 @@ public class OfficeRestTest implements OfficeRest {
     @Autowired
     private MockMvc mockMvc;
 
-    /*секция для проверки получения оффиса по id */
-
+    /* #region секция для проверки получения оффиса по id*/
     @Test
     public void getOfficeById_IdEqualOne_Success() throws Exception {
-        this.mockMvc.perform(get("/api/office/1"))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.data.id").value(1))
-            .andExpect(jsonPath("$.data.name").value("Президент плаза"))
-            .andExpect(jsonPath("$.data.address").value("Кутузовский проспект, 32"))
-            .andExpect(jsonPath("$.data.phone").value("8 (495) 208-63-30"))
-            .andExpect(jsonPath("$.data.isActive").value(true));
+        this.mockMvc.perform(get("/api/office/1")).andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.id").value(1)).andExpect(jsonPath("$.data.name").value("Президент плаза"))
+                .andExpect(jsonPath("$.data.address").value("Кутузовский проспект, 32"))
+                .andExpect(jsonPath("$.data.phone").value("8 (495) 208-63-30"))
+                .andExpect(jsonPath("$.data.isActive").value(true));
     }
 
     @Test
     public void getOfficeById_NoSuchOffice_NoSuchExceptionThrown() throws Exception {
-        this.mockMvc.perform(get("/api/office/15"))
-            .andDo(print())
-            .andExpect(status().isNotFound());
+        this.mockMvc.perform(get("/api/office/15")).andDo(print()).andExpect(status().isNotFound());
     }
+    /* #endregion */
 
-    /*секция для проверки update у оффиса */
-
+    /* #region секция для проверки update у оффиса */
     @Test
     public void updateOfficeById_IdEqualTwo_Success() throws Exception {
         OfficeUpdateView update = new OfficeUpdateView();
@@ -64,11 +58,8 @@ public class OfficeRestTest implements OfficeRest {
         update.setAddress("Питер");
         update.setName("БЦ Тест");
 
-        this.mockMvc.perform(post("/api/office/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/office/update").contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(update))).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
@@ -79,11 +70,10 @@ public class OfficeRestTest implements OfficeRest {
         update.setAddress("Питер");
         update.setName("БЦ Тест");
 
-        this.mockMvc.perform(post("/api/office/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isNotFound());
+        this.mockMvc
+                .perform(post("/api/office/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isNotFound());
     }
 
     @Test
@@ -94,11 +84,10 @@ public class OfficeRestTest implements OfficeRest {
         update.setAddress("");
         update.setName("БЦ Тест");
 
-        this.mockMvc.perform(post("/api/office/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/office/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -109,11 +98,10 @@ public class OfficeRestTest implements OfficeRest {
         update.setAddress("Питер");
         update.setName("");
 
-        this.mockMvc.perform(post("/api/office/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/office/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -123,11 +111,10 @@ public class OfficeRestTest implements OfficeRest {
         update.setId(1);
         update.setName("БЦ Тест");
 
-        this.mockMvc.perform(post("/api/office/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/office/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -137,37 +124,32 @@ public class OfficeRestTest implements OfficeRest {
         update.setId(1);
         update.setAddress("Питер");
 
-        this.mockMvc.perform(post("/api/office/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/office/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
     public void updateOfficeById_NoValidRequest_NoValidRequestExceptionThrown() throws Exception {
         OfficeUpdateView update = new OfficeUpdateView();
 
-        this.mockMvc.perform(post("/api/office/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/office/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
+    /* #endregion */
 
-    /*секция для проверки save у оффиса */
-
+    /* #region секция для проверки save у оффиса */
     @Test
     public void saveOfficeById_CorrectRequest_Success() throws Exception {
         OfficeSaveView save = new OfficeSaveView();
 
         save.setOrgId(3);
 
-        this.mockMvc.perform(post("/api/office/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/office/save").contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(save))).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
@@ -176,40 +158,37 @@ public class OfficeRestTest implements OfficeRest {
 
         save.setOrgId(8);
 
-        this.mockMvc.perform(post("/api/office/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isNotFound());
+        this.mockMvc
+                .perform(post("/api/office/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isNotFound());
     }
 
     @Test
     public void saveOfficeById_NoValidRequest_NoValidRequestExceptionThrown() throws Exception {
         OfficeSaveView save = new OfficeSaveView();
 
-        this.mockMvc.perform(post("/api/office/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/office/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
+    /* #endregion */
 
-    /*секция для проверки получения списка по фильтру */
-
+    /* #region секция для проверки получения списка по фильтру */
     @Test
     public void getListOfOffices_ValidRequestOrgIdEqualTwo_Success() throws Exception {
         OfficeFilterView filter = new OfficeFilterView();
 
         filter.setOrgId(2);
 
-        this.mockMvc.perform(post("/api/office/list")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(filter)))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.data[0].id").value(2))
-            .andExpect(jsonPath("$.data[0].name").value("Здание штаб-квартиры «Газпрома»"))
-            .andExpect(jsonPath("$.data[0].isActive").value(true));
+        this.mockMvc
+                .perform(post("/api/office/list").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(filter)))
+                .andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.data[1]").doesNotExist())
+                .andExpect(jsonPath("$.data[0].id").value(2))
+                .andExpect(jsonPath("$.data[0].name").value("Здание штаб-квартиры «Газпрома»"))
+                .andExpect(jsonPath("$.data[0].isActive").value(true));
     }
 
     @Test
@@ -219,14 +198,13 @@ public class OfficeRestTest implements OfficeRest {
         filter.setOrgId(2);
         filter.setName("");
 
-        this.mockMvc.perform(post("/api/office/list")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(filter)))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.data[0].id").value(2))
-            .andExpect(jsonPath("$.data[0].name").value("Здание штаб-квартиры «Газпрома»"))
-            .andExpect(jsonPath("$.data[0].isActive").value(true));
+        this.mockMvc
+                .perform(post("/api/office/list").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(filter)))
+                .andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.data[1]").doesNotExist())
+                .andExpect(jsonPath("$.data[0].id").value(2))
+                .andExpect(jsonPath("$.data[0].name").value("Здание штаб-квартиры «Газпрома»"))
+                .andExpect(jsonPath("$.data[0].isActive").value(true));
     }
 
     @Test
@@ -237,14 +215,13 @@ public class OfficeRestTest implements OfficeRest {
         filter.setOrgId(2);
         filter.setName("");
 
-        this.mockMvc.perform(post("/api/office/list")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(filter)))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.data[0].id").value(2))
-            .andExpect(jsonPath("$.data[0].name").value("Здание штаб-квартиры «Газпрома»"))
-            .andExpect(jsonPath("$.data[0].isActive").value(true));
+        this.mockMvc
+                .perform(post("/api/office/list").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(filter)))
+                .andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.data[1]").doesNotExist())
+                .andExpect(jsonPath("$.data[0].id").value(2))
+                .andExpect(jsonPath("$.data[0].name").value("Здание штаб-квартиры «Газпрома»"))
+                .andExpect(jsonPath("$.data[0].isActive").value(true));
     }
 
     @Test
@@ -253,11 +230,10 @@ public class OfficeRestTest implements OfficeRest {
 
         filter.setOrgId(14);
 
-        this.mockMvc.perform(post("/api/office/list")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(filter)))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.data").isEmpty());
+        this.mockMvc
+                .perform(post("/api/office/list").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(filter)))
+                .andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.data").isEmpty());
     }
+    /* #endregion */
 }

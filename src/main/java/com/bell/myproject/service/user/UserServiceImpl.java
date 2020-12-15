@@ -4,15 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.bell.myproject.dao.country.CountryDao;
-import com.bell.myproject.dao.docs.DocDao;
-import com.bell.myproject.dao.office.OfficeDao;
 import com.bell.myproject.dao.user.UserDao;
 import com.bell.myproject.exception.NoSuchUserException;
-import com.bell.myproject.model.Citizenship;
-import com.bell.myproject.model.Document;
-import com.bell.myproject.model.Office;
-import com.bell.myproject.model.TypeOfDocument;
 import com.bell.myproject.model.User;
 import com.bell.myproject.model.mapper.MapperFacade;
 import com.bell.myproject.view.user.UserFilterView;
@@ -29,18 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService{
     private final UserDao dao;
     private final MapperFacade mapper;
-    private final CountryDao countryDao;
-    private final OfficeDao OfficeDao;
-    private final DocDao docDao;
 
     @Autowired
-    public UserServiceImpl(UserDao dao, MapperFacade mapper, CountryDao countryDao,
-        OfficeDao officeDao, DocDao docDao) {
+    public UserServiceImpl(UserDao dao, MapperFacade mapper) {
         this.dao = dao;
         this.mapper = mapper;
-        this.countryDao = countryDao;
-        this.OfficeDao = officeDao;
-        this.docDao = docDao;
     }
 
     @Override

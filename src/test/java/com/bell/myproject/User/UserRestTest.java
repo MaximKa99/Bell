@@ -22,7 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureMockMvc
@@ -36,32 +35,26 @@ public class UserRestTest implements UserRest {
 
     @Test
     public void GetUserById_IdEqualThree_Success() throws Exception {
-        this.mockMvc.perform(get("/api/user/3"))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.data.id").value(3))
-            .andExpect(jsonPath("$.data.firstName").value("Петр"))
-            .andExpect(jsonPath("$.data.secondName").value("Иванович"))
-            .andExpect(jsonPath("$.data.middleName").value("Понурый"))
-            .andExpect(jsonPath("$.data.position").value("вахтер"))
-            .andExpect(jsonPath("$.data.phone").value("8-916-292-74-22"))
-            .andExpect(jsonPath("$.data.docName").doesNotExist())
-            .andExpect(jsonPath("$.data.docNumber").value(322228))
-            .andExpect(jsonPath("$.data.docDate").value("1980-07-09"))
-            .andExpect(jsonPath("$.data.citizenshipName").value("Российская Федерация"))
-            .andExpect(jsonPath("$.data.citizenshipCode").value(643))
-            .andExpect(jsonPath("$.data.isIdentified").value(true));
+        this.mockMvc.perform(get("/api/user/3")).andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.id").value(3)).andExpect(jsonPath("$.data.firstName").value("Петр"))
+                .andExpect(jsonPath("$.data.secondName").value("Иванович"))
+                .andExpect(jsonPath("$.data.middleName").value("Понурый"))
+                .andExpect(jsonPath("$.data.position").value("вахтер"))
+                .andExpect(jsonPath("$.data.phone").value("8-916-292-74-22"))
+                .andExpect(jsonPath("$.data.docName").doesNotExist())
+                .andExpect(jsonPath("$.data.docNumber").value(322228))
+                .andExpect(jsonPath("$.data.docDate").value("1980-07-09"))
+                .andExpect(jsonPath("$.data.citizenshipName").value("Российская Федерация"))
+                .andExpect(jsonPath("$.data.citizenshipCode").value(643))
+                .andExpect(jsonPath("$.data.isIdentified").value(true));
     }
 
     @Test
     public void GetUserById_IdEqualTen_NoSuchUserExceptionThrown() throws Exception {
-        this.mockMvc.perform(get("/api/user/10"))
-            .andDo(print())
-            .andExpect(status().isNotFound());
+        this.mockMvc.perform(get("/api/user/10")).andDo(print()).andExpect(status().isNotFound());
     }
 
-    /*секция для проверки update */
-
+    /* #region секция для проверки update */
     @Test
     public void UpdateUser_ValidRequest_Success() throws Exception {
         UserUpdateView update = new UserUpdateView();
@@ -70,11 +63,8 @@ public class UserRestTest implements UserRest {
         update.setFirstName("Петя");
         update.setPosition("Кофенос");
 
-        this.mockMvc.perform(post("/api/user/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/user/update").contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(update))).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
@@ -84,11 +74,10 @@ public class UserRestTest implements UserRest {
         update.setFirstName("Петя");
         update.setPosition("Кофенос");
 
-        this.mockMvc.perform(post("/api/user/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/user/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -100,11 +89,10 @@ public class UserRestTest implements UserRest {
         update.setFirstName("Петя");
         update.setPosition("Кофенос");
 
-        this.mockMvc.perform(post("/api/user/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isNotFound());
+        this.mockMvc
+                .perform(post("/api/user/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isNotFound());
     }
 
     @Override
@@ -116,11 +104,10 @@ public class UserRestTest implements UserRest {
         update.setFirstName("");
         update.setPosition("Кофенос");
 
-        this.mockMvc.perform(post("/api/user/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/user/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Override
@@ -132,12 +119,11 @@ public class UserRestTest implements UserRest {
         update.setFirstName("Петя");
         update.setPosition("");
 
-        this.mockMvc.perform(post("/api/user/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
-        
+        this.mockMvc
+                .perform(post("/api/user/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
+
     }
 
     @Override
@@ -148,12 +134,11 @@ public class UserRestTest implements UserRest {
         update.setId(1);
         update.setPosition("Кофенос");
 
-        this.mockMvc.perform(post("/api/user/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
-        
+        this.mockMvc
+                .perform(post("/api/user/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
+
     }
 
     @Override
@@ -164,15 +149,14 @@ public class UserRestTest implements UserRest {
         update.setId(1);
         update.setFirstName("Петя");
 
-        this.mockMvc.perform(post("/api/user/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(update)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/user/update").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
+    /* #endregion */
 
-    /*секция для проверки save */
-
+    /* #region секция для проверки save*/
     @Test
     public void SaveUser_ValidRequest_Success() throws Exception {
         UserSaveView save = new UserSaveView();
@@ -181,11 +165,8 @@ public class UserRestTest implements UserRest {
         save.setFirstName("Петя");
         save.setPosition("Кофенос");
 
-        this.mockMvc.perform(post("/api/user/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/user/save").contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(save))).andDo(print()).andExpect(status().isOk());
     }
 
     @Override
@@ -196,11 +177,10 @@ public class UserRestTest implements UserRest {
         save.setFirstName("Петя");
         save.setPosition("Кофенос");
 
-        this.mockMvc.perform(post("/api/user/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/user/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Override
@@ -212,11 +192,10 @@ public class UserRestTest implements UserRest {
         save.setFirstName("Петя");
         save.setPosition("Кофенос");
 
-        this.mockMvc.perform(post("/api/user/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/user/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Override
@@ -227,12 +206,11 @@ public class UserRestTest implements UserRest {
         save.setOfficeId(3);
         save.setPosition("Кофенос");
 
-        this.mockMvc.perform(post("/api/user/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
-        
+        this.mockMvc
+                .perform(post("/api/user/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
+
     }
 
     @Override
@@ -244,12 +222,11 @@ public class UserRestTest implements UserRest {
         save.setFirstName("");
         save.setPosition("Кофенос");
 
-        this.mockMvc.perform(post("/api/user/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
-        
+        this.mockMvc
+                .perform(post("/api/user/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
+
     }
 
     @Override
@@ -261,12 +238,11 @@ public class UserRestTest implements UserRest {
         save.setFirstName("Петя");
         save.setPosition("");
 
-        this.mockMvc.perform(post("/api/user/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
-        
+        this.mockMvc
+                .perform(post("/api/user/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
+
     }
 
     @Override
@@ -277,13 +253,13 @@ public class UserRestTest implements UserRest {
         save.setOfficeId(3);
         save.setFirstName("Петя");
 
-        this.mockMvc.perform(post("/api/user/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(save)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
-        
+        this.mockMvc
+                .perform(post("/api/user/save").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(save)))
+                .andDo(print()).andExpect(status().isBadRequest());
+
     }
+    /* #endregion */
 
     @Override
     @Test
@@ -291,11 +267,10 @@ public class UserRestTest implements UserRest {
         UserFilterView filter = new UserFilterView();
         filter.setOfficeId(null);
 
-        this.mockMvc.perform(post("/api/user/list")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(filter)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/user/list").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(filter)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Override
@@ -303,11 +278,10 @@ public class UserRestTest implements UserRest {
     public void GetListOfUsers_NoOfficeId_NoValidRequestException() throws Exception {
         UserFilterView filter = new UserFilterView();
 
-        this.mockMvc.perform(post("/api/user/list")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(filter)))
-            .andDo(print())
-            .andExpect(status().isBadRequest());
+        this.mockMvc
+                .perform(post("/api/user/list").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(filter)))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Override
@@ -316,15 +290,13 @@ public class UserRestTest implements UserRest {
         UserFilterView filter = new UserFilterView();
         filter.setOfficeId(1);
 
-        this.mockMvc.perform(post("/api/user/list")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(filter)))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.data[0].id").value(1))
-            .andExpect(jsonPath("$.data[0].firstName").value("Максим"))
-            .andExpect(jsonPath("$.data[0].secondName").value("Валентинович"))
-            .andExpect(jsonPath("$.data[0].middleName").value("Походин"))
-            .andExpect(jsonPath("$.data[0].position").value("стажер"));
+        this.mockMvc
+                .perform(post("/api/user/list").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(filter)))
+                .andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.data[1]").doesNotExist())
+                .andExpect(jsonPath("$.data[0].id").value(1)).andExpect(jsonPath("$.data[0].firstName").value("Максим"))
+                .andExpect(jsonPath("$.data[0].secondName").value("Валентинович"))
+                .andExpect(jsonPath("$.data[0].middleName").value("Походин"))
+                .andExpect(jsonPath("$.data[0].position").value("стажер"));
     }
 }

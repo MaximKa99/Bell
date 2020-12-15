@@ -26,6 +26,7 @@ public class CitizenshipTest implements Citizenship {
         this.mockMvc.perform(post("/api/countries"))
             .andDo(print())
             .andExpect(status().isOk())
+            .andExpect(jsonPath("$.data[1]").doesNotExist())
             .andExpect(jsonPath("$.data[0].code").value(643))
             .andExpect(jsonPath("$.data[0].name").value("Российская Федерация"));
     }
