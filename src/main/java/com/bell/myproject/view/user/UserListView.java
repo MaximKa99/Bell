@@ -9,12 +9,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel
+@ApiModel(description = "Класс для списка юзеров")
 public class UserListView{
-    @ApiModelProperty()
+    @ApiModelProperty(value = "id юзера")
     private Integer id;
+    @ApiModelProperty(value = "имя юзера")
     private String firstName;
+    @ApiModelProperty(value = "фамилия юзера")
     private String secondName;
+    @ApiModelProperty(value = "отчество юзера")
     private String middleName;
+    @ApiModelProperty(value = "должность юзера")
     private String position;
 }

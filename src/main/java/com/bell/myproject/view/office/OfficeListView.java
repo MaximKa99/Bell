@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel
+@ApiModel(description = "Класс для списка оффисов")
 public class OfficeListView {
-    @ApiModelProperty()
+    @ApiModelProperty(value = "id оффиса")
     private Integer id;
+    @ApiModelProperty(value = "имя оффиса")
     private String name;
+    @ApiModelProperty(value = "статус оффиса")
     private Boolean isActive;
 }
