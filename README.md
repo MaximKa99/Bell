@@ -37,6 +37,8 @@ mvn verify
 - Обновление существующей сущности ((POST)http://localhost:8888/api/{сущность}/update)
 - Сохранение существующей сущности ((POST)http://localhost:8888/api/{сущность}/save)
 
+Так же есть сваггер по http://localhost:8888/swagger-ui.html
+
 ## ✍️ Кто автор? <a name = "authors"></a>
 
 - [@MaximKa99](https://github.com/MaximKa99)
