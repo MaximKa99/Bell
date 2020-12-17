@@ -2,6 +2,8 @@ package com.bell.myproject.view.user;
 
 import java.sql.Date;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel
 public class UserIdView{
+    @ApiModelProperty()
     private Integer id;
     private int officeId;
     private String firstName;
